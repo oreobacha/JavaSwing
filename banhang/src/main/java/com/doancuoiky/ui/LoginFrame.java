@@ -11,6 +11,8 @@ import java.sql.*;
 import com.doancuoiky.dao.LoginDao;
 import com.doancuoiky.model.LoginModel;
 import javax.swing.JOptionPane;
+import com.doancuoiky.ui.AdminFrame;
+
 
 /**
  *
@@ -43,6 +45,14 @@ public class LoginFrame extends javax.swing.JFrame {
         }
     };
 
+    public void openAdminFrame (LoginModel username){
+        javax.swing.SwingUtilities.invokeLater(() -> {
+        AdminFrame FrameAdmin = new AdminFrame(username); 
+        FrameAdmin.setLocationRelativeTo(null); 
+        FrameAdmin.setVisible(true);   
+        });
+    };
+    
     
 
     /**
@@ -208,8 +218,7 @@ public class LoginFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Login success as " + user.getRole());
             dispose();
             if (user.getRole().equals("admin")) {
-                JOptionPane.showMessageDialog(this, "Login success as admin");
-//                new AdminFrame(user);
+                openAdminFrame(user);
             } else {
                 JOptionPane.showMessageDialog(this, "Login success as member");
 //                new MemberFrame(user);

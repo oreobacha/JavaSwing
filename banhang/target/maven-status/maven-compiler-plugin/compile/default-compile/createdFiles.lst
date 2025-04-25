@@ -1,6 +1,7 @@
 com\doancuoiky\db\DBConnection.class
 com\doancuoiky\Main.class
 com\doancuoiky\ui\LoginFrame$2.class
+com\doancuoiky\ui\AdminFrame.class
 com\doancuoiky\model\LoginModel.class
 com\doancuoiky\ui\LoginFrame$4.class
 com\doancuoiky\ui\LoginFrame$3.class
