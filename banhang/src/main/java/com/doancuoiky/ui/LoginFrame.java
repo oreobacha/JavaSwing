@@ -11,7 +11,7 @@ import java.sql.*;
 import com.doancuoiky.dao.LoginDao;
 import com.doancuoiky.model.LoginModel;
 import javax.swing.JOptionPane;
-import com.doancuoiky.ui.AdminFrame;
+import com.doancuoiky.ui.MainFrame;
 
 
 /**
@@ -47,7 +47,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
     public void openAdminFrame (LoginModel username){
         javax.swing.SwingUtilities.invokeLater(() -> {
-        AdminFrame FrameAdmin = new AdminFrame(username); 
+        MainFrame FrameAdmin = new MainFrame(username); 
         FrameAdmin.setLocationRelativeTo(null); 
         FrameAdmin.setVisible(true);   
         });
