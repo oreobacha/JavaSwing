@@ -3,7 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.doancuoiky.ui;
-import com.doancuoiky.model.LoginModel;
+//import com.doancuoiky.model.LoginModel;
+import com.doancuoiky.ui.BanHangPanel;
+import com.doancuoiky.ui.SanPhamPanel;
+
+import java.awt.CardLayout;
+
+
+
 
 /**
  *
@@ -14,9 +21,16 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form AdminFrame
      */
-    public MainFrame(LoginModel user) {
+    public MainFrame() {
         initComponents();
-        System.out.print(user.getUsername());
+    mainContentPanel.setLayout(new CardLayout());
+
+    // Khởi tạo Ban hàng
+    BanHangPanel banhangPanel = new BanHangPanel();
+    mainContentPanel.add(banhangPanel, "banhangPanel");
+
+    SanPhamPanel sanphamPanel = new SanPhamPanel();
+    mainContentPanel.add(sanphamPanel, "sanphamPanel");
     }
 
     /**
@@ -28,21 +42,152 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        BorderLayout = new javax.swing.JPanel();
+        menuPanel = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        name = new javax.swing.JLabel();
+        position = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        mainContentPanel = new javax.swing.JPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        menuPanel.setBackground(new java.awt.Color(255, 255, 153));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setText("Nhân viên:");
+
+        jLabel2.setText("Chức vụ:");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(name))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(position)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(name))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(position))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
+        menuPanel.setLayout(menuPanelLayout);
+        menuPanelLayout.setHorizontalGroup(
+            menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(menuPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addContainerGap(98, Short.MAX_VALUE))
+        );
+        menuPanelLayout.setVerticalGroup(
+            menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuPanelLayout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addGap(0, 734, Short.MAX_VALUE))
+        );
+
+        mainContentPanel.setPreferredSize(new java.awt.Dimension(1400, 900));
+        mainContentPanel.setVerifyInputWhenFocusTarget(false);
+
+        javax.swing.GroupLayout mainContentPanelLayout = new javax.swing.GroupLayout(mainContentPanel);
+        mainContentPanel.setLayout(mainContentPanelLayout);
+        mainContentPanelLayout.setHorizontalGroup(
+            mainContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1418, Short.MAX_VALUE)
+        );
+        mainContentPanelLayout.setVerticalGroup(
+            mainContentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout BorderLayoutLayout = new javax.swing.GroupLayout(BorderLayout);
+        BorderLayout.setLayout(BorderLayoutLayout);
+        BorderLayoutLayout.setHorizontalGroup(
+            BorderLayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BorderLayoutLayout.createSequentialGroup()
+                .addComponent(menuPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mainContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1418, Short.MAX_VALUE))
+        );
+        BorderLayoutLayout.setVerticalGroup(
+            BorderLayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(menuPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BorderLayoutLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(mainContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        mainContentPanel.getAccessibleContext().setAccessibleName("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1468, Short.MAX_VALUE)
+            .addComponent(BorderLayout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 790, Short.MAX_VALUE)
+            .addComponent(BorderLayout, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        CardLayout cl = (CardLayout) mainContentPanel.getLayout();
+        cl.show(mainContentPanel, "banhangPanel");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        CardLayout cl = (CardLayout) mainContentPanel.getLayout();
+        cl.show(mainContentPanel, "sanphamPanel");
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -75,7 +220,17 @@ public class MainFrame extends javax.swing.JFrame {
 
         /* Create and display the form */
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel BorderLayout;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel mainContentPanel;
+    private javax.swing.JPanel menuPanel;
+    private javax.swing.JLabel name;
+    private javax.swing.JLabel position;
     // End of variables declaration//GEN-END:variables
 }

@@ -26,6 +26,7 @@ public class LoginFrame extends javax.swing.JFrame {
     public LoginFrame() {
         initComponents();
         offFocus();
+        setResizable(false);         // Không cho resize nếu muốn
     };
     
     
@@ -47,9 +48,9 @@ public class LoginFrame extends javax.swing.JFrame {
 
     public void openAdminFrame (LoginModel username){
         javax.swing.SwingUtilities.invokeLater(() -> {
-        MainFrame FrameAdmin = new MainFrame(username); 
-        FrameAdmin.setLocationRelativeTo(null); 
-        FrameAdmin.setVisible(true);   
+//        MainFrame FrameAdmin = new MainFrame(username); 
+//        FrameAdmin.setLocationRelativeTo(null); 
+//        FrameAdmin.setVisible(true);   
         });
     };
     
@@ -76,8 +77,6 @@ public class LoginFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-
-        bg.setIcon(new javax.swing.ImageIcon("C:\\Users\\ADMIN\\Downloads\\bg_shop.jpg")); // NOI18N
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setAlignmentX(1.0F);
@@ -156,9 +155,9 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(722, Short.MAX_VALUE))
+                .addContainerGap(634, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 1600, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,21 +166,23 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(36, 36, 36)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1039, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
