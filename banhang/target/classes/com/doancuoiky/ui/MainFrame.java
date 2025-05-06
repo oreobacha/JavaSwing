@@ -14,9 +14,7 @@ import java.awt.Image;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.net.URL;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -52,24 +50,9 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     private void setupIcon(){
-        try {
-            // Load ảnh từ resources
-            URL iconURL = getClass().getResource("/image/ic_menu/ic_header.png");
-            if (iconURL == null) {
-                throw new IOException("Không tìm thấy ảnh trong resources.");
-            }
-
-            BufferedImage originalImage = ImageIO.read(iconURL);
-
-            // Resize và bo tròn ảnh
-            BufferedImage resized = resizeImage(originalImage, 160, 160);
-//            BufferedImage circle = makeRoundedImage(resized);
-
-            Avatar.setIcon(new ImageIcon(resized));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+       URL iconURL = getClass().getResource("/resources/ic_banhang.png");
+       ImageIcon icon = new ImageIcon(iconURL);
+       Avatar.setIcon(icon);
     }
     
     private BufferedImage resizeImage(BufferedImage img, int width, int height) {
@@ -98,7 +81,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         Avatar = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         JpanelMenu = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -128,9 +110,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         Avatar.setPreferredSize(new java.awt.Dimension(160, 160));
 
-        jLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        jLabel3.setText("Quản lý bán hàng");
-
         javax.swing.GroupLayout jPanelInfoLayout = new javax.swing.GroupLayout(jPanelInfo);
         jPanelInfo.setLayout(jPanelInfoLayout);
         jPanelInfoLayout.setHorizontalGroup(
@@ -150,18 +129,13 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(position))))
                     .addGroup(jPanelInfoLayout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(Avatar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelInfoLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel3)))
+                        .addComponent(Avatar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelInfoLayout.setVerticalGroup(
             jPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelInfoLayout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap(60, Short.MAX_VALUE)
                 .addComponent(Avatar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addGroup(jPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -285,7 +259,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 80, Short.MAX_VALUE))
+                .addGap(0, 74, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
@@ -300,7 +274,8 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(menuPanelLayout.createSequentialGroup()
                 .addComponent(jPanelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(JpanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(JpanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         mainContentPanel.setForeground(new java.awt.Color(255, 255, 255));
@@ -463,7 +438,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanelInfo;
     private javax.swing.JPanel mainContentPanel;
     private javax.swing.JPanel menuPanel;
