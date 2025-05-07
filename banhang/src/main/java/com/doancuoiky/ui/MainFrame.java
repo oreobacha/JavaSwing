@@ -118,9 +118,9 @@ public class MainFrame extends javax.swing.JFrame {
         jPanelInfo.setAlignmentY(0.0F);
         jPanelInfo.setPreferredSize(new java.awt.Dimension(200, 100));
 
-        name.setText("123123");
+        name.setText("Dương Minh");
 
-        position.setText("123123");
+        position.setText("Thu ngân");
 
         jLabel2.setText("Chức vụ:");
 
@@ -159,7 +159,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanelInfoLayout.setVerticalGroup(
             jPanelInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelInfoLayout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
+                .addContainerGap(26, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Avatar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
