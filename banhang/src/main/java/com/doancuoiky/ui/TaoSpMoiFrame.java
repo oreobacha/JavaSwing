@@ -77,11 +77,11 @@ public class TaoSpMoiFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Mã sản phẩm*");
 
-        jLabel3.setText("Tên sản phẩm");
+        jLabel3.setText("Tên sản phẩm*");
 
-        jLabel4.setText("Số lượng");
+        jLabel4.setText("Số lượng*");
 
-        jLabel5.setText("Giá bán");
+        jLabel5.setText("Giá bán*");
 
         tfGiaBan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,21 +89,19 @@ public class TaoSpMoiFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("Loại hàng");
+        jLabel6.setText("Loại hàng*");
 
-        jLabel7.setText("BarCode");
+        jLabel7.setText("BarCode*");
 
         jLabel8.setText("Trạng thái");
 
         dlTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang kinh doanh", "Ngừng kinh doanh" }));
         dlTrangThai.setPreferredSize(new java.awt.Dimension(64, 23));
-        dlTrangThai.setSize(new java.awt.Dimension(64, 23));
 
         dlLoaiHang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quần áo", "Áo khoác", "Túi xách", "Giày" }));
         dlLoaiHang.setPreferredSize(new java.awt.Dimension(64, 23));
-        dlLoaiHang.setSize(new java.awt.Dimension(64, 23));
 
-        jLabel9.setText("Hình ảnh sản phẩm");
+        jLabel9.setText("Hình ảnh sản phẩm*");
 
         lbImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbImage.setText("Thêm ảnh");
@@ -209,7 +207,7 @@ public class TaoSpMoiFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -223,8 +221,7 @@ public class TaoSpMoiFrame extends javax.swing.JFrame {
     private void btnCreateSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateSPActionPerformed
         if (!tfMaSP.getText().isEmpty()) {
             get_data_field_and_add_model();
-//            ProductDao.createProduct(ProductData)
-            if (true){
+            if (ProductDao.createProduct(ProductData)){
                 JOptionPane.showMessageDialog(null, "Đã thêm sản phẩm thành công");
                 this.dispose();
                 parentFrame.reloadtableView();
@@ -232,9 +229,8 @@ public class TaoSpMoiFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Mã sản phẩm bị trùng lập vui lòng kiểm tra lại");
             }
         }else {
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập thông tin mã sản phẩm");
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin sản phẩm");
         }
-
     }//GEN-LAST:event_btnCreateSPActionPerformed
 
     private void get_data_field_and_add_model(){
@@ -243,6 +239,7 @@ public class TaoSpMoiFrame extends javax.swing.JFrame {
         String soLuongSp = tfSoLuong.getText();
         String giaBanSp = tfGiaBan.getText();
         String loaiHangSp = (String) dlLoaiHang.getSelectedItem();
+        System.out.print("=>>>" + loaiHangSp);
         String barCodeSp = tfBarcode.getText();
         String trangThaiSp = (String) dlTrangThai.getSelectedItem();
         

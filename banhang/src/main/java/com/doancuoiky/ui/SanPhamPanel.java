@@ -4,6 +4,7 @@
  */
 package com.doancuoiky.ui;
 
+import com.doancuoiky.core.FileUtils;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Image;
@@ -22,6 +23,10 @@ import com.doancuoiky.ui.TaoSpMoiFrame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import com.doancuoiky.ui.ChinhSuaSpFrame;
+import java.awt.Color;
+import java.text.NumberFormat;
+import java.util.Locale;
+import com.doancuoiky.dao.ProductDao;
 
 /**
  *
@@ -241,10 +246,12 @@ public class SanPhamPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCreateProductActionPerformed
 
     private void btnDeteleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeteleActionPerformed
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        int selectedRow = jTable1.getSelectedRow(); // Lấy dòng được chọn
-        if (selectedRow != -1) {
-            model.removeRow(selectedRow); // Xóa dòng trong model
+        int row = jTable1.getSelectedRow();  // dòng được chọn
+        int colCount = jTable1.getColumnCount();
+        String maSp = jTable1.getValueAt(row, 0).toString();
+        if (ProductDao.deleteProductByMaSp(maSp)) {
+            JOptionPane.showMessageDialog(null, "Đã xóa mã sản phẩm: " + maSp + " thành công");
+            reloadtableView();
         } else {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn một dòng để xóa!");
         }
@@ -283,19 +290,21 @@ public class SanPhamPanel extends javax.swing.JPanel {
     
     private void setUptableView(){
         jTable1.setRowHeight(80); 
-        jTable1.setShowGrid(false);
+        jTable1.setShowHorizontalLines(true);
+        jTable1.setShowVerticalLines(false);
+        jTable1.setGridColor(Color.LIGHT_GRAY);
         jTable1.setDefaultEditor(Object.class, null);
         jTable1.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         jTable1.getColumnModel().getColumn(1).setCellRenderer(new ImageCellRenderer());
-        
 
-        Object[][] data = {
-            { "SP001", "/image/ic_menu/ic_header.png", "Quần áo", "394", "70000", "Quần áo", "1234567890", "Đang kinh doanh" },
-            { "SP002", "/image/ic_menu/ic_header.png", "Giày", "394", "70000", "Giày", "0987654321", "Đang kinh doanh" },
-            { "SP003", "/image/ic_menu/ic_header.png", "Túi xách", "394", "70000", "Túi xách", "1122334455", "Ngừng kinh doanh" },
-            { "SP004", "/image/ic_menu/ic_header.png", "Áo khoác", "394", "70000", "Áo khoác", "6677889900", "Ngừng kinh doanh" }
-        };
+//        Object[][] data = {
+//            { "SP001", "/image/ic_menu/ic_header.png", "Quần áo", "394", "70000", "Quần áo", "1234567890", "Đang kinh doanh" },
+//            { "SP002", "/image/ic_menu/ic_header.png", "Giày", "394", "70000", "Giày", "0987654321", "Đang kinh doanh" },
+//            { "SP003", "/image/ic_menu/ic_header.png", "Túi xách", "394", "70000", "Túi xách", "1122334455", "Ngừng kinh doanh" },
+//            { "SP004", "/image/ic_menu/ic_header.png", "Áo khoác", "394", "70000", "Áo khoác", "6677889900", "Ngừng kinh doanh" }
+//        };
+        Object[][] data = ProductDao.getAllProduct();
 
         // Thêm từng dòng dữ liệu vào bảng
         for (Object[] row : data) {
@@ -334,6 +343,7 @@ public class SanPhamPanel extends javax.swing.JPanel {
         }
     });
     }
+ 
     
     class ImageCellRenderer extends JLabel implements TableCellRenderer {
         public ImageCellRenderer() {
@@ -343,10 +353,8 @@ public class SanPhamPanel extends javax.swing.JPanel {
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            URL imageUrl = getClass().getResource((String) value);
-            ImageIcon icon = new ImageIcon(imageUrl);
-            Image scaled = icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-            setIcon(new ImageIcon(scaled));
+            ImageIcon icon_base64 = FileUtils.convert_base64_to_image((String) value, 100, 100);
+            setIcon(icon_base64);
             setText(null); // Không hiển thị text
             return this;
         }

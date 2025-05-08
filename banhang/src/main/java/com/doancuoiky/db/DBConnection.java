@@ -15,9 +15,9 @@ import java.sql.SQLException;
 public class DBConnection {
     public static Connection getConnection() {
     try {
-        String url = "jdbc:mysql://localhost:3306/qlbanhang?useSSL=false&serverTimezone=UTC";
+        String url = "jdbc:mysql://localhost:3306/qlbanhang?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8";
         String user = "root";      // hoặc tài khoản khác
-        String password = "M!nh1234"; // mật khẩu MySQL
+        String password = "123456"; // mật khẩu MySQL
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         return DriverManager.getConnection(url, user, password);

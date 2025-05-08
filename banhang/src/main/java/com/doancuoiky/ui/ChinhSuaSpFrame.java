@@ -28,12 +28,15 @@ public class ChinhSuaSpFrame extends javax.swing.JFrame {
     private String image_upload_base64; 
     private ProductModel ProductData;
     private static SanPhamPanel parentFrame;
+    private String maSp;
     /**
      * Creates new form TaoSpMoiFrame
      */
     public ChinhSuaSpFrame(SanPhamPanel parent, String Masp, String imageSp, String TenSp, String SoLuong, String GiaBan, String LoaiHang, String BarCode, String TrangThai) {
         parentFrame = parent;
         initComponents();
+        maSp = Masp;
+        image_upload_base64 = imageSp;
         setup_click_add_image();
         add_data_field_edit(Masp, imageSp, TenSp, SoLuong, GiaBan, LoaiHang, BarCode, TrangThai);
     }
@@ -65,8 +68,8 @@ public class ChinhSuaSpFrame extends javax.swing.JFrame {
         dlLoaiHang = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         lbImage = new javax.swing.JLabel();
-        btnCreateSP = new javax.swing.JButton();
-        btnCreateSP1 = new javax.swing.JButton();
+        btnDeleteSP = new javax.swing.JButton();
+        btnUpdateSP = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Chỉnh sửa sản phẩm");
@@ -79,11 +82,11 @@ public class ChinhSuaSpFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Mã sản phẩm*");
 
-        jLabel3.setText("Tên sản phẩm");
+        jLabel3.setText("Tên sản phẩm*");
 
-        jLabel4.setText("Số lượng");
+        jLabel4.setText("Số lượng*");
 
-        jLabel5.setText("Giá bán");
+        jLabel5.setText("Giá bán*");
 
         tfGiaBan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,38 +96,36 @@ public class ChinhSuaSpFrame extends javax.swing.JFrame {
 
         jLabel6.setText("Loại hàng");
 
-        jLabel7.setText("BarCode");
+        jLabel7.setText("BarCode*");
 
         jLabel8.setText("Trạng thái");
 
         dlTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang kinh doanh", "Ngừng kinh doanh" }));
         dlTrangThai.setPreferredSize(new java.awt.Dimension(64, 23));
-        dlTrangThai.setSize(new java.awt.Dimension(64, 23));
 
         dlLoaiHang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quần áo", "Áo khoác", "Túi xách", "Giày" }));
         dlLoaiHang.setPreferredSize(new java.awt.Dimension(64, 23));
-        dlLoaiHang.setSize(new java.awt.Dimension(64, 23));
 
-        jLabel9.setText("Hình ảnh sản phẩm");
+        jLabel9.setText("Hình ảnh sản phẩm*");
 
         lbImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbImage.setText("Thêm ảnh");
         lbImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         lbImage.setPreferredSize(new java.awt.Dimension(250, 250));
 
-        btnCreateSP.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
-        btnCreateSP.setText("Xoá sản phẩm");
-        btnCreateSP.addActionListener(new java.awt.event.ActionListener() {
+        btnDeleteSP.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
+        btnDeleteSP.setText("Xoá sản phẩm");
+        btnDeleteSP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCreateSPActionPerformed(evt);
+                btnDeleteSPActionPerformed(evt);
             }
         });
 
-        btnCreateSP1.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
-        btnCreateSP1.setText("Cập nhật");
-        btnCreateSP1.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdateSP.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
+        btnUpdateSP.setText("Cập nhật");
+        btnUpdateSP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCreateSP1ActionPerformed(evt);
+                btnUpdateSPActionPerformed(evt);
             }
         });
 
@@ -159,9 +160,9 @@ public class ChinhSuaSpFrame extends javax.swing.JFrame {
                         .addComponent(dlTrangThai, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lbImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnCreateSP)
+                        .addComponent(btnDeleteSP)
                         .addGap(18, 18, 18)
-                        .addComponent(btnCreateSP1)))
+                        .addComponent(btnUpdateSP)))
                 .addGap(44, 44, 44))
         );
         jPanel1Layout.setVerticalGroup(
@@ -206,8 +207,8 @@ public class ChinhSuaSpFrame extends javax.swing.JFrame {
                 .addComponent(tfBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCreateSP, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCreateSP1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnDeleteSP, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUpdateSP, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
@@ -232,26 +233,27 @@ public class ChinhSuaSpFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfGiaBanActionPerformed
 
-    private void btnCreateSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateSPActionPerformed
-        if (!tfMaSP.getText().isEmpty()) {
-            get_data_field_and_add_model();
-//            ProductDao.createProduct(ProductData)
-            if (true){
-                JOptionPane.showMessageDialog(null, "Đã thêm sản phẩm thành công");
-                this.dispose();
-                parentFrame.reloadtableView();
-            }else {
-                JOptionPane.showMessageDialog(null, "Mã sản phẩm bị trùng lập vui lòng kiểm tra lại");
-            }
+    private void btnDeleteSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteSPActionPerformed
+        if (ProductDao.deleteProductByMaSp(maSp)){
+            JOptionPane.showMessageDialog(null, "Đã xóa sản phẩm thành công");
+            this.dispose();
+            parentFrame.reloadtableView();
         }else {
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập thông tin mã sản phẩm");
+            JOptionPane.showMessageDialog(null, "Lỗi hệ thống");
+        } 
+
+    }//GEN-LAST:event_btnDeleteSPActionPerformed
+
+    private void btnUpdateSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateSPActionPerformed
+        get_data_field_and_add_model();
+        if (ProductDao.updateProduct(ProductData, maSp)){
+            JOptionPane.showMessageDialog(null, "Đã chỉnh sửa sản phẩm thành công");
+            this.dispose();
+            parentFrame.reloadtableView();
+        }else {
+            JOptionPane.showMessageDialog(null, "Lỗi hệ thống");
         }
-
-    }//GEN-LAST:event_btnCreateSPActionPerformed
-
-    private void btnCreateSP1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateSP1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCreateSP1ActionPerformed
+    }//GEN-LAST:event_btnUpdateSPActionPerformed
 
     private void add_data_field_edit(String Masp, String imageSp, String TenSp, String SoLuong, String GiaBan, String LoaiHang, String BarCode, String TrangThai) {
         tfMaSP.setText(Masp);
@@ -261,16 +263,9 @@ public class ChinhSuaSpFrame extends javax.swing.JFrame {
         dlLoaiHang.setSelectedItem(LoaiHang);
         tfBarcode.setText(BarCode);
         dlTrangThai.setSelectedItem(TrangThai);
-//        ImageIcon icon_base64 = FileUtils.convert_base64_to_image(imageSp, 250, 250);
-//        lbImage.setIcon(icon_base64);
-//        lbImage.setText("");
-        System.out.print(imageSp);
-        URL imageUrl = getClass().getResource((String) imageSp);
-        ImageIcon icon = new ImageIcon(imageUrl);
-        Image scaled = icon.getImage().getScaledInstance(
-        lbImage.getWidth(), lbImage.getHeight(), Image.SCALE_SMOOTH);
-        lbImage.setIcon(new ImageIcon(scaled));
-        lbImage.setText("");  // Xóa chữ cũ
+        ImageIcon icon_base64 = FileUtils.convert_base64_to_image(imageSp, 250, 250);
+        lbImage.setIcon(icon_base64);
+        lbImage.setText("");
     }
     
     private void get_data_field_and_add_model(){
@@ -322,8 +317,8 @@ public class ChinhSuaSpFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCreateSP;
-    private javax.swing.JButton btnCreateSP1;
+    private javax.swing.JButton btnDeleteSP;
+    private javax.swing.JButton btnUpdateSP;
     private javax.swing.JComboBox<String> dlLoaiHang;
     private javax.swing.JComboBox<String> dlTrangThai;
     private javax.swing.JLabel jLabel1;
