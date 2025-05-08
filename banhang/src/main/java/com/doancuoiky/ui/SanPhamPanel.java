@@ -18,6 +18,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableRowSorter;
+import com.doancuoiky.ui.TaoSpMoiFrame;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import com.doancuoiky.ui.ChinhSuaSpFrame;
 
 /**
  *
@@ -29,6 +33,7 @@ public class SanPhamPanel extends javax.swing.JPanel {
     public SanPhamPanel() {
         initComponents();
         setUptableView();
+        setupEditSp();
     }
 
     /**
@@ -41,29 +46,30 @@ public class SanPhamPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnCreateProduct = new javax.swing.JButton();
         btnDetele = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         tfSearch = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
         btnSearch = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel3 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setPreferredSize(new java.awt.Dimension(1400, 900));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 0));
         jPanel1.setPreferredSize(new java.awt.Dimension(1400, 50));
 
-        jButton1.setText("Tạo sản phẩm mới");
-        jButton1.setPreferredSize(new java.awt.Dimension(150, 25));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCreateProduct.setText("Tạo sản phẩm mới");
+        btnCreateProduct.setPreferredSize(new java.awt.Dimension(150, 25));
+        btnCreateProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCreateProductActionPerformed(evt);
             }
         });
 
@@ -93,7 +99,7 @@ public class SanPhamPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(btnDetele, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCreateProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -101,7 +107,7 @@ public class SanPhamPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCreateProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDetele, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(19, Short.MAX_VALUE))
@@ -113,6 +119,8 @@ public class SanPhamPanel extends javax.swing.JPanel {
         jLabel1.setText("Quản lý sản phẩm");
 
         tfSearch.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jLabel3.setText("Nhập thông tin cần tìm");
 
         btnSearch.setText("Tìm kiếm");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -156,28 +164,38 @@ public class SanPhamPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jLabel3.setText("Nhập thông tin cần tìm");
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả sản phẩm", "Đang kinh doanh", "Ngừng kinh doanh" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1400, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tfSearch, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
-                        .addGap(29, 29, 29)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1183, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(tfSearch, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+                                .addGap(29, 29, 29)
+                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(15, 15, 15))))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1400, Short.MAX_VALUE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,7 +207,8 @@ public class SanPhamPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch))
+                    .addComponent(btnSearch)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -215,9 +234,11 @@ public class SanPhamPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnCreateProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateProductActionPerformed
+        TaoSpMoiFrame CreateSpFrame = new TaoSpMoiFrame(this); 
+        CreateSpFrame.setLocationRelativeTo(null);
+        CreateSpFrame.setVisible(true);   
+    }//GEN-LAST:event_btnCreateProductActionPerformed
 
     private void btnDeteleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeteleActionPerformed
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -237,6 +258,16 @@ public class SanPhamPanel extends javax.swing.JPanel {
         search_sp(tfSearch.getText());
     }//GEN-LAST:event_btnSearchActionPerformed
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        String selectedText = (String) jComboBox1.getSelectedItem();    
+        if ("Tất cả sản phẩm".equals(selectedText)) {
+            search_sp("");
+        }
+        else {
+            search_sp(selectedText);
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
     private void search_sp (String str) {
         TableRowSorter<DefaultTableModel> rowSorter;
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -244,6 +275,12 @@ public class SanPhamPanel extends javax.swing.JPanel {
         jTable1.setRowSorter(rowSorter);
         rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + str));
     }
+    public void reloadtableView(){
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        setUptableView();
+    }
+    
     private void setUptableView(){
         jTable1.setRowHeight(80); 
         jTable1.setShowGrid(false);
@@ -254,10 +291,10 @@ public class SanPhamPanel extends javax.swing.JPanel {
         
 
         Object[][] data = {
-            { "SP001", "/image/ic_menu/ic_header.png", "Cà Chua Beef", "394", "70000", "Rau Củ", "1234567890", "Còn Hàng" },
-            { "SP002", "/image/ic_menu/ic_header.png", "Coca Cola", "394", "70000", "Nước Giải Khát", "0987654321", "Còn Hàng" },
-            { "SP003", "/image/ic_menu/ic_header.png", "Bắp Tím Nứt", "394", "70000", "Rau Củ", "1122334455", "Hết Hàng" },
-            { "SP004", "/image/ic_menu/ic_header.png", "Bì Đào Hữu Cơ", "394", "70000", "Rau Củ", "6677889900", "Còn Hàng" }
+            { "SP001", "/image/ic_menu/ic_header.png", "Quần áo", "394", "70000", "Quần áo", "1234567890", "Đang kinh doanh" },
+            { "SP002", "/image/ic_menu/ic_header.png", "Giày", "394", "70000", "Giày", "0987654321", "Đang kinh doanh" },
+            { "SP003", "/image/ic_menu/ic_header.png", "Túi xách", "394", "70000", "Túi xách", "1122334455", "Ngừng kinh doanh" },
+            { "SP004", "/image/ic_menu/ic_header.png", "Áo khoác", "394", "70000", "Áo khoác", "6677889900", "Ngừng kinh doanh" }
         };
 
         // Thêm từng dòng dữ liệu vào bảng
@@ -271,7 +308,31 @@ public class SanPhamPanel extends javax.swing.JPanel {
             if (i != 1) {
                 jTable1.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
             }
+        }   
     }
+    
+    private void setupEditSp(){
+        jTable1.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (e.getClickCount() == 2 && jTable1.getSelectedRow() != -1) {
+                int row = jTable1.getSelectedRow();  // dòng được chọn
+                int colCount = jTable1.getColumnCount();
+                String maSp = jTable1.getValueAt(row, 0).toString();
+                String imageSp = jTable1.getValueAt(row, 1).toString();
+                String tenSp = jTable1.getValueAt(row, 2).toString();
+                String SoLuong = jTable1.getValueAt(row, 3).toString();
+                String GiaBan = jTable1.getValueAt(row, 4).toString();
+                String LoaiHang = jTable1.getValueAt(row, 5).toString();
+                String BarCode = jTable1.getValueAt(row, 6).toString();
+                String TrangThai = jTable1.getValueAt(row, 7).toString();
+                // Mở trang chỉnh sửa sản phẩm
+                ChinhSuaSpFrame EditSpFrame = new ChinhSuaSpFrame(SanPhamPanel.this, maSp, imageSp, tenSp, SoLuong, GiaBan, LoaiHang, BarCode, TrangThai); 
+                EditSpFrame.setLocationRelativeTo(null);
+                EditSpFrame.setVisible(true);    
+            }
+        }
+    });
     }
     
     class ImageCellRenderer extends JLabel implements TableCellRenderer {
@@ -292,10 +353,11 @@ public class SanPhamPanel extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCreateProduct;
     private javax.swing.JButton btnDetele;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
