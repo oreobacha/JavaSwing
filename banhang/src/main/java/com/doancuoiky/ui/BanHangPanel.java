@@ -283,7 +283,7 @@ public class BanHangPanel extends javax.swing.JPanel {
             TableTinhTien.setShowVerticalLines(false);
             TableTinhTien.setGridColor(Color.LIGHT_GRAY);
             TableTinhTien.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
-            DefaultTableModel model = new DefaultTableModel(null, new Object[]{"Mã Sản Phẩm", "Tên Sản Phẩm", "Số Lượng", "Đơn Giá", "Thành Tiền", "Xoá"}) {
+            DefaultTableModel model = new DefaultTableModel(null, new Object[]{"Mã Sản Phẩm", "Tên Sản Phẩm", "Số Lượng", "Đơn Giá", "Thành Tiền", ""}) {
                 @Override
                 public boolean isCellEditable(int row, int column) {
                     return column == 2 || column == 5; // cho phép chỉnh sửa cột
@@ -298,9 +298,6 @@ public class BanHangPanel extends javax.swing.JPanel {
                 TableColumn column = TableTinhTien.getColumnModel().getColumn(i);
                 column.setHeaderRenderer(centerRenderer);
             }
-        TableColumn actionCol = TableTinhTien.getColumnModel().getColumn(5);
-        actionCol.setCellRenderer(new ButtonRenderer());
-        actionCol.setCellEditor(new ButtonEditor(TableTinhTien));
         model.addTableModelListener(e -> {
         int row = e.getFirstRow();
         int col = e.getColumn();
@@ -343,6 +340,10 @@ public class BanHangPanel extends javax.swing.JPanel {
             }
         }  
         FileUtils.applyRedTextOnSelect(TableTinhTien, new int[]{}, new int[]{3, 4});
+        TableColumn actionCol = TableTinhTien.getColumnModel().getColumn(5);
+        actionCol.setCellRenderer(new ButtonRenderer());
+        actionCol.setCellEditor(new ButtonEditor(TableTinhTien));
+        actionCol.setMaxWidth(60);
     }
     
     private void setupEditSp(){
