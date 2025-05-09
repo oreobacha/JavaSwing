@@ -245,14 +245,19 @@ public class ChinhSuaSpFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteSPActionPerformed
 
     private void btnUpdateSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateSPActionPerformed
+        if (check_field_validate()){        
         get_data_field_and_add_model();
-        if (ProductDao.updateProduct(ProductData, maSp)){
-            JOptionPane.showMessageDialog(null, "Đã chỉnh sửa sản phẩm thành công");
-            this.dispose();
-            parentFrame.reloadtableView();
+            if (ProductDao.updateProduct(ProductData, maSp)){
+                JOptionPane.showMessageDialog(null, "Đã chỉnh sửa sản phẩm thành công");
+                this.dispose();
+                parentFrame.reloadtableView();
+            }else {
+                JOptionPane.showMessageDialog(null, "Lỗi hệ thống");
+            }
         }else {
-            JOptionPane.showMessageDialog(null, "Lỗi hệ thống");
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin sản phẩm");
         }
+
     }//GEN-LAST:event_btnUpdateSPActionPerformed
 
     private void add_data_field_edit(String Masp, String imageSp, String TenSp, String SoLuong, String GiaBan, String LoaiHang, String BarCode, String TrangThai) {
@@ -298,6 +303,14 @@ public class ChinhSuaSpFrame extends javax.swing.JFrame {
             lbImage.setText("");  // Xóa chữ cũ
             // Chuyển sang Base64 và lưu lại
             image_upload_base64 = FileUtils.convert_image_to_base64(selectedFile);
+        }
+    }
+    private Boolean check_field_validate () {
+        if (!tfMaSP.getText().isEmpty() & !tfTenSP.getText().isEmpty() & !tfSoLuong.getText().isEmpty() & !tfGiaBan.getText().isEmpty() & !tfBarcode.getText().isEmpty() & (image_upload_base64 != null)) {
+            return true;
+        }
+        else {
+            return false;
         }
     }
     

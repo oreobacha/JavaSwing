@@ -219,7 +219,7 @@ public class TaoSpMoiFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_tfGiaBanActionPerformed
 
     private void btnCreateSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateSPActionPerformed
-        if (!tfMaSP.getText().isEmpty()) {
+        if (check_field_validate()) {
             get_data_field_and_add_model();
             if (ProductDao.createProduct(ProductData)){
                 JOptionPane.showMessageDialog(null, "Đã thêm sản phẩm thành công");
@@ -233,6 +233,15 @@ public class TaoSpMoiFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCreateSPActionPerformed
 
+    private Boolean check_field_validate () {
+        if (!tfMaSP.getText().isEmpty() & !tfTenSP.getText().isEmpty() & !tfSoLuong.getText().isEmpty() & !tfGiaBan.getText().isEmpty() & !tfBarcode.getText().isEmpty() & (image_upload_base64 != null)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    
     private void get_data_field_and_add_model(){
         String maSp = tfMaSP.getText();
         String tenSp = tfTenSP.getText();
@@ -256,7 +265,7 @@ public class TaoSpMoiFrame extends javax.swing.JFrame {
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             ImageIcon icon = new ImageIcon(selectedFile.getAbsolutePath());
-            image_upload_base64 = selectedFile.getAbsolutePath();
+//            image_upload_base64 = selectedFile.getAbsolutePath();
             // Resize ảnh cho vừa JLabel
             Image scaled = icon.getImage().getScaledInstance(
                     lbImage.getWidth(), lbImage.getHeight(), Image.SCALE_SMOOTH);
