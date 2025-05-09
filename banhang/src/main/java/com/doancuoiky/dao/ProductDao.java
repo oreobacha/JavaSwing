@@ -48,6 +48,36 @@ public class ProductDao {
             }
             return data;
             }
+        
+        public static Object[][] getAllProductBanHang() {
+            List<Object[]> rows = new ArrayList<>();
+            String sql = "SELECT masp, imagesp, tensp, soluong, giaban, barcode FROM product";
+            try (Connection conn = DBConnection.getConnection();
+                 PreparedStatement stmt = conn.prepareStatement(sql);
+                 ResultSet rs = stmt.executeQuery()) {
+
+                while (rs.next()) {
+                    Object[] row = new Object[] {
+                        rs.getString("masp"),
+                        rs.getString("imagesp"),  
+                        rs.getString("tensp"),
+                        rs.getString("soluong"),
+                        rs.getString("giaban"),
+                        rs.getString("barcode"),
+                    };
+                    rows.add(row);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            // Chuyển List<Object[]> thành Object[][]
+            Object[][] data = new Object[rows.size()][];
+            for (int i = 0; i < rows.size(); i++) {
+                data[i] = rows.get(i);
+            }
+            return data;
+            }
 
        public static boolean createProduct(ProductModel product) {
         String sql = "INSERT INTO product (masp, tensp, soluong, giaban, loaihang, barcode, trangthai, imagesp) " +

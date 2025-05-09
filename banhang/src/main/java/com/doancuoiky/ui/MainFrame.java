@@ -36,11 +36,11 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         mainContentPanel.setLayout(new CardLayout());
         initMenu();
-        setupbgMenu();
         setupIcon();
+        FocusableButtonmenu(jButton1);
 
 
-    }
+    }       
     
     private void initMenu() {
     // Khởi tạo Ban hàng
@@ -352,34 +352,32 @@ public class MainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void customizeFocusableButton(JButton button) {
+    
+    private void setupresetbgmenu(JButton button) {
         button.setFocusable(true); 
         button.setFocusPainted(false); 
         button.setContentAreaFilled(false);
         button.setOpaque(true);
-        button.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-
-                button.setBackground(new java.awt.Color(153, 153 , 153));
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                button.setBackground(new java.awt.Color(255, 255, 0));
-            }
-        });
+        button.setBackground(new java.awt.Color(255, 255, 0));
     }
-  
-    private void setupbgMenu(){
-        customizeFocusableButton(jButton1);
-        customizeFocusableButton(jButton2);   
-        customizeFocusableButton(jButton3);
-        customizeFocusableButton(jButton4); 
-        customizeFocusableButton(jButton5);
-        customizeFocusableButton(jButton6); 
-        customizeFocusableButton(jButton7);
+    
+    private void FocusableButtonmenu(JButton button) {
+        button.setFocusable(true); 
+        button.setFocusPainted(false); 
+        button.setContentAreaFilled(false);
+        button.setOpaque(true);
+        button.setBackground(new java.awt.Color(153, 153 , 153));
+    }
+    
+    
+    private void resetbgmenu(){
+        setupresetbgmenu(jButton1);
+        setupresetbgmenu(jButton2);   
+        setupresetbgmenu(jButton3);
+        setupresetbgmenu(jButton4); 
+        setupresetbgmenu(jButton5);
+        setupresetbgmenu(jButton6); 
+        setupresetbgmenu(jButton7);
     }
     
     
@@ -387,36 +385,50 @@ public class MainFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         CardLayout cl = (CardLayout) mainContentPanel.getLayout();
         cl.show(mainContentPanel, "banhangPanel");
+        resetbgmenu();
+        FocusableButtonmenu(jButton1);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         CardLayout cl = (CardLayout) mainContentPanel.getLayout();
         cl.show(mainContentPanel, "sanphamPanel");
+        resetbgmenu();
+        FocusableButtonmenu(jButton2);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-               CardLayout cl = (CardLayout) mainContentPanel.getLayout();
-        cl.show(mainContentPanel, "sanphamPanel"); // TODO add your handling code here:
+        CardLayout cl = (CardLayout) mainContentPanel.getLayout();
+        cl.show(mainContentPanel, "sanphamPanel");
+        resetbgmenu();
+        FocusableButtonmenu(jButton3);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-               CardLayout cl = (CardLayout) mainContentPanel.getLayout();
-        cl.show(mainContentPanel, "sanphamPanel"); // TODO add your handling code here:
+        CardLayout cl = (CardLayout) mainContentPanel.getLayout();
+        cl.show(mainContentPanel, "sanphamPanel");
+        resetbgmenu();
+        FocusableButtonmenu(jButton4);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-              CardLayout cl = (CardLayout) mainContentPanel.getLayout();
-        cl.show(mainContentPanel, "sanphamPanel");  // TODO add your handling code here:
+        CardLayout cl = (CardLayout) mainContentPanel.getLayout();
+        cl.show(mainContentPanel, "sanphamPanel");
+        resetbgmenu();
+        FocusableButtonmenu(jButton5);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-               CardLayout cl = (CardLayout) mainContentPanel.getLayout();
-        cl.show(mainContentPanel, "sanphamPanel"); // TODO add your handling code here:
+        CardLayout cl = (CardLayout) mainContentPanel.getLayout();
+        cl.show(mainContentPanel, "sanphamPanel");
+        resetbgmenu();
+        FocusableButtonmenu(jButton6);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-               CardLayout cl = (CardLayout) mainContentPanel.getLayout();
-        cl.show(mainContentPanel, "sanphamPanel"); // TODO add your handling code here:
+        CardLayout cl = (CardLayout) mainContentPanel.getLayout();
+        cl.show(mainContentPanel, "sanphamPanel");
+        resetbgmenu();
+        FocusableButtonmenu(jButton7);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
