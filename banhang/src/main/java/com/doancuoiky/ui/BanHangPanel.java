@@ -35,11 +35,14 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.text.DecimalFormat;
 import java.util.EventObject;
+import javax.swing.BorderFactory;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.border.BevelBorder;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 
@@ -563,10 +566,20 @@ public class BanHangPanel extends javax.swing.JPanel {
         rowSorter.setRowFilter(RowFilter.regexFilter("(?i)"));
     }
     
+    private void setUpdisableTf(JTextField tfInput){
+        tfInput.setEnabled(false); 
+        tfInput.setDisabledTextColor(Color.BLACK); // đổi màu chữ khi disable
+        tfInput.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+        tfInput.setBackground(new java.awt.Color(242,242,242));   // đổi màu nền khi disable
+    }
+    
     private void setupUI(){
        Uicore.setcolerbutton(btnCancel, new java.awt.Color(255,0,0));
        Uicore.setcolerbutton(btnpayment, new java.awt.Color(0,102,102));
        updateButtonUsePoint();
+       setUpdisableTf(tfNameInfo);
+       setUpdisableTf(tfPhoneInfo);
+       setUpdisableTf(tfrefundMoney);
        tfinputmoneyclient.addActionListener(e -> {
             totalrefundMoneyClient();
         });
