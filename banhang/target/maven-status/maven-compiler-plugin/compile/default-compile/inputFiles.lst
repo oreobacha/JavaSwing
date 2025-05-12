@@ -1,7 +1,10 @@
 /Users/phuongmd/JavaSwing/banhang/src/main/java/com/doancuoiky/Main.java
 /Users/phuongmd/JavaSwing/banhang/src/main/java/com/doancuoiky/core/FileUtils.java
+/Users/phuongmd/JavaSwing/banhang/src/main/java/com/doancuoiky/core/Uicore.java
+/Users/phuongmd/JavaSwing/banhang/src/main/java/com/doancuoiky/dao/ClientDao.java
 /Users/phuongmd/JavaSwing/banhang/src/main/java/com/doancuoiky/dao/LoginDao.java
 /Users/phuongmd/JavaSwing/banhang/src/main/java/com/doancuoiky/dao/ProductDao.java
+/Users/phuongmd/JavaSwing/banhang/src/main/java/com/doancuoiky/dao/VoucherDao.java
 /Users/phuongmd/JavaSwing/banhang/src/main/java/com/doancuoiky/db/DBConnection.java
 /Users/phuongmd/JavaSwing/banhang/src/main/java/com/doancuoiky/model/LoginModel.java
 /Users/phuongmd/JavaSwing/banhang/src/main/java/com/doancuoiky/model/ProductModel.java

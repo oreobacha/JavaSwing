@@ -291,4 +291,8 @@ public class FileUtils {
        }
    }
     
+    public static String formatVND(long money){
+        DecimalFormat vndFormat = new DecimalFormat("#,##0");
+        return vndFormat.format(money) + " VND";
+    }
 }

@@ -27,7 +27,12 @@ import java.awt.Color;
 import java.text.NumberFormat;
 import java.util.Locale;
 import com.doancuoiky.dao.ProductDao;
+import com.doancuoiky.dao.VoucherDao;
+import com.doancuoiky.dao.ClientDao;
 import com.doancuoiky.core.FileUtils;
+import com.doancuoiky.core.Uicore;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.text.DecimalFormat;
 import java.util.EventObject;
 import javax.swing.DefaultCellEditor;
@@ -38,19 +43,23 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 
+
 /**
  *
  * @author phuongmd
  */
 public class BanHangPanel extends javax.swing.JPanel {
-
+    private String Point; 
 
     public BanHangPanel() {
         initComponents();
+        setupUI();
         setUptableView();
         setUptableViewTinhTien();
-        setupEditSp();
+        setUptableViewVoucher();
+        setupAddSp();
         remove_focus_table();
+        setupMoneyField();
     }
 
     /**
@@ -77,16 +86,33 @@ public class BanHangPanel extends javax.swing.JPanel {
         tfInputMaKH = new javax.swing.JTextField();
         btnsearchMakH = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        tfNameInfo = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        tfPhoneInfo = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        lbPoint = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         tfInputvoucher = new javax.swing.JTextField();
         btnapplyvoucher = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnpayment = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        tfrefundMoney = new javax.swing.JTextField();
+        tfinputmoneyclient = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tableVoucher = new javax.swing.JTable();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        lbTotalAmount = new javax.swing.JLabel();
+        lbTotalVoucher = new javax.swing.JLabel();
+        lbTotalPoint = new javax.swing.JLabel();
+        LbTotalMoney = new javax.swing.JLabel();
+        btnUsePoint = new javax.swing.JButton();
+        btncancelusepoint = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1400, 900));
 
@@ -117,6 +143,8 @@ public class BanHangPanel extends javax.swing.JPanel {
         );
 
         jScrollPane1.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
+        jScrollPane1.setOpaque(false);
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(330, 402));
 
         TableSpDangBan.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
         TableSpDangBan.setModel(new javax.swing.table.DefaultTableModel(
@@ -152,42 +180,116 @@ public class BanHangPanel extends javax.swing.JPanel {
         jLabel3.setText("MÃ KHÁCH HÀNG");
 
         btnsearchMakH.setText("Tìm kiếm");
+        btnsearchMakH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsearchMakHActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Tên Khách Hàng");
 
-        jTextField1.setDisabledTextColor(new java.awt.Color(242, 242, 242));
-        jTextField1.setEnabled(false);
+        tfNameInfo.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        tfNameInfo.setEnabled(false);
+        tfNameInfo.setFocusable(false);
 
         jLabel5.setText("SĐT");
 
-        jTextField2.setDisabledTextColor(new java.awt.Color(242, 242, 242));
-        jTextField2.setEnabled(false);
+        tfPhoneInfo.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        tfPhoneInfo.setEnabled(false);
 
         jLabel6.setText("Tổng điểm tích lũy:");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel7.setText("456456");
+        lbPoint.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbPoint.setForeground(new java.awt.Color(255, 0, 0));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel8.setText("KHUYẾN MÃI");
 
         btnapplyvoucher.setText("Áp dụng");
-
-        jButton1.setBackground(new java.awt.Color(0, 102, 102));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Thanh toán");
-        jButton1.setToolTipText("");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnapplyvoucher.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnapplyvoucherActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 0, 0));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Hủy thanh toán");
-        jButton2.setPreferredSize(new java.awt.Dimension(160, 23));
+        btnpayment.setBackground(new java.awt.Color(0, 102, 102));
+        btnpayment.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        btnpayment.setForeground(new java.awt.Color(255, 255, 255));
+        btnpayment.setText("Thanh toán");
+        btnpayment.setToolTipText("");
+        btnpayment.setBorderPainted(false);
+        btnpayment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnpaymentActionPerformed(evt);
+            }
+        });
+
+        btnCancel.setBackground(new java.awt.Color(255, 0, 0));
+        btnCancel.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        btnCancel.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancel.setText("Hủy thanh toán");
+        btnCancel.setBorderPainted(false);
+        btnCancel.setPreferredSize(new java.awt.Dimension(160, 23));
+
+        jLabel9.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
+        jLabel9.setText("TRẢ LẠI KHÁCH");
+
+        jLabel10.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
+        jLabel10.setText("KHÁCH TRẢ");
+
+        tfrefundMoney.setEnabled(false);
+
+        jScrollPane3.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
+        jScrollPane3.setPreferredSize(new java.awt.Dimension(330, 100));
+
+        tableVoucher.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        jScrollPane3.setViewportView(tableVoucher);
+
+        jLabel11.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel11.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel11.setText("TỔNG CỘNG");
+
+        jLabel12.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel12.setText("MÃ KHUYẾN MẠI");
+
+        jLabel13.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel13.setText("SỬ DỤNG ĐIỂM");
+
+        jLabel14.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(0, 102, 102));
+        jLabel14.setText("THÀNH TIỀN");
+
+        jLabel15.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
+        jLabel15.setText("THÔNG TIN KHUYẾN MÃI ĐANG ÁP DỤNG");
+
+        lbTotalAmount.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
+        lbTotalAmount.setText("0 VND");
+
+        lbTotalVoucher.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
+        lbTotalVoucher.setText("0 VND");
+
+        lbTotalPoint.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
+        lbTotalPoint.setText("0 VND");
+
+        LbTotalMoney.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
+        LbTotalMoney.setText("0 VND");
+
+        btnUsePoint.setText("Sử dụng điểm");
+        btnUsePoint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsePointActionPerformed(evt);
+            }
+        });
+
+        btncancelusepoint.setText("Huỷ bỏ");
+        btncancelusepoint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncancelusepointActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -196,62 +298,122 @@ public class BanHangPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel8)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(tfInputvoucher, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tfInputvoucher, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lbPoint, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 11, Short.MAX_VALUE))
+                            .addComponent(tfPhoneInfo, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfNameInfo, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfInputMaKH, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnsearchMakH)
-                            .addComponent(btnapplyvoucher)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnapplyvoucher, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnsearchMakH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnUsePoint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btncancelusepoint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel15)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnpayment, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel9)
+                                        .addComponent(jLabel12)
+                                        .addComponent(jLabel13)
+                                        .addComponent(jLabel10))
+                                    .addGap(22, 22, 22)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(tfrefundMoney)
+                                        .addComponent(tfinputmoneyclient)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(lbTotalPoint)
+                                                .addComponent(LbTotalMoney)
+                                                .addComponent(lbTotalVoucher)
+                                                .addComponent(lbTotalAmount))
+                                            .addGap(0, 0, Short.MAX_VALUE)))))
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(12, 12, 12))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfInputMaKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnsearchMakH))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfNameInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfPhoneInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUsePoint))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel7))
+                    .addComponent(lbPoint)
+                    .addComponent(btncancelusepoint))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfInputvoucher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnapplyvoucher))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel15)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(lbTotalAmount))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(lbTotalVoucher))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel13)
+                            .addComponent(lbTotalPoint))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14)
+                            .addComponent(LbTotalMoney))
+                        .addGap(55, 55, 55)
+                        .addComponent(jLabel10))
+                    .addComponent(tfinputmoneyclient, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tfrefundMoney, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnpayment, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -262,32 +424,29 @@ public class BanHangPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1001, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1006, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(395, 395, 395)
-                        .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(395, 395, 395)
+                                .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -303,11 +462,11 @@ public class BanHangPanel extends javax.swing.JPanel {
                             .addComponent(tfSearch)
                             .addComponent(btnSearch))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGap(8, 8, 8)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -331,10 +490,71 @@ public class BanHangPanel extends javax.swing.JPanel {
         search_sp(tfSearch.getText());
     }//GEN-LAST:event_btnSearchActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnpaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpaymentActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnpaymentActionPerformed
 
+    private void btnapplyvoucherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnapplyvoucherActionPerformed
+        String mavoucher = tfInputvoucher.getText().trim().toLowerCase(); // hoặc toUpperCase()
+        Object[][] data = VoucherDao.getAllVoucher();
+        if (!tfInputvoucher.getText().trim().isEmpty()) {
+            if (containsVoucherIgnoreCase(data, mavoucher)) {
+            for (Object[] row : data) {
+                if (row.length > 0 && mavoucher.equalsIgnoreCase(row[0].toString())) {
+                    Object mavoucherdb = row[0];
+                    Object giamgiadb = row[1];
+                    add_sp_to_tableviewVoucher(new Object[]{mavoucherdb, giamgiadb});
+                    tfInputvoucher.setText("");
+                    break;
+                }
+            }
+            } else {
+                JOptionPane.showMessageDialog(null, "Mã khuyến mại không đúng, vui lòng kiểm tra lại");
+            }
+        }
+        else {
+                JOptionPane.showMessageDialog(null, "Vui lòng nhập mã khuyến mại");
+        }
+    }//GEN-LAST:event_btnapplyvoucherActionPerformed
+
+    private void btnsearchMakHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsearchMakHActionPerformed
+       if (!tfInputMaKH.getText().isEmpty()) {
+            Object[] dataClient = ClientDao.getKhachHangBySoDienThoai(tfInputMaKH.getText());
+           if (dataClient != null) {
+                getClientInfobysearch(dataClient[0].toString(), dataClient[1].toString(), dataClient[2].toString());
+           }
+           else {
+                getClientInfobysearch("", "", "");
+                JOptionPane.showMessageDialog(null, "Khách hàng chưa đăng ký thông tin trên hệ thống vui lòng đăng ký trước khi thanh toán");
+           }
+            updateButtonUsePoint();
+       }
+       else {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập số điện thoại khách hàng");
+       }
+    }//GEN-LAST:event_btnsearchMakHActionPerformed
+
+    private void btnUsePointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsePointActionPerformed
+        if (lbPoint.getText() != "0"){
+            updateMoneyBillField();
+            lbPoint.setText("0");
+        }
+    }//GEN-LAST:event_btnUsePointActionPerformed
+
+    private void btncancelusepointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelusepointActionPerformed
+        updateMoneyBillField();
+        lbPoint.setText(Point);
+    }//GEN-LAST:event_btncancelusepointActionPerformed
+    
+    private boolean containsVoucherIgnoreCase(Object[][] data, String mavoucher) {
+        for (Object[] row : data) {
+            if (row.length > 0 && mavoucher.equalsIgnoreCase(row[0].toString())) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     private void reset_filter(){
         TableRowSorter<DefaultTableModel> rowSorter;
         DefaultTableModel model = (DefaultTableModel) TableSpDangBan.getModel();
@@ -343,12 +563,59 @@ public class BanHangPanel extends javax.swing.JPanel {
         rowSorter.setRowFilter(RowFilter.regexFilter("(?i)"));
     }
     
+    private void setupUI(){
+       Uicore.setcolerbutton(btnCancel, new java.awt.Color(255,0,0));
+       Uicore.setcolerbutton(btnpayment, new java.awt.Color(0,102,102));
+       updateButtonUsePoint();
+       tfinputmoneyclient.addActionListener(e -> {
+            totalrefundMoneyClient();
+        });
+       
+       tfinputmoneyclient.addFocusListener(new FocusAdapter() {
+        @Override
+        public void focusLost(FocusEvent e) {
+            totalrefundMoneyClient();
+                }
+        });
+    }
+    
+    private void updateButtonUsePoint(){
+       String NameInfo = tfNameInfo.getText();
+       String PhoneInfo= tfPhoneInfo.getText();
+       String iemInfo= lbPoint.getText();
+       if (!NameInfo.isEmpty() && !PhoneInfo.isEmpty() && !iemInfo.isEmpty()){
+            btnUsePoint.setVisible(true);
+            btncancelusepoint.setVisible(true);
+       }
+       else {
+            btnUsePoint.setVisible(false);
+            btncancelusepoint.setVisible(false);
+       }
+    }
+    
     private void search_sp (String str) {
         TableRowSorter<DefaultTableModel> rowSorter;
         DefaultTableModel model = (DefaultTableModel) TableSpDangBan.getModel();
         rowSorter = new TableRowSorter<>(model);
         TableSpDangBan.setRowSorter(rowSorter);
         rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + str));
+    }
+    
+    private void totalrefundMoneyClient(){
+        if (!tfinputmoneyclient.getText().trim().isEmpty()){
+            long totalmoneyclientpayment = Long.parseLong(tfinputmoneyclient.getText().toString().trim());
+            long totalmoney = LbTotalMoney.getText().trim().isEmpty() ? 0 : Long.parseLong(LbTotalMoney.getText().replace(" VND", "").replace(",", "").trim());
+            long totalmoneyrefundclientPayment = totalmoneyclientpayment - totalmoney;
+            if (totalmoneyrefundclientPayment >= 0){
+                tfrefundMoney.setText(FileUtils.formatVND(totalmoneyrefundclientPayment));
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Số tiền khách trả không đủ"); 
+            }
+        }
+        else {
+            tfrefundMoney.setText("");
+        }
     }
     
     public void reloadtableView(){
@@ -391,43 +658,70 @@ public class BanHangPanel extends javax.swing.JPanel {
         FileUtils.applyRedTextOnSelect(TableSpDangBan, new int[]{1}, new int[]{4});
     }
     
-        private void setUptableViewTinhTien(){
-            TableTinhTien.setRowHeight(65); 
-            TableTinhTien.setShowHorizontalLines(true);
-            TableTinhTien.setShowVerticalLines(false);
-            TableTinhTien.setGridColor(Color.LIGHT_GRAY);
-            TableTinhTien.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
-            DefaultTableModel model = new DefaultTableModel(null, new Object[]{"Mã Sản Phẩm", "Tên Sản Phẩm", "Số Lượng", "Đơn Giá", "Thành Tiền", ""}) {
-                @Override
-                public boolean isCellEditable(int row, int column) {
-                    return column == 2 || column == 5; // cho phép chỉnh sửa cột
-                }
-            };
-            TableTinhTien.setModel(model);
-            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-            centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-            //căn giữa cho header
-            JTableHeader header = TableTinhTien.getTableHeader();
-            for (int i = 0; i < TableTinhTien.getColumnCount(); i++) {
-                TableColumn column = TableTinhTien.getColumnModel().getColumn(i);
-                column.setHeaderRenderer(centerRenderer);
+    private void setUptableViewTinhTien(){
+        TableTinhTien.setRowHeight(65); 
+        TableTinhTien.setShowHorizontalLines(true);
+        TableTinhTien.setShowVerticalLines(false);
+        TableTinhTien.setGridColor(Color.LIGHT_GRAY);
+        TableTinhTien.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
+        DefaultTableModel model = new DefaultTableModel(null, new Object[]{"Mã Sản Phẩm", "Tên Sản Phẩm", "Số Lượng", "Đơn Giá", "Thành Tiền", ""}) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 2 || column == 5; // cho phép chỉnh sửa cột
             }
+        };
+        TableTinhTien.setModel(model);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        //căn giữa cho header
+        JTableHeader header = TableTinhTien.getTableHeader();
+        for (int i = 0; i < TableTinhTien.getColumnCount(); i++) {
+            TableColumn column = TableTinhTien.getColumnModel().getColumn(i);
+            column.setHeaderRenderer(centerRenderer);
+        }
         model.addTableModelListener(e -> {
-        int row = e.getFirstRow();
-        int col = e.getColumn();
-        if (col == 2) { // cột số lượng thay đổi
-            try {
+            int row = e.getFirstRow();
+            int col = e.getColumn();
+            if (col == 2) { // cột số lượng thay đổi
                 int soLuong = Integer.parseInt(model.getValueAt(row, 2).toString());
                 int giaBan = Integer.parseInt(model.getValueAt(row, 3).toString().replace(" VND", "").trim());
                 int thanhTien = soLuong * giaBan;
                 model.setValueAt(thanhTien, row, 4); // cập nhật lại thành tiền
-            } catch (Exception ex) {
-                // Nếu lỗi định dạng, không cập nhật
-                System.err.println("Lỗi khi tính thành tiền: " + ex.getMessage());
+                updateMoneyBillField();
             }
+    });
+    }      
+        
+    private void setUptableViewVoucher(){
+        tableVoucher.setRowHeight(30); 
+        tableVoucher.setShowHorizontalLines(true);
+        tableVoucher.setShowVerticalLines(false);
+        tableVoucher.setGridColor(Color.LIGHT_GRAY);
+        tableVoucher.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 10));
+        DefaultTableModel model = new DefaultTableModel(null, new Object[]{"Mã khuyến mại", "Số tiền giảm", ""}) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 2;// cho phép chỉnh sửa cột    
+            }
+        };
+        tableVoucher.setModel(model);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        //căn giữa cho header
+        JTableHeader header = tableVoucher.getTableHeader();
+        for (int i = 0; i < tableVoucher.getColumnCount(); i++) {
+            TableColumn column = tableVoucher.getColumnModel().getColumn(i);
+            column.setHeaderRenderer(centerRenderer);
+        }
+        model.addTableModelListener(e -> {
+        int row = e.getFirstRow();
+        int col = e.getColumn();
+        if (col == 2) { // cột số lượng thay đổi
+            int giaBan = Integer.parseInt(model.getValueAt(row, 1).toString().replace(" VND", "").trim());
+            model.setValueAt(giaBan, row, 1); // cập nhật lại thành tiền
         }
     });
-    }
+}  
         
      private void remove_focus_table(){
         jPanel2.addMouseListener(new MouseAdapter() {
@@ -458,9 +752,31 @@ public class BanHangPanel extends javax.swing.JPanel {
         actionCol.setCellRenderer(new ButtonRenderer());
         actionCol.setCellEditor(new ButtonEditor(TableTinhTien));
         actionCol.setMaxWidth(60);
+        updateMoneyBillField();
     }
     
-    private void setupEditSp(){
+    private void add_sp_to_tableviewVoucher(Object[] data) {
+        DefaultTableModel model = (DefaultTableModel) tableVoucher.getModel();
+        model.addRow(data);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+         //căn giữa text
+        for (int i = 0; i < tableVoucher.getColumnCount(); i++) {
+            if (i !=  1) {
+                tableVoucher.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+            }
+        }  
+        FileUtils.applyRedTextOnSelect(tableVoucher, new int[]{}, new int[]{1});
+        TableColumn actionCol = tableVoucher.getColumnModel().getColumn(2);
+        actionCol.setCellRenderer(new ButtonRenderer());
+        actionCol.setCellEditor(new ButtonEditor(tableVoucher));
+        actionCol.setMaxWidth(60);
+        updateMoneyBillField();
+    }
+    
+    
+    
+    private void setupAddSp(){
         TableSpDangBan.addMouseListener(new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -475,6 +791,56 @@ public class BanHangPanel extends javax.swing.JPanel {
             }
         }
     });
+    }
+    
+    private void getClientInfobysearch(String name, String phone, String diem){
+        tfNameInfo.setText(name);
+        tfPhoneInfo.setText(phone);
+        lbPoint.setText(diem);
+        Point = diem;
+    }
+    
+    private void updateMoneyBillField() {
+        DefaultTableModel modelTableTinhTien = (DefaultTableModel) TableTinhTien.getModel();
+        int tongTien = 0;
+        
+        DefaultTableModel modelTableVoucher = (DefaultTableModel) tableVoucher.getModel();
+        int tongVoucher = 0;
+        
+        int totalPoint = lbPoint.getText().trim().isEmpty() ? 0 : Integer.parseInt(lbPoint.getText().trim());
+    
+        
+         //Tính tổng tiền hàng   
+        for (int i = 0; i < modelTableTinhTien.getRowCount(); i++) {
+            Object val = modelTableTinhTien.getValueAt(i, 4); // cột thành tiền
+            if (val != null) {
+                int tien = Integer.parseInt(val.toString().replace(",", "").trim());
+                tongTien += tien;
+            }
+        }
+        //Tính tổng tiền voucher
+        for (int i = 0; i < modelTableVoucher.getRowCount(); i++) {
+            Object val = modelTableVoucher.getValueAt(i, 1); // cột giảm giá
+            if (val != null) {
+                int voucher = Integer.parseInt(val.toString().replace(",", "").trim());
+                tongVoucher += voucher;
+            }
+        }
+        lbTotalAmount.setText(FileUtils.formatVND(tongTien));
+        lbTotalVoucher.setText(FileUtils.formatVND(tongVoucher));
+        lbTotalPoint.setText(FileUtils.formatVND(totalPoint));
+        setupMoneyField(); //gọi lại hàm này để update cột thành tiền
+        totalrefundMoneyClient();
+        
+    }
+    
+    private void setupMoneyField(){
+        int tongcong = Integer.parseInt(lbTotalAmount.getText().toString().replace(" VND", "").replace(",", "").trim());
+        int makhuyenmai = Integer.parseInt(lbTotalVoucher.getText().toString().replace(" VND", "").replace(",", "").trim());
+        int tongdiem = Integer.parseInt(lbTotalPoint.getText().toString().replace(" VND", "").replace(",", "").trim());
+        System.out.print(tongcong);
+        int thanhtien = tongcong - makhuyenmai - tongdiem;
+        LbTotalMoney.setText(FileUtils.formatVND(thanhtien));
     }
  
     class ImageCellRenderer extends JLabel implements TableCellRenderer {
@@ -528,7 +894,11 @@ public class BanHangPanel extends javax.swing.JPanel {
             button.addActionListener(e -> {
                 int row = table.getEditingRow();
                 if (row != -1) {
+                    if (table.isEditing()) {
+                     table.getCellEditor().stopCellEditing();
+                    }
                     ((DefaultTableModel) table.getModel()).removeRow(row);
+                    updateMoneyBillField();
                 }
             });
         }
@@ -550,30 +920,47 @@ public class BanHangPanel extends javax.swing.JPanel {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel LbTotalMoney;
     private javax.swing.JTable TableSpDangBan;
     private javax.swing.JTable TableTinhTien;
+    private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnUsePoint;
     private javax.swing.JButton btnapplyvoucher;
+    private javax.swing.JButton btncancelusepoint;
+    private javax.swing.JButton btnpayment;
     private javax.swing.JButton btnsearchMakH;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lbPoint;
+    private javax.swing.JLabel lbTotalAmount;
+    private javax.swing.JLabel lbTotalPoint;
+    private javax.swing.JLabel lbTotalVoucher;
+    private javax.swing.JTable tableVoucher;
     private javax.swing.JTextField tfInputMaKH;
     private javax.swing.JTextField tfInputvoucher;
+    private javax.swing.JTextField tfNameInfo;
+    private javax.swing.JTextField tfPhoneInfo;
     private javax.swing.JTextField tfSearch;
+    private javax.swing.JTextField tfinputmoneyclient;
+    private javax.swing.JTextField tfrefundMoney;
     // End of variables declaration//GEN-END:variables
 }
