@@ -4,7 +4,12 @@
  */
 package com.doancuoiky.core;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JTextField;
 
 /**
  *
@@ -18,4 +23,14 @@ public class Uicore {
         button.setOpaque(true);
         button.setBackground(color);
     }
+    
+    public static void applyBlackBorderToAllTextFields(Container container) {
+    for (Component comp : container.getComponents()) {
+        if (comp instanceof JTextField) {
+            ((JTextField) comp).setBorder(BorderFactory.createLineBorder(Color.darkGray));
+        } else if (comp instanceof Container) {
+            applyBlackBorderToAllTextFields((Container) comp); // đệ quy vào JPanel, JPanel con, ...
+        }
+    }
+}
 }

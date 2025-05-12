@@ -63,6 +63,7 @@ public class BanHangPanel extends javax.swing.JPanel {
         setupAddSp();
         remove_focus_table();
         setupMoneyField();
+        Uicore.applyBlackBorderToAllTextFields(this);
     }
 
     /**
@@ -569,7 +570,7 @@ public class BanHangPanel extends javax.swing.JPanel {
     private void setUpdisableTf(JTextField tfInput){
         tfInput.setEnabled(false); 
         tfInput.setDisabledTextColor(Color.BLACK); // đổi màu chữ khi disable
-        tfInput.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+//        tfInput.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
         tfInput.setBackground(new java.awt.Color(242,242,242));   // đổi màu nền khi disable
     }
     
