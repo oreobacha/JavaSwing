@@ -323,8 +323,7 @@ public class SanPhamPanel extends javax.swing.JPanel {
         model.setRowCount(0);
         tfSearch.setText("");
         reset_filter();
-        setUptableView();
-        
+        setUptableView();   
     }
     
     private void setUptableView(){

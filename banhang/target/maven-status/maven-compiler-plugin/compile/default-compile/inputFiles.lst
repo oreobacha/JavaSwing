@@ -6,11 +6,13 @@
 /Users/phuongmd/JavaSwing/banhang/src/main/java/com/doancuoiky/dao/ProductDao.java
 /Users/phuongmd/JavaSwing/banhang/src/main/java/com/doancuoiky/dao/VoucherDao.java
 /Users/phuongmd/JavaSwing/banhang/src/main/java/com/doancuoiky/db/DBConnection.java
+/Users/phuongmd/JavaSwing/banhang/src/main/java/com/doancuoiky/model/ClientModel.java
 /Users/phuongmd/JavaSwing/banhang/src/main/java/com/doancuoiky/model/LoginModel.java
 /Users/phuongmd/JavaSwing/banhang/src/main/java/com/doancuoiky/model/ProductModel.java
 /Users/phuongmd/JavaSwing/banhang/src/main/java/com/doancuoiky/ui/BanHangPanel.java
 /Users/phuongmd/JavaSwing/banhang/src/main/java/com/doancuoiky/ui/ChinhSuaSpFrame.java
 /Users/phuongmd/JavaSwing/banhang/src/main/java/com/doancuoiky/ui/LoginFrame.java
 /Users/phuongmd/JavaSwing/banhang/src/main/java/com/doancuoiky/ui/MainFrame.java
+/Users/phuongmd/JavaSwing/banhang/src/main/java/com/doancuoiky/ui/QuanLyKHPanel.java
 /Users/phuongmd/JavaSwing/banhang/src/main/java/com/doancuoiky/ui/SanPhamPanel.java
 /Users/phuongmd/JavaSwing/banhang/src/main/java/com/doancuoiky/ui/TaoSpMoiFrame.java

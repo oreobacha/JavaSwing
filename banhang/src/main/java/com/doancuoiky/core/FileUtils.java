@@ -31,8 +31,15 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;
-
+import java.util.Random;
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
 /**
  *
  * @author phuongmd
@@ -234,6 +241,7 @@ public class FileUtils {
             }
         }
     }
+    
     public static void applyRedTextOnSelect(JTable table, int[] skipColumns, int[] vndColumns) {
        DefaultTableCellRenderer customRenderer = new DefaultTableCellRenderer() {
            private final DecimalFormat vndFormat = new DecimalFormat("#,##0");
@@ -295,4 +303,36 @@ public class FileUtils {
         DecimalFormat vndFormat = new DecimalFormat("#,##0");
         return vndFormat.format(money) + " VND";
     }
+    
+    public static String generateCodeHD() {
+        String prefix = "HD";
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder sb = new StringBuilder(prefix);
+        Random random = new Random();
+
+        for (int i = 0; i < 8; i++) {
+            int index = random.nextInt(chars.length());
+            sb.append(chars.charAt(index));
+        }
+
+        return sb.toString().toUpperCase();
+    }
+    
+    public static void bindKeyToButton(JButton button, String keyStrokeString) {
+        InputMap inputMap = button.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = button.getActionMap();
+
+        String actionKey = "keyBind_" + keyStrokeString;
+
+        inputMap.put(KeyStroke.getKeyStroke(keyStrokeString), actionKey);
+        actionMap.put(actionKey, new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (button.isEnabled()) {
+                    button.doClick();
+                }
+            }
+        });
+    }
+    
 }

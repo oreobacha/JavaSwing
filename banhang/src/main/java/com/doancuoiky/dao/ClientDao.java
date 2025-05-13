@@ -4,7 +4,7 @@
  */
 package com.doancuoiky.dao;
 import com.doancuoiky.db.DBConnection;
-import com.doancuoiky.model.ProductModel;
+import com.doancuoiky.model.ClientModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,16 +16,17 @@ import java.util.List;
  * @author phuongmd
  */
 public class ClientDao {
-        public static boolean insertKhachHang(String tenkh, String sodienthoai, String email, String diachi) {
-        String sql = "INSERT INTO khachhang (tenkh, sodienthoai, email, diachi) VALUES (?, ?, ?, ?)";
+        public static boolean insertKhachHang(ClientModel client) {
+        String sql = "INSERT INTO khachhang (tenkh, sodienthoai, email, diem, diachi) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, tenkh);
-            stmt.setString(2, sodienthoai);
-            stmt.setString(3, email);
-            stmt.setString(4, diachi);
+            stmt.setString(1, client.getHoTen());
+            stmt.setString(2, client.getSDT());
+            stmt.setString(3, client.getEmail());
+            stmt.setString(4, client.getDiem());
+            stmt.setString(5, client.getDiaChi());
 
             int affectedRows = stmt.executeUpdate();
             return affectedRows > 0; // true nếu insert thành công
@@ -38,7 +39,7 @@ public class ClientDao {
         
     public static Object[][] getAllKhachHang() {
         List<Object[]> rows = new ArrayList<>();
-        String sql = "SELECT makh, tenkh, sodienthoai, email, diachi FROM khachhang";
+        String sql = "SELECT tenkh, sodienthoai, email, diem, diachi FROM khachhang";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
@@ -46,10 +47,10 @@ public class ClientDao {
 
             while (rs.next()) {
                 Object[] row = new Object[] {
-                    rs.getInt("makh"),
                     rs.getString("tenkh"),
                     rs.getString("sodienthoai"),
                     rs.getString("email"),
+                    rs.getString("diem"),
                     rs.getString("diachi")
                 };
                 rows.add(row);
@@ -65,6 +66,7 @@ public class ClientDao {
         }
         return data;
         }
+    
     
     public static Object[] getKhachHangBySoDienThoai(String sdt) {
     String sql = "SELECT tenkh, sodienthoai, diem FROM khachhang WHERE sodienthoai = ?";

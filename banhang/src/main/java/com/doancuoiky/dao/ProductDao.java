@@ -51,7 +51,7 @@ public class ProductDao {
         
         public static Object[][] getAllProductBanHang() {
             List<Object[]> rows = new ArrayList<>();
-            String sql = "SELECT masp, imagesp, tensp, soluong, giaban, barcode FROM product";
+            String sql = "SELECT masp, imagesp, tensp, soluong, giaban, barcode FROM product WHERE trangthai = 'Đang kinh doanh'";
             try (Connection conn = DBConnection.getConnection();
                  PreparedStatement stmt = conn.prepareStatement(sql);
                  ResultSet rs = stmt.executeQuery()) {

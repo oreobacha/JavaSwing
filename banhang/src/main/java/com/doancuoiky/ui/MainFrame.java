@@ -6,7 +6,7 @@ package com.doancuoiky.ui;
 //import com.doancuoiky.model.LoginModel;
 import com.doancuoiky.ui.BanHangPanel;
 import com.doancuoiky.ui.SanPhamPanel;
-
+import com.doancuoiky.ui.QuanLyKHPanel;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -19,6 +19,7 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 
 
@@ -28,7 +29,8 @@ import javax.swing.JButton;
  * @author ADMIN
  */
 public class MainFrame extends javax.swing.JFrame {
-
+    private BanHangPanel banhangPanel;
+    private String currentPanelName = "MainFrame";
     /**
      * Creates new form AdminFrame
      */
@@ -37,18 +39,22 @@ public class MainFrame extends javax.swing.JFrame {
         mainContentPanel.setLayout(new CardLayout());
         initMenu();
         setupIcon();
-        FocusableButtonmenu(jButton1);
+        FocusableButtonmenu(btnBanHang);
+        switchToPanel("banhangPanel", false);
 
 
     }       
     
     private void initMenu() {
     // Khởi tạo Ban hàng
-    BanHangPanel banhangPanel = new BanHangPanel();
+    this.banhangPanel = new BanHangPanel();
     mainContentPanel.add(banhangPanel, "banhangPanel");
 
     SanPhamPanel sanphamPanel = new SanPhamPanel();
     mainContentPanel.add(sanphamPanel, "sanphamPanel");
+    
+    QuanLyKHPanel quanlyKHPanel = new QuanLyKHPanel();
+    mainContentPanel.add(quanlyKHPanel, "quanlyKHPanel");
     }
     
     private void setupIcon(){
@@ -100,13 +106,13 @@ public class MainFrame extends javax.swing.JFrame {
         Avatar = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         JpanelMenu = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        btnQlSanPham = new javax.swing.JButton();
+        btnBanHang = new javax.swing.JButton();
+        btnNhanVien = new javax.swing.JButton();
+        btnKhuyenMai = new javax.swing.JButton();
+        BtnDangXuat = new javax.swing.JButton();
+        btnKhachHang = new javax.swing.JButton();
+        btnHoaDon = new javax.swing.JButton();
         mainContentPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -180,81 +186,81 @@ public class MainFrame extends javax.swing.JFrame {
         JpanelMenu.setAlignmentY(0.0F);
         JpanelMenu.setPreferredSize(new java.awt.Dimension(200, 600));
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 0));
-        jButton2.setText("QL Sản Phẩm");
-        jButton2.setBorderPainted(false);
-        jButton2.setFocusPainted(false);
-        jButton2.setPreferredSize(new java.awt.Dimension(78, 25));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnQlSanPham.setBackground(new java.awt.Color(255, 255, 0));
+        btnQlSanPham.setText("QL Sản Phẩm");
+        btnQlSanPham.setBorderPainted(false);
+        btnQlSanPham.setFocusPainted(false);
+        btnQlSanPham.setPreferredSize(new java.awt.Dimension(78, 25));
+        btnQlSanPham.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnQlSanPhamActionPerformed(evt);
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 0));
-        jButton1.setText("Bán Hàng");
-        jButton1.setAlignmentY(0.0F);
-        jButton1.setBorderPainted(false);
-        jButton1.setFocusPainted(false);
-        jButton1.setPreferredSize(new java.awt.Dimension(200, 25));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnBanHang.setBackground(new java.awt.Color(255, 255, 0));
+        btnBanHang.setText("Bán Hàng");
+        btnBanHang.setAlignmentY(0.0F);
+        btnBanHang.setBorderPainted(false);
+        btnBanHang.setFocusPainted(false);
+        btnBanHang.setPreferredSize(new java.awt.Dimension(200, 25));
+        btnBanHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnBanHangActionPerformed(evt);
             }
         });
 
-        jButton3.setBackground(new java.awt.Color(255, 255, 0));
-        jButton3.setText("Nhân Viên");
-        jButton3.setBorderPainted(false);
-        jButton3.setFocusPainted(false);
-        jButton3.setPreferredSize(new java.awt.Dimension(78, 25));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnNhanVien.setBackground(new java.awt.Color(255, 255, 0));
+        btnNhanVien.setText("Nhân Viên");
+        btnNhanVien.setBorderPainted(false);
+        btnNhanVien.setFocusPainted(false);
+        btnNhanVien.setPreferredSize(new java.awt.Dimension(78, 25));
+        btnNhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnNhanVienActionPerformed(evt);
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(255, 255, 0));
-        jButton4.setText("Khuyến Mại");
-        jButton4.setBorderPainted(false);
-        jButton4.setFocusPainted(false);
-        jButton4.setPreferredSize(new java.awt.Dimension(78, 25));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnKhuyenMai.setBackground(new java.awt.Color(255, 255, 0));
+        btnKhuyenMai.setText("Khuyến Mại");
+        btnKhuyenMai.setBorderPainted(false);
+        btnKhuyenMai.setFocusPainted(false);
+        btnKhuyenMai.setPreferredSize(new java.awt.Dimension(78, 25));
+        btnKhuyenMai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnKhuyenMaiActionPerformed(evt);
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(255, 255, 0));
-        jButton5.setText("Đăng Xuất");
-        jButton5.setBorderPainted(false);
-        jButton5.setFocusPainted(false);
-        jButton5.setPreferredSize(new java.awt.Dimension(78, 25));
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        BtnDangXuat.setBackground(new java.awt.Color(255, 255, 0));
+        BtnDangXuat.setText("Đăng Xuất");
+        BtnDangXuat.setBorderPainted(false);
+        BtnDangXuat.setFocusPainted(false);
+        BtnDangXuat.setPreferredSize(new java.awt.Dimension(78, 25));
+        BtnDangXuat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                BtnDangXuatActionPerformed(evt);
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(255, 255, 0));
-        jButton6.setText("Khách hàng");
-        jButton6.setBorderPainted(false);
-        jButton6.setFocusPainted(false);
-        jButton6.setPreferredSize(new java.awt.Dimension(78, 25));
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnKhachHang.setBackground(new java.awt.Color(255, 255, 0));
+        btnKhachHang.setText("Khách hàng");
+        btnKhachHang.setBorderPainted(false);
+        btnKhachHang.setFocusPainted(false);
+        btnKhachHang.setPreferredSize(new java.awt.Dimension(78, 25));
+        btnKhachHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnKhachHangActionPerformed(evt);
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(255, 255, 0));
-        jButton7.setText("Hoá Đơn");
-        jButton7.setBorderPainted(false);
-        jButton7.setFocusPainted(false);
-        jButton7.setPreferredSize(new java.awt.Dimension(78, 25));
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btnHoaDon.setBackground(new java.awt.Color(255, 255, 0));
+        btnHoaDon.setText("Hoá Đơn");
+        btnHoaDon.setBorderPainted(false);
+        btnHoaDon.setFocusPainted(false);
+        btnHoaDon.setPreferredSize(new java.awt.Dimension(78, 25));
+        btnHoaDon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btnHoaDonActionPerformed(evt);
             }
         });
 
@@ -262,30 +268,30 @@ public class MainFrame extends javax.swing.JFrame {
         JpanelMenu.setLayout(JpanelMenuLayout);
         JpanelMenuLayout.setHorizontalGroup(
             JpanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnBanHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnQlSanPham, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnNhanVien, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnKhuyenMai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(BtnDangXuat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnKhachHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnHoaDon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         JpanelMenuLayout.setVerticalGroup(
             JpanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JpanelMenuLayout.createSequentialGroup()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnBanHang, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnQlSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnKhuyenMai, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BtnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 80, Short.MAX_VALUE))
         );
 
@@ -371,65 +377,80 @@ public class MainFrame extends javax.swing.JFrame {
     
     
     private void resetbgmenu(){
-        setupresetbgmenu(jButton1);
-        setupresetbgmenu(jButton2);   
-        setupresetbgmenu(jButton3);
-        setupresetbgmenu(jButton4); 
-        setupresetbgmenu(jButton5);
-        setupresetbgmenu(jButton6); 
-        setupresetbgmenu(jButton7);
+        setupresetbgmenu(btnBanHang);
+        setupresetbgmenu(btnQlSanPham);   
+        setupresetbgmenu(btnNhanVien);
+        setupresetbgmenu(btnKhuyenMai); 
+        setupresetbgmenu(BtnDangXuat);
+        setupresetbgmenu(btnKhachHang); 
+        setupresetbgmenu(btnHoaDon);
     }
     
+    public Boolean switchToPanel(String panelName, Boolean isCheck) {
+        if (currentPanelName.equals("banhangPanel") & banhangPanel.isMaHoaDon & isCheck) {
+            int result = JOptionPane.showConfirmDialog(
+                    this,
+                    "Bạn có hoá đơn chưa thanh toán nếu thoát ra sẽ mất hết thông tin đã nhập. Bạn có chắc chắn không?",
+                    "Thông báo",
+                    JOptionPane.YES_NO_OPTION
+            );
+            if (result != JOptionPane.YES_OPTION) {
+                return false; 
+            }
+        }
+        CardLayout cl = (CardLayout) mainContentPanel.getLayout();
+        cl.show(mainContentPanel, panelName);
+        currentPanelName = panelName;
+        return true;
+    }
     
-    
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        CardLayout cl = (CardLayout) mainContentPanel.getLayout();
-        cl.show(mainContentPanel, "banhangPanel");
-        resetbgmenu();
-        FocusableButtonmenu(jButton1);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnBanHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanHangActionPerformed
+        if (switchToPanel("banhangPanel", false)){
+            banhangPanel.load_san_pham();
+            Boolean a = banhangPanel.isMaHoaDon;
+            resetbgmenu();
+            FocusableButtonmenu(btnBanHang);
+        };
+    }//GEN-LAST:event_btnBanHangActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnQlSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQlSanPhamActionPerformed
+        if (switchToPanel("sanphamPanel", true)){
+            resetbgmenu();
+            FocusableButtonmenu(btnQlSanPham);
+        };
+    }//GEN-LAST:event_btnQlSanPhamActionPerformed
+
+    private void btnNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanVienActionPerformed
         CardLayout cl = (CardLayout) mainContentPanel.getLayout();
         cl.show(mainContentPanel, "sanphamPanel");
         resetbgmenu();
-        FocusableButtonmenu(jButton2);
-    }//GEN-LAST:event_jButton2ActionPerformed
+        FocusableButtonmenu(btnNhanVien);
+    }//GEN-LAST:event_btnNhanVienActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnKhuyenMaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhuyenMaiActionPerformed
         CardLayout cl = (CardLayout) mainContentPanel.getLayout();
         cl.show(mainContentPanel, "sanphamPanel");
         resetbgmenu();
-        FocusableButtonmenu(jButton3);
-    }//GEN-LAST:event_jButton3ActionPerformed
+        FocusableButtonmenu(btnKhuyenMai);
+    }//GEN-LAST:event_btnKhuyenMaiActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void BtnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDangXuatActionPerformed
+
+    }//GEN-LAST:event_BtnDangXuatActionPerformed
+
+    private void btnKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhachHangActionPerformed
+        if (switchToPanel("quanlyKHPanel", true)){
+            resetbgmenu();
+            FocusableButtonmenu(btnKhachHang);
+        };
+    }//GEN-LAST:event_btnKhachHangActionPerformed
+
+    private void btnHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoaDonActionPerformed
         CardLayout cl = (CardLayout) mainContentPanel.getLayout();
         cl.show(mainContentPanel, "sanphamPanel");
         resetbgmenu();
-        FocusableButtonmenu(jButton4);
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        CardLayout cl = (CardLayout) mainContentPanel.getLayout();
-        cl.show(mainContentPanel, "sanphamPanel");
-        resetbgmenu();
-        FocusableButtonmenu(jButton5);
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        CardLayout cl = (CardLayout) mainContentPanel.getLayout();
-        cl.show(mainContentPanel, "sanphamPanel");
-        resetbgmenu();
-        FocusableButtonmenu(jButton6);
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        CardLayout cl = (CardLayout) mainContentPanel.getLayout();
-        cl.show(mainContentPanel, "sanphamPanel");
-        resetbgmenu();
-        FocusableButtonmenu(jButton7);
-    }//GEN-LAST:event_jButton7ActionPerformed
+        FocusableButtonmenu(btnHoaDon);
+    }//GEN-LAST:event_btnHoaDonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -466,14 +487,14 @@ public class MainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Avatar;
     private javax.swing.JPanel BorderLayout;
+    private javax.swing.JButton BtnDangXuat;
     private javax.swing.JPanel JpanelMenu;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
+    private javax.swing.JButton btnBanHang;
+    private javax.swing.JButton btnHoaDon;
+    private javax.swing.JButton btnKhachHang;
+    private javax.swing.JButton btnKhuyenMai;
+    private javax.swing.JButton btnNhanVien;
+    private javax.swing.JButton btnQlSanPham;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
