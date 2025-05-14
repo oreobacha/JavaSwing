@@ -4,12 +4,13 @@
  */
 package com.doancuoiky.ui;
 
+import com.doancuoiky.core.Uicore;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import java.sql.*;
-import com.doancuoiky.dao.LoginDao;
-import com.doancuoiky.model.LoginModel;
+import com.doancuoiky.dao.UserDao;
+import com.doancuoiky.model.UserModel;
 import javax.swing.JOptionPane;
 import com.doancuoiky.ui.MainFrame;
 
@@ -26,7 +27,8 @@ public class LoginFrame extends javax.swing.JFrame {
     public LoginFrame() {
         initComponents();
         offFocus();
-        setResizable(false);         // Không cho resize nếu muốn
+        setResizable(false);  
+        Uicore.applyBlackBorderToAllTextFields(this);
     };
     
     
@@ -46,11 +48,11 @@ public class LoginFrame extends javax.swing.JFrame {
         }
     };
 
-    public void openAdminFrame (LoginModel username){
+    public void openAdminFrame (String role){
         javax.swing.SwingUtilities.invokeLater(() -> {
-//        MainFrame FrameAdmin = new MainFrame(username); 
-//        FrameAdmin.setLocationRelativeTo(null); 
-//        FrameAdmin.setVisible(true);   
+        MainFrame FrameAdmin = new MainFrame(role); 
+        FrameAdmin.setLocationRelativeTo(null); 
+        FrameAdmin.setVisible(true);   
         });
     };
     
@@ -214,18 +216,17 @@ public class LoginFrame extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String username = Username.getText();
         String password =  Password.getText();
-        LoginModel user = LoginDao.login(username, password);
-        if (user != null) {
-            JOptionPane.showMessageDialog(this, "Login success as " + user.getRole());
+        String role = UserDao.loginByUsernamePassword(username, password);
+        if (role != null) {
             dispose();
-            if (user.getRole().equals("admin")) {
-                openAdminFrame(user);
+            if (role.equals("admin")) {
+                openAdminFrame(role);
             } else {
                 JOptionPane.showMessageDialog(this, "Login success as member");
 //                new MemberFrame(user);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Invalid credentials");
+            JOptionPane.showMessageDialog(this, "Thông tin đăng nhập không đúng");
         }          // TODO add your handling code here:
     }//GEN-LAST:event_btnLoginActionPerformed
 

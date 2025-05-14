@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import com.doancuoiky.core.FileUtils;
+import com.doancuoiky.core.Uicore;
 import com.doancuoiky.model.ProductModel;
 import com.doancuoiky.dao.ProductDao;
 import javax.swing.JOptionPane;
@@ -34,6 +35,7 @@ public class TaoSpMoiFrame extends javax.swing.JFrame {
         parentFrame = parent;
         initComponents();
         setup_click_add_image();
+        Uicore.applyBlackBorderToAllTextFields(this);
     }
 
     /**

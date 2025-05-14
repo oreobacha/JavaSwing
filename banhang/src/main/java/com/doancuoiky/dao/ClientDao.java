@@ -36,7 +36,48 @@ public class ClientDao {
             return false;
         }
     }
-        
+       
+    public static boolean updateKhachHang(ClientModel client, String SDT) {
+        String sql = "UPDATE khachhang SET tenkh = ?, sodienthoai = ?, email = ?, diem = ?, diachi = ?, sodienthoai= ? WHERE sodienthoai = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, client.getHoTen());
+            stmt.setString(2, client.getSDT());
+            stmt.setString(3, client.getEmail());
+            stmt.setString(4, client.getDiem());
+            stmt.setString(5, client.getDiaChi());
+            stmt.setString(6, client.getSDT());
+            stmt.setString(7, SDT);
+
+            int affectedRows = stmt.executeUpdate();
+            return affectedRows > 0; // true nếu update thành công
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public static boolean deleteKhachHangBySDT(String sdt) {
+        String sql = "DELETE FROM khachhang WHERE sodienthoai = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, sdt);
+
+            int affectedRows = stmt.executeUpdate();
+            return affectedRows > 0; // true nếu xóa thành công
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
     public static Object[][] getAllKhachHang() {
         List<Object[]> rows = new ArrayList<>();
         String sql = "SELECT tenkh, sodienthoai, email, diem, diachi FROM khachhang";
@@ -66,8 +107,7 @@ public class ClientDao {
         }
         return data;
         }
-    
-    
+  
     public static Object[] getKhachHangBySoDienThoai(String sdt) {
     String sql = "SELECT tenkh, sodienthoai, diem FROM khachhang WHERE sodienthoai = ?";
 

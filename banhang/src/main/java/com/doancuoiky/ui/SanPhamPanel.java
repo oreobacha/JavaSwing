@@ -28,6 +28,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 import com.doancuoiky.dao.ProductDao;
 import com.doancuoiky.core.FileUtils;
+import com.doancuoiky.core.Uicore;
 import java.text.DecimalFormat;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -46,6 +47,7 @@ public class SanPhamPanel extends javax.swing.JPanel {
         setUptableView();
         setupEditSp();
         reloadtableView();
+        Uicore.applyBlackBorderToAllTextFields(this);
     }
 
     /**
@@ -145,10 +147,12 @@ public class SanPhamPanel extends javax.swing.JPanel {
         jLabel1.setText("Quản lý sản phẩm");
 
         tfSearch.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tfSearch.setPreferredSize(new java.awt.Dimension(64, 25));
 
         jLabel3.setText("Nhập thông tin cần tìm");
 
         btnSearch.setText("Tìm kiếm");
+        btnSearch.setPreferredSize(new java.awt.Dimension(83, 25));
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchActionPerformed(evt);
@@ -227,8 +231,8 @@ public class SanPhamPanel extends javax.swing.JPanel {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch)
+                    .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
@@ -318,6 +322,7 @@ public class SanPhamPanel extends javax.swing.JPanel {
         jTable1.setRowSorter(rowSorter);
         rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + str));
     }
+    
     public void reloadtableView(){
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);

@@ -10,13 +10,24 @@ import com.doancuoiky.model.ClientModel;
 import com.doancuoiky.dao.ClientDao;
 import com.doancuoiky.dao.ProductDao;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.EventObject;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -24,6 +35,7 @@ import javax.swing.table.TableColumn;
  */
 public class QuanLyKHPanel extends javax.swing.JPanel {
     private ClientModel clientData;
+    private String SDT;
     /**
      * Creates new form QuanLyKHPanel
      */
@@ -31,6 +43,8 @@ public class QuanLyKHPanel extends javax.swing.JPanel {
         initComponents();
         setupButtonAll();
         setUptableView();
+        setupEditKH();
+        Uicore.applyBlackBorderToAllTextFields(this);
     }
 
     /**
@@ -52,14 +66,13 @@ public class QuanLyKHPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         btnadd = new javax.swing.JButton();
         btnupdate = new javax.swing.JButton();
-        btndetele = new javax.swing.JButton();
         tfSDT = new javax.swing.JTextField();
         tfHoTen = new javax.swing.JTextField();
         tfEmail = new javax.swing.JTextField();
         tfDiem = new javax.swing.JTextField();
         tfDiachi = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        tfSearch = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -70,16 +83,16 @@ public class QuanLyKHPanel extends javax.swing.JPanel {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel2.setText("Số điện thoại");
+        jLabel2.setText("Số điện thoại*");
 
-        jLabel3.setText("Tên khách hàng");
+        jLabel3.setText("Tên khách hàng*");
 
         jLabel7.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
         jLabel7.setText("Thêm mới khách hàng");
 
         jLabel4.setText("Email");
 
-        jLabel5.setText("Số điểm");
+        jLabel5.setText("Số điểm*");
 
         jLabel6.setText("Địa chỉ");
 
@@ -100,12 +113,17 @@ public class QuanLyKHPanel extends javax.swing.JPanel {
             }
         });
 
-        btndetele.setText("Xoá");
-        btndetele.setPreferredSize(new java.awt.Dimension(90, 30));
+        tfSDT.setPreferredSize(new java.awt.Dimension(64, 25));
+
+        tfHoTen.setPreferredSize(new java.awt.Dimension(64, 25));
+
+        tfEmail.setPreferredSize(new java.awt.Dimension(64, 25));
 
         tfDiem.setText("0");
         tfDiem.setToolTipText("");
-        tfDiem.setEnabled(false);
+        tfDiem.setPreferredSize(new java.awt.Dimension(64, 25));
+
+        tfDiachi.setPreferredSize(new java.awt.Dimension(64, 25));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -117,14 +135,12 @@ public class QuanLyKHPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnadd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnupdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btndetele, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                        .addGap(102, 102, 102)
+                        .addComponent(btnupdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
@@ -134,11 +150,11 @@ public class QuanLyKHPanel extends javax.swing.JPanel {
                             .addComponent(jLabel6))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfDiem, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tfDiachi)
+                            .addComponent(tfDiem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tfDiachi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(tfSDT, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfHoTen)
-                            .addComponent(tfEmail))))
+                            .addComponent(tfHoTen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tfEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(76, 76, 76))
         );
         jPanel3Layout.setVerticalGroup(
@@ -169,19 +185,23 @@ public class QuanLyKHPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnadd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnupdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btndetele, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnupdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel8.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
         jLabel8.setText("Quản lý khách hàng");
 
-        jTextField6.setPreferredSize(new java.awt.Dimension(170, 25));
-        jTextField6.setSize(new java.awt.Dimension(80, 25));
+        tfSearch.setPreferredSize(new java.awt.Dimension(170, 25));
+        tfSearch.setSize(new java.awt.Dimension(80, 25));
 
         btnSearch.setText("Tìm kiếm");
         btnSearch.setPreferredSize(new java.awt.Dimension(120, 25));
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -195,7 +215,7 @@ public class QuanLyKHPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(183, 183, 183)
-                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
@@ -203,7 +223,7 @@ public class QuanLyKHPanel extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(8, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,7 +232,7 @@ public class QuanLyKHPanel extends javax.swing.JPanel {
                         .addGap(27, 27, 27))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(19, 19, 19))))
         );
@@ -233,7 +253,7 @@ public class QuanLyKHPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Họ tên", "SĐT", "Email", "Điểm", "Địa chỉ"
+                "Họ tên", "SĐT", "Email", "Điểm", "Địa chỉ", ""
             }
         ));
         jScrollPane1.setViewportView(tableKh);
@@ -275,18 +295,58 @@ public class QuanLyKHPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaddActionPerformed
-        addDataModelNewClient();
-        if (ClientDao.insertKhachHang(clientData)){
-            resetFieldClient();
-            JOptionPane.showMessageDialog(null, "Đã thêm mã khách hàng thành công");
-        }else {
-            JOptionPane.showMessageDialog(null, "Thông tin số điện thoại đã tồn tại trên hệ thống vui lòng kiểm tra lại");
+        if (check_field_validate()){
+            addDataModelNewClient();
+            if (ClientDao.getKhachHangBySoDienThoai(clientData.getSDT()) == null){
+                if (ClientDao.insertKhachHang(clientData)){
+                    resetFieldClient();
+                    JOptionPane.showMessageDialog(null, "Đã thêm mã khách hàng thành công");
+                    reloadtableView();
+                }else {
+                    JOptionPane.showMessageDialog(null, "Thông tin số điện thoại đã tồn tại trên hệ thống vui lòng kiểm tra lại");
+                }
+            }else {
+                JOptionPane.showMessageDialog(null, "Số điện thoại của khách hàng đã tồn tại trên hệ thống không thể thêm mới vui lòng kiểm tra lại hoặc dùng tính năng cập nhật");
+            }
+        }else  {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin bắt buộc trước khi thêm mới"); 
         }
+
     }//GEN-LAST:event_btnaddActionPerformed
 
     private void btnupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdateActionPerformed
-        // TODO add your handling code here:
+        if (check_field_validate()){
+            addDataModelNewClient();
+            if (ClientDao.updateKhachHang(clientData, SDT)){
+                resetFieldClient();
+                JOptionPane.showMessageDialog(null, "Đã chỉnh sửa thông tin khách hàng thành công");
+                reloadtableView();
+            }else {
+                JOptionPane.showMessageDialog(null, "Lỗi hệ thống");
+            }
+        }else {
+                JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin bắt buộc trước khi cập nhật"); 
+        }
     }//GEN-LAST:event_btnupdateActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        search_sp(tfSearch.getText());
+    }//GEN-LAST:event_btnSearchActionPerformed
+    
+    public void reloadtableView(){
+        DefaultTableModel model = (DefaultTableModel) tableKh.getModel();
+        model.setRowCount(0);
+        tfSearch.setText("");
+        reset_filter();
+        setUptableView();   
+    }
+    private void search_sp (String str) {
+        TableRowSorter<DefaultTableModel> rowSorter;
+        DefaultTableModel model = (DefaultTableModel) tableKh.getModel();
+        rowSorter = new TableRowSorter<>(model);
+        tableKh.setRowSorter(rowSorter);
+        rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + str));
+    }
     
     private void resetFieldClient(){
         tfHoTen.setText("");
@@ -294,6 +354,15 @@ public class QuanLyKHPanel extends javax.swing.JPanel {
         tfEmail.setText("");
         tfDiem.setText("0");
         tfDiachi.setText("");
+        reset_filter();
+    }
+    
+    private void reset_filter(){
+        TableRowSorter<DefaultTableModel> rowSorter;
+        DefaultTableModel model = (DefaultTableModel) tableKh.getModel();
+        rowSorter = new TableRowSorter<>(model);
+        tableKh.setRowSorter(rowSorter);
+        rowSorter.setRowFilter(RowFilter.regexFilter("(?i)"));
     }
     
     private void addDataModelNewClient(){
@@ -305,11 +374,42 @@ public class QuanLyKHPanel extends javax.swing.JPanel {
         clientData = new ClientModel(hoTen, sdt, email, diem, diachi);                            
     }
     
+    private Boolean check_field_validate () {
+        if (!tfSDT.getText().isEmpty() & !tfHoTen.getText().isEmpty() & !tfDiem.getText().isEmpty() ) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    
     private void setupButtonAll(){
-       Uicore.setcolerbutton(btndetele, new java.awt.Color(255,0,0));
        Uicore.setcolerbutton(btnadd, new java.awt.Color(0,102,102));
        Uicore.setcolerbutton(btnupdate, new java.awt.Color(0,102,102));
        Uicore.setcolerbutton(btnSearch, new java.awt.Color(0,102,102));
+    }
+    
+    private void setupEditKH(){
+        tableKh.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (e.getClickCount() == 2 && tableKh.getSelectedRow() != -1) {
+                int row = tableKh.getSelectedRow();  // dòng được chọn
+                int colCount = tableKh.getColumnCount();
+                String HoTen = tableKh.getValueAt(row, 0).toString();
+                SDT = tableKh.getValueAt(row, 1).toString();
+                String Email = tableKh.getValueAt(row, 2).toString();
+                String Diem = tableKh.getValueAt(row, 3).toString();
+                String DiaChi = tableKh.getValueAt(row, 4).toString();
+                // Mở trang chỉnh sửa sản phẩm
+                tfHoTen.setText(HoTen);
+                tfSDT.setText(SDT);
+                tfEmail.setText(Email);
+                tfDiem.setText(Diem);
+                tfDiachi.setText(DiaChi);
+            }
+        }
+        });
     }
     
     private void setUptableView(){
@@ -319,6 +419,7 @@ public class QuanLyKHPanel extends javax.swing.JPanel {
         tableKh.setGridColor(Color.LIGHT_GRAY);
         tableKh.setDefaultEditor(Object.class, null);
         tableKh.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
+
         DefaultTableModel model = (DefaultTableModel) tableKh.getModel();
         Object[][] data = ClientDao.getAllKhachHang();
 
@@ -339,12 +440,80 @@ public class QuanLyKHPanel extends javax.swing.JPanel {
             tableKh.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
             }
         FileUtils.applyRedTextOnSelect(tableKh, new int[]{}, new int[]{});
-    }  
+        TableColumn actionCol = tableKh.getColumnModel().getColumn(5);
+        actionCol.setCellRenderer(new QuanLyKHPanel.ButtonRenderer());
+        actionCol.setCellEditor(new QuanLyKHPanel.ButtonEditor(tableKh));
+        actionCol.setMaxWidth(60);
+    } 
+    
+    public class ButtonRenderer extends JButton implements TableCellRenderer {
 
+       public ButtonRenderer() {
+           setOpaque(true);
+           setForeground(Color.RED);
+           setText("X");
+           setFocusPainted(false);
+           setBorderPainted(false);
+           setContentAreaFilled(false);
+       }
+
+       @Override
+       public Component getTableCellRendererComponent(JTable table, Object value,
+                                                      boolean isSelected, boolean hasFocus,
+                                                      int row, int column) {
+           return this;
+       }
+   }
+    
+    public class ButtonEditor extends DefaultCellEditor {
+        private JButton button;
+        private JTable table;
+
+        public ButtonEditor(JTable table) {
+            super(new JCheckBox());
+            this.table = table;
+
+            button = new JButton("X");
+            button.setForeground(Color.RED);
+            button.setFocusPainted(false);
+            button.setBorderPainted(false);
+            button.setContentAreaFilled(false);
+
+            button.addActionListener(e -> {
+                int row = table.getEditingRow();
+                if (row != -1) {
+                    if (table.isEditing()) {
+                     table.getCellEditor().stopCellEditing();
+                    }
+                    String hoten = tableKh.getValueAt(row, 0).toString();
+                    String SDT = tableKh.getValueAt(row, 1).toString();
+                    if (ClientDao.deleteKhachHangBySDT(SDT)){
+                        JOptionPane.showMessageDialog(null, "Đã xoá thông tin khách hàng họ tên: "+ hoten + " SĐT: " + SDT + " thành công");
+                        ((DefaultTableModel) table.getModel()).removeRow(row);
+                    }
+                }
+            });
+        }
+
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value,
+                                                     boolean isSelected, int row, int column) {
+            return button;
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            return "X";
+        }
+
+        @Override
+        public boolean isCellEditable(EventObject e) {
+            return true;
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnadd;
-    private javax.swing.JButton btndetele;
     private javax.swing.JButton btnupdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -358,12 +527,12 @@ public class QuanLyKHPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JTable tableKh;
     private javax.swing.JTextField tfDiachi;
     private javax.swing.JTextField tfDiem;
     private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfHoTen;
     private javax.swing.JTextField tfSDT;
+    private javax.swing.JTextField tfSearch;
     // End of variables declaration//GEN-END:variables
 }

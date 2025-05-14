@@ -7,9 +7,15 @@ package com.doancuoiky.core;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.KeyboardFocusManager;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import javax.swing.BorderFactory;
+import javax.swing.InputVerifier;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -42,12 +48,16 @@ public class Uicore {
     }
     
     public static void applyBlackBorderToAllTextFields(Container container) {
-    for (Component comp : container.getComponents()) {
-        if (comp instanceof JTextField) {
-            ((JTextField) comp).setBorder(BorderFactory.createLineBorder(Color.black));
-        } else if (comp instanceof Container) {
-            applyBlackBorderToAllTextFields((Container) comp); // đệ quy vào JPanel, JPanel con, ...
+        for (Component comp : container.getComponents()) {
+            if (comp instanceof JTextField) {
+                ((JTextField) comp).setBorder(BorderFactory.createLineBorder(Color.black));
+            } else if (comp instanceof Container) {
+                applyBlackBorderToAllTextFields((Container) comp); // đệ quy vào JPanel, JPanel con, ...
+            }
+            }   
         }
-    }
+    
+    
+
 }
-}
+

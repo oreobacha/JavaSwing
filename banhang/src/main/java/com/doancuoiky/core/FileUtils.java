@@ -24,6 +24,7 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
+import com.toedter.calendar.JDateChooser;
 import java.awt.Component;
 import java.io.InputStream;
 import javax.swing.JLabel;
@@ -33,6 +34,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
@@ -334,5 +337,30 @@ public class FileUtils {
             }
         });
     }
+    public static Date parseDate(String dateStr) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); 
+            return sdf.parse(dateStr);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null; 
+        }
+    }
+    public static void setDateFromString(JDateChooser dateChooser, String dateStr) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            Date date = sdf.parse(dateStr);
+            dateChooser.setDate(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Bạn có thể hiển thị thông báo lỗi nếu cần
+        }
+    }
     
+    public static String getFormattedDate(JDateChooser chooser) {
+    Date date = chooser.getDate();
+    if (date == null) return "";
+    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    return sdf.format(date);
+}
 }

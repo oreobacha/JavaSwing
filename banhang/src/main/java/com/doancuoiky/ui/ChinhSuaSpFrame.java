@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import com.doancuoiky.core.FileUtils;
+import com.doancuoiky.core.Uicore;
 import com.doancuoiky.model.ProductModel;
 import com.doancuoiky.dao.ProductDao;
 import java.net.URL;
@@ -39,6 +40,7 @@ public class ChinhSuaSpFrame extends javax.swing.JFrame {
         image_upload_base64 = imageSp;
         setup_click_add_image();
         add_data_field_edit(Masp, imageSp, TenSp, SoLuong, GiaBan, LoaiHang, BarCode, TrangThai);
+        Uicore.applyBlackBorderToAllTextFields(this);
     }
 
     /**

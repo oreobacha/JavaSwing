@@ -68,6 +68,7 @@ public class BanHangPanel extends javax.swing.JPanel {
         setupMoneyField();
         setupbidingButton();
         Uicore.applyBlackBorderToAllTextFields(this);
+//        Uicore.applyAutoFixToTextFields(this);
     }
 
     @SuppressWarnings("unchecked")
@@ -553,20 +554,20 @@ public class BanHangPanel extends javax.swing.JPanel {
 
     private void btnapplyvoucherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnapplyvoucherActionPerformed
         String mavoucher = tfInputvoucher.getText().trim().toLowerCase(); // hoặc toUpperCase()
-        Object[][] data = VoucherDao.getAllVoucher();
+        Object[][] data = VoucherDao.getAllVouchers();
         if (!tfInputvoucher.getText().trim().isEmpty()) {
-            if (containsVoucherIgnoreCase(data, mavoucher)) {
-            for (Object[] row : data) {
-                if (row.length > 0 && mavoucher.equalsIgnoreCase(row[0].toString())) {
-                    Object mavoucherdb = row[0];
-                    Object giamgiadb = row[1];
-                    add_sp_to_tableviewVoucher(new Object[]{mavoucherdb, giamgiadb});
-                    tfInputvoucher.setText("");
-                    break;
+            if (containsVoucherIgnoreCase(data, mavoucher) && checkVoucherApply(mavoucher)) {
+                for (Object[] row : data) {
+                    if (row.length > 0 && mavoucher.equalsIgnoreCase(row[0].toString())) {
+                        Object mavoucherdb = row[0];
+                        Object giamgiadb = row[4];
+                        add_sp_to_tableviewVoucher(new Object[]{mavoucherdb, giamgiadb});
+                        tfInputvoucher.setText("");
+                        break;
+                    }
                 }
-            }
             } else {
-                JOptionPane.showMessageDialog(null, "Mã khuyến mại không đúng, vui lòng kiểm tra lại");
+                JOptionPane.showMessageDialog(null, "Mã khuyến mại không đúng hoặc đang được áp dụng trong hoá đơn này vui lòng kiểm tra lại");
             }
         }
         else {
@@ -574,6 +575,7 @@ public class BanHangPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnapplyvoucherActionPerformed
 
+    
     private void btnsearchMakHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsearchMakHActionPerformed
        if (!tfInputMaKH.getText().isEmpty()) {
             Object[] dataClient = ClientDao.getKhachHangBySoDienThoai(tfInputMaKH.getText());
@@ -916,7 +918,18 @@ public class BanHangPanel extends javax.swing.JPanel {
         updateMoneyBillField();
     }
     
-    
+    private Boolean checkVoucherApply(String maVoucher){
+        DefaultTableModel modelTableVoucher = (DefaultTableModel) tableVoucher.getModel();
+         //Tính tổng tiền hàng   
+        for (int i = 0; i < modelTableVoucher.getRowCount(); i++) {
+            Object val = modelTableVoucher.getValueAt(i, 0); // cột mã voucher
+            if (val.toString().equals(maVoucher.toUpperCase()) ){
+                System.out.print("vào đây");
+                return false;
+            }
+        }
+        return true;
+    }
     
     private void setupAddSp(){
         TableSpDangBan.addMouseListener(new MouseAdapter() {
@@ -1001,7 +1014,6 @@ public class BanHangPanel extends javax.swing.JPanel {
         int tongcong = Integer.parseInt(lbTotalAmount.getText().toString().replace(" VND", "").replace(",", "").trim());
         int makhuyenmai = Integer.parseInt(lbTotalVoucher.getText().toString().replace(" VND", "").replace(",", "").trim());
         int tongdiem = Integer.parseInt(lbTotalPoint.getText().toString().replace(" VND", "").replace(",", "").trim());
-        System.out.print(tongcong);
         int thanhtien = tongcong - makhuyenmai - tongdiem;
         LbTotalMoney.setText(FileUtils.formatVND(thanhtien));
     }

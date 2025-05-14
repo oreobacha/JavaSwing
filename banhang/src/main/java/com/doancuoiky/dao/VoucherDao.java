@@ -10,25 +10,87 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList; 
 import java.util.List;
+import com.doancuoiky.model.VoucherModel;
 /**
  *
  * @author phuongmd
  */
 public class VoucherDao {
-        public static Object[][] getAllVoucher() {
+    public static boolean insertVoucher(VoucherModel data) {
+        String sql = "INSERT INTO voucher (MaKhuyenMai, SoLuong, TuNgay, DenNgay, GiamGia) VALUES (?, ?, ?, ?, ?)";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, data.getMaKhuyenMai());
+            stmt.setString(2, data.getSoLuong());
+            stmt.setString(3, data.getTuNgay());
+            stmt.setString(4, data.getDenNgay());
+            stmt.setString(5, data.getGiamGia());
+
+            return stmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    } 
+    public static boolean updateVoucher(VoucherModel data, String MaKhuyenMai) {
+        String sql = "UPDATE voucher SET SoLuong = ?, TuNgay = ?, DenNgay = ?, GiamGia = ?, MaKhuyenMai = ? WHERE MaKhuyenMai = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, data.getSoLuong());
+            stmt.setString(2, data.getTuNgay());
+            stmt.setString(3, data.getDenNgay());
+            stmt.setString(4, data.getGiamGia());
+            stmt.setString(5, data.getMaKhuyenMai());
+            stmt.setString(6, MaKhuyenMai);
+
+            return stmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public static boolean deleteVoucher(String maKhuyenMai) {
+        String sql = "DELETE FROM voucher WHERE MaKhuyenMai = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, maKhuyenMai);
+
+            return stmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static Object[][] getAllVouchers() {
         List<Object[]> rows = new ArrayList<>();
-        String sql = "SELECT mavoucher, giamgia FROM voucher";
+        String sql = "SELECT MaKhuyenMai, SoLuong, TuNgay, DenNgay, GiamGia FROM voucher";
+
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 Object[] row = new Object[] {
-                    rs.getString("mavoucher"),
-                    rs.getInt("giamgia")
+                    rs.getString("MaKhuyenMai"),
+                    rs.getString("SoLuong"),
+                    rs.getString("TuNgay"),
+                    rs.getString("DenNgay"),
+                    rs.getString("GiamGia")
                 };
                 rows.add(row);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -37,7 +99,35 @@ public class VoucherDao {
         for (int i = 0; i < rows.size(); i++) {
             data[i] = rows.get(i);
         }
+
         return data;
     }
-    
+
+     public static Object[] getVoucherByMa(String maKhuyenMai) {
+        String sql = "SELECT MaKhuyenMai, SoLuong, TuNgay, DenNgay, GiamGia FROM voucher WHERE MaKhuyenMai = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, maKhuyenMai);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Object[] {
+                        rs.getString("MaKhuyenMai"),
+                        rs.getString("SoLuong"),
+                        rs.getString("TuNgay"),
+                        rs.getString("DenNgay"),
+                        rs.getString("GiamGia")
+                    };
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+   
 }

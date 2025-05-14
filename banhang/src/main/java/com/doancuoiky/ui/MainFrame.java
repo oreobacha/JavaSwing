@@ -4,9 +4,12 @@
  */
 package com.doancuoiky.ui;
 //import com.doancuoiky.model.LoginModel;
+import com.doancuoiky.core.Uicore;
 import com.doancuoiky.ui.BanHangPanel;
 import com.doancuoiky.ui.SanPhamPanel;
 import com.doancuoiky.ui.QuanLyKHPanel;
+import com.doancuoiky.ui.VoucherPanel;
+import com.doancuoiky.ui.QuanLyNVPanel;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -34,13 +37,14 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form AdminFrame
      */
-    public MainFrame() {
+    public MainFrame(String role) {
         initComponents();
         mainContentPanel.setLayout(new CardLayout());
         initMenu();
         setupIcon();
         FocusableButtonmenu(btnBanHang);
         switchToPanel("banhangPanel", false);
+        Uicore.applyBlackBorderToAllTextFields(this);
 
 
     }       
@@ -55,6 +59,13 @@ public class MainFrame extends javax.swing.JFrame {
     
     QuanLyKHPanel quanlyKHPanel = new QuanLyKHPanel();
     mainContentPanel.add(quanlyKHPanel, "quanlyKHPanel");
+    
+        
+    VoucherPanel quanlyVoucherPanel = new VoucherPanel();
+    mainContentPanel.add(quanlyVoucherPanel, "quanlyVoucherPanel");
+    
+    QuanLyNVPanel quanlyNVPanel = new QuanLyNVPanel();
+    mainContentPanel.add(quanlyNVPanel, "quanlyNVPanel");
     }
     
     private void setupIcon(){
@@ -421,17 +432,17 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnQlSanPhamActionPerformed
 
     private void btnNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanVienActionPerformed
-        CardLayout cl = (CardLayout) mainContentPanel.getLayout();
-        cl.show(mainContentPanel, "sanphamPanel");
-        resetbgmenu();
-        FocusableButtonmenu(btnNhanVien);
+        if (switchToPanel("quanlyNVPanel", true)){
+            resetbgmenu();
+            FocusableButtonmenu(btnNhanVien);
+        };
     }//GEN-LAST:event_btnNhanVienActionPerformed
 
     private void btnKhuyenMaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhuyenMaiActionPerformed
-        CardLayout cl = (CardLayout) mainContentPanel.getLayout();
-        cl.show(mainContentPanel, "sanphamPanel");
-        resetbgmenu();
-        FocusableButtonmenu(btnKhuyenMai);
+        if (switchToPanel("quanlyVoucherPanel", true)){
+            resetbgmenu();
+            FocusableButtonmenu(btnKhuyenMai);
+        };
     }//GEN-LAST:event_btnKhuyenMaiActionPerformed
 
     private void BtnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDangXuatActionPerformed
@@ -446,10 +457,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnKhachHangActionPerformed
 
     private void btnHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoaDonActionPerformed
-        CardLayout cl = (CardLayout) mainContentPanel.getLayout();
-        cl.show(mainContentPanel, "sanphamPanel");
-        resetbgmenu();
-        FocusableButtonmenu(btnHoaDon);
+
     }//GEN-LAST:event_btnHoaDonActionPerformed
 
     /**

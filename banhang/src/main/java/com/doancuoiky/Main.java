@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
 //        LoginFrame Framelogin = new LoginFrame(); 
-        MainFrame Framelogin = new MainFrame(); 
+        MainFrame Framelogin = new MainFrame("admin"); 
         Framelogin.setLocationRelativeTo(null); 
         Framelogin.setVisible(true);            
         });
