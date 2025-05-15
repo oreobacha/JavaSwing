@@ -48,9 +48,9 @@ public class LoginFrame extends javax.swing.JFrame {
         }
     };
 
-    public void openAdminFrame (String role){
+    public void openAdminFrame (String HoTen, String role){
         javax.swing.SwingUtilities.invokeLater(() -> {
-        MainFrame FrameAdmin = new MainFrame(role); 
+        MainFrame FrameAdmin = new MainFrame(HoTen, role); 
         FrameAdmin.setLocationRelativeTo(null); 
         FrameAdmin.setVisible(true);   
         });
@@ -216,13 +216,12 @@ public class LoginFrame extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String username = Username.getText();
         String password =  Password.getText();
-        String role = UserDao.loginByUsernamePassword(username, password);
-        if (role != null) {
+        Object DataLogin[] = UserDao.loginByUsernamePassword(username, password);
+        if (DataLogin!= null) {
             dispose();
-            if (role.equals("admin")) {
-                openAdminFrame(role);
+            if (DataLogin[5].toString().toLowerCase().equals("admin")) {
+                openAdminFrame(DataLogin[0].toString() ,DataLogin[5].toString());
             } else {
-                JOptionPane.showMessageDialog(this, "Login success as member");
 //                new MemberFrame(user);
             }
         } else {

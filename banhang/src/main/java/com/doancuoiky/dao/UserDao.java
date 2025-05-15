@@ -70,7 +70,7 @@ public class UserDao {
 
     public static Object[][] getAllUsers() {
         List<Object[]> rows = new ArrayList<>();
-        String sql = "SELECT username, password, role, hoTen, SDT, DiaChi FROM users";
+        String sql = "SELECT hoTen, SDT, DiaChi, username, password, role FROM users";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
@@ -78,12 +78,12 @@ public class UserDao {
 
             while (rs.next()) {
                 Object[] row = new Object[]{
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        rs.getString("role"),
-                        rs.getString("hoTen"),
-                        rs.getString("SDT"),
-                        rs.getString("DiaChi")
+                    rs.getString("hoTen"),
+                    rs.getString("SDT"),
+                    rs.getString("DiaChi"),
+                    rs.getString("username"),
+                    rs.getString("password"),
+                    rs.getString("role")
                 };
                 rows.add(row);
             }
@@ -100,45 +100,24 @@ public class UserDao {
         return data;
     }
 
-    public static String loginByUsernamePassword(String username, String password) {
-        String sql = "SELECT role FROM users WHERE username = ? AND password = ?";
-
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setString(1, username);
-            stmt.setString(2, password);
-
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getString("role");
-                }
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-    
-    public static Object[] getUserByUsername(String username) {
-    String sql = "SELECT username, password, role, hoTen, SDT, DiaChi FROM users WHERE username = ?";
+    public static Object[] loginByUsernamePassword(String username, String password) {
+   String sql = "SELECT hoTen, SDT, DiaChi, username, password, role FROM users WHERE username = ? and password = ?";
 
     try (Connection conn = DBConnection.getConnection();
          PreparedStatement stmt = conn.prepareStatement(sql)) {
 
         stmt.setString(1, username);
+        stmt.setString(2, password);
 
         try (ResultSet rs = stmt.executeQuery()) {
             if (rs.next()) {
                 return new Object[] {
-                    rs.getString("username"),
-                    rs.getString("password"),
-                    rs.getString("role"),
                     rs.getString("hoTen"),
                     rs.getString("SDT"),
-                    rs.getString("DiaChi")
+                    rs.getString("DiaChi"),
+                    rs.getString("username"),
+                    rs.getString("password"),
+                    rs.getString("role")
                 };
             }
         }
@@ -149,6 +128,32 @@ public class UserDao {
 
     return null; // không tìm thấy user
     }
+    
+    public static Object[] getUserByUsername(String username) {
+    String sql = "SELECT hoTen, SDT, DiaChi, username, password, role FROM users WHERE username = ?";
 
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
 
+        stmt.setString(1, username);
+
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                return new Object[] {
+                    rs.getString("hoTen"),
+                    rs.getString("SDT"),
+                    rs.getString("DiaChi"),
+                    rs.getString("username"),
+                    rs.getString("password"),
+                    rs.getString("role")
+                };
+            }
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return null; // không tìm thấy user
+    }
 }

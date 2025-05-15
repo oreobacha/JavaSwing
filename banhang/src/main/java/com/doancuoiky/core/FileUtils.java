@@ -33,6 +33,9 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -263,7 +266,7 @@ public class FileUtils {
 
                // Format tiền cho cột chỉ định
                boolean isCurrency = false;
-               for (int vndCol : vndColumns) {
+               for (long vndCol : vndColumns) {
                    if (column == vndCol) {
                        isCurrency = true;
                        break;
@@ -271,7 +274,7 @@ public class FileUtils {
                }
                if (isCurrency && value != null) {
                    try {
-                       int price = Integer.parseInt(value.toString());
+                       long price = Long.parseLong(value.toString());
                        label.setText(vndFormat.format(price) + " VND");
                    } catch (NumberFormatException e) {
                        // fallback
@@ -358,9 +361,22 @@ public class FileUtils {
     }
     
     public static String getFormattedDate(JDateChooser chooser) {
-    Date date = chooser.getDate();
-    if (date == null) return "";
-    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-    return sdf.format(date);
+        Date date = chooser.getDate();
+        if (date == null) return "";
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        return sdf.format(date);
+    }   
+    
+    public static KeyListener filterOnlyNumberDuong() {
+    return new KeyAdapter() {
+        @Override
+        public void keyTyped(KeyEvent e) {
+            char c = e.getKeyChar();
+            if (!Character.isDigit(c) && c != '\b') {
+                e.consume(); // Chặn ký tự không hợp lệ
+                JOptionPane.showMessageDialog(null, "Chỉ được nhập số nguyên dương!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    };
 }
 }

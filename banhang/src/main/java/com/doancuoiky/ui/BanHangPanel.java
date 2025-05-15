@@ -29,6 +29,7 @@ import java.util.Locale;
 import com.doancuoiky.dao.ProductDao;
 import com.doancuoiky.dao.VoucherDao;
 import com.doancuoiky.dao.ClientDao;
+import com.doancuoiky.dao.PaymentDao;
 import com.doancuoiky.core.FileUtils;
 import com.doancuoiky.core.Uicore;
 import java.awt.event.FocusAdapter;
@@ -549,7 +550,7 @@ public class BanHangPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnpaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpaymentActionPerformed
-        // TODO add your handling code here:
+//        PaymentDao.createPayment();
     }//GEN-LAST:event_btnpaymentActionPerformed
 
     private void btnapplyvoucherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnapplyvoucherActionPerformed
@@ -662,6 +663,10 @@ public class BanHangPanel extends javax.swing.JPanel {
             }
         }
         return false;
+    }
+    
+    private void getDataModelPayment(){
+//        long GiaTriKM = lbTotalVoucher.getText()
     }
     
     private void reset_filter(){
@@ -823,13 +828,19 @@ public class BanHangPanel extends javax.swing.JPanel {
             TableColumn column = TableTinhTien.getColumnModel().getColumn(i);
             column.setHeaderRenderer(centerRenderer);
         }
+        JTextField textField = new JTextField();
+        textField.setHorizontalAlignment(JTextField.CENTER);
+        textField.addKeyListener(FileUtils.filterOnlyNumberDuong()); // dùng hàm tiện ích
+
+        TableColumn soLuongColumn = TableTinhTien.getColumnModel().getColumn(2);
+        soLuongColumn.setCellEditor(new DefaultCellEditor(textField));
         model.addTableModelListener(e -> {
             int row = e.getFirstRow();
             int col = e.getColumn();
             if (col == 2) { // cột số lượng thay đổi
-                int soLuong = Integer.parseInt(model.getValueAt(row, 2).toString());
-                int giaBan = Integer.parseInt(model.getValueAt(row, 3).toString().replace(" VND", "").trim());
-                int thanhTien = soLuong * giaBan;
+                long soLuong = Long.parseLong(model.getValueAt(row, 2).toString());
+                long giaBan = Long.parseLong(model.getValueAt(row, 3).toString().replace(" VND", "").trim());
+                long thanhTien = soLuong * giaBan;
                 model.setValueAt(thanhTien, row, 4); // cập nhật lại thành tiền
                 updateMoneyBillField();
             }
@@ -861,7 +872,7 @@ public class BanHangPanel extends javax.swing.JPanel {
         int row = e.getFirstRow();
         int col = e.getColumn();
         if (col == 2) { // cột số lượng thay đổi
-            int giaBan = Integer.parseInt(model.getValueAt(row, 1).toString().replace(" VND", "").trim());
+            long giaBan = Long.parseLong(model.getValueAt(row, 1).toString().replace(" VND", "").trim());
             model.setValueAt(giaBan, row, 1); // cập nhật lại thành tiền
         }
     });
@@ -978,19 +989,19 @@ public class BanHangPanel extends javax.swing.JPanel {
     
     private void updateMoneyBillField() {
         DefaultTableModel modelTableTinhTien = (DefaultTableModel) TableTinhTien.getModel();
-        int tongTien = 0;
+        long tongTien = 0;
         
         DefaultTableModel modelTableVoucher = (DefaultTableModel) tableVoucher.getModel();
-        int tongVoucher = 0;
+        long tongVoucher = 0;
         
-        int totalPoint = Point.trim().isEmpty() ? 0 : Integer.parseInt(Point.trim());
+        long totalPoint = Point.trim().isEmpty() ? 0 : Integer.parseInt(Point.trim());
     
         
          //Tính tổng tiền hàng   
         for (int i = 0; i < modelTableTinhTien.getRowCount(); i++) {
             Object val = modelTableTinhTien.getValueAt(i, 4); // cột thành tiền
             if (val != null) {
-                int tien = Integer.parseInt(val.toString().replace(",", "").trim());
+                long tien = Long.parseLong(val.toString().replace(",", "").trim());
                 tongTien += tien;
             }
         }
@@ -998,7 +1009,7 @@ public class BanHangPanel extends javax.swing.JPanel {
         for (int i = 0; i < modelTableVoucher.getRowCount(); i++) {
             Object val = modelTableVoucher.getValueAt(i, 1); // cột giảm giá
             if (val != null) {
-                int voucher = Integer.parseInt(val.toString().replace(",", "").trim());
+                long voucher = Long.parseLong(val.toString().replace(",", "").trim());
                 tongVoucher += voucher;
             }
         }
@@ -1011,10 +1022,10 @@ public class BanHangPanel extends javax.swing.JPanel {
     }
     
     private void setupMoneyField(){
-        int tongcong = Integer.parseInt(lbTotalAmount.getText().toString().replace(" VND", "").replace(",", "").trim());
-        int makhuyenmai = Integer.parseInt(lbTotalVoucher.getText().toString().replace(" VND", "").replace(",", "").trim());
-        int tongdiem = Integer.parseInt(lbTotalPoint.getText().toString().replace(" VND", "").replace(",", "").trim());
-        int thanhtien = tongcong - makhuyenmai - tongdiem;
+        long tongcong = Long.parseLong(lbTotalAmount.getText().toString().replace(" VND", "").replace(",", "").trim());
+        long makhuyenmai = Long.parseLong(lbTotalVoucher.getText().toString().replace(" VND", "").replace(",", "").trim());
+        long tongdiem = Long.parseLong(lbTotalPoint.getText().toString().replace(" VND", "").replace(",", "").trim());
+        long thanhtien = tongcong - makhuyenmai - tongdiem;
         LbTotalMoney.setText(FileUtils.formatVND(thanhtien));
     }
  

@@ -698,12 +698,6 @@
         <Component class="javax.swing.JButton" name="btnUsePoint">
           <Properties>
             <Property name="text" type="java.lang.String" value="S&#x1eed; d&#x1ee5;ng &#x111;i&#x1ec3;m"/>
-            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[113, 23]"/>
-            </Property>
-            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[113, 23]"/>
-            </Property>
             <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[78, 25]"/>
             </Property>

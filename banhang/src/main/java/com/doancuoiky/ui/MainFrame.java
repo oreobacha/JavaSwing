@@ -10,6 +10,7 @@ import com.doancuoiky.ui.SanPhamPanel;
 import com.doancuoiky.ui.QuanLyKHPanel;
 import com.doancuoiky.ui.VoucherPanel;
 import com.doancuoiky.ui.QuanLyNVPanel;
+import com.doancuoiky.ui.ThongKePanel;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -34,18 +35,23 @@ import javax.swing.JOptionPane;
 public class MainFrame extends javax.swing.JFrame {
     private BanHangPanel banhangPanel;
     private String currentPanelName = "MainFrame";
+    private String HoTen;
+    private String Role;
     /**
      * Creates new form AdminFrame
      */
-    public MainFrame(String role) {
+    public MainFrame(String HoTen, String Role) {
+        this.HoTen = HoTen;
+        this.Role = Role;
         initComponents();
         mainContentPanel.setLayout(new CardLayout());
         initMenu();
         setupIcon();
+        setupUI();
         FocusableButtonmenu(btnBanHang);
         switchToPanel("banhangPanel", false);
         Uicore.applyBlackBorderToAllTextFields(this);
-
+        
 
     }       
     
@@ -66,6 +72,14 @@ public class MainFrame extends javax.swing.JFrame {
     
     QuanLyNVPanel quanlyNVPanel = new QuanLyNVPanel();
     mainContentPanel.add(quanlyNVPanel, "quanlyNVPanel");
+    
+    ThongKePanel thongKePanel = new ThongKePanel();
+    mainContentPanel.add(thongKePanel, "thongKePanel");
+    }
+    
+    private void setupUI(){
+        name.setText(HoTen);
+        position.setText(Role);
     }
     
     private void setupIcon(){
@@ -123,7 +137,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnKhuyenMai = new javax.swing.JButton();
         BtnDangXuat = new javax.swing.JButton();
         btnKhachHang = new javax.swing.JButton();
-        btnHoaDon = new javax.swing.JButton();
+        btnThongKe = new javax.swing.JButton();
         mainContentPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -135,10 +149,6 @@ public class MainFrame extends javax.swing.JFrame {
         jPanelInfo.setAlignmentX(0.0F);
         jPanelInfo.setAlignmentY(0.0F);
         jPanelInfo.setPreferredSize(new java.awt.Dimension(200, 100));
-
-        name.setText("Dương Minh");
-
-        position.setText("Thu ngân");
 
         jLabel2.setText("Chức vụ:");
 
@@ -264,14 +274,14 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        btnHoaDon.setBackground(new java.awt.Color(255, 255, 0));
-        btnHoaDon.setText("Hoá Đơn");
-        btnHoaDon.setBorderPainted(false);
-        btnHoaDon.setFocusPainted(false);
-        btnHoaDon.setPreferredSize(new java.awt.Dimension(78, 25));
-        btnHoaDon.addActionListener(new java.awt.event.ActionListener() {
+        btnThongKe.setBackground(new java.awt.Color(255, 255, 0));
+        btnThongKe.setText("Thống kê");
+        btnThongKe.setBorderPainted(false);
+        btnThongKe.setFocusPainted(false);
+        btnThongKe.setPreferredSize(new java.awt.Dimension(78, 25));
+        btnThongKe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHoaDonActionPerformed(evt);
+                btnThongKeActionPerformed(evt);
             }
         });
 
@@ -285,7 +295,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addComponent(btnKhuyenMai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(BtnDangXuat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnKhachHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnHoaDon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnThongKe, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         JpanelMenuLayout.setVerticalGroup(
             JpanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,7 +310,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addComponent(btnKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(btnHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(BtnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 80, Short.MAX_VALUE))
@@ -394,7 +404,7 @@ public class MainFrame extends javax.swing.JFrame {
         setupresetbgmenu(btnKhuyenMai); 
         setupresetbgmenu(BtnDangXuat);
         setupresetbgmenu(btnKhachHang); 
-        setupresetbgmenu(btnHoaDon);
+        setupresetbgmenu(btnThongKe);
     }
     
     public Boolean switchToPanel(String panelName, Boolean isCheck) {
@@ -456,9 +466,12 @@ public class MainFrame extends javax.swing.JFrame {
         };
     }//GEN-LAST:event_btnKhachHangActionPerformed
 
-    private void btnHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoaDonActionPerformed
-
-    }//GEN-LAST:event_btnHoaDonActionPerformed
+    private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeActionPerformed
+        if (switchToPanel("thongKePanel", true)){
+            resetbgmenu();
+            FocusableButtonmenu(btnThongKe);
+        };
+    }//GEN-LAST:event_btnThongKeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -498,11 +511,11 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton BtnDangXuat;
     private javax.swing.JPanel JpanelMenu;
     private javax.swing.JButton btnBanHang;
-    private javax.swing.JButton btnHoaDon;
     private javax.swing.JButton btnKhachHang;
     private javax.swing.JButton btnKhuyenMai;
     private javax.swing.JButton btnNhanVien;
     private javax.swing.JButton btnQlSanPham;
+    private javax.swing.JButton btnThongKe;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

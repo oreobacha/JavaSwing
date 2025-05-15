@@ -16,13 +16,13 @@ public class UserModel {
     private final String SDT;
     private final String DiaChi;
 
-    public UserModel(String username, String password, String role, String hoTen, String SDT, String DiaChi) {
-        this.username = username;
-        this.password = password;
-        this.role = role;
+    public UserModel(String hoTen, String SDT, String DiaChi, String username, String password, String role) {
         this.hoTen = hoTen;
         this.SDT = SDT;
         this.DiaChi = DiaChi;
+        this.username = username;
+        this.password = password;
+        this.role = role;
                                         
     }
 

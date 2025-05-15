@@ -36,6 +36,7 @@ public class TaoSpMoiFrame extends javax.swing.JFrame {
         initComponents();
         setup_click_add_image();
         Uicore.applyBlackBorderToAllTextFields(this);
+        tfGiaBan.addKeyListener(FileUtils.filterOnlyNumberDuong());
     }
 
     /**
@@ -79,12 +80,19 @@ public class TaoSpMoiFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Mã sản phẩm*");
 
+        tfMaSP.setPreferredSize(new java.awt.Dimension(64, 25));
+
         jLabel3.setText("Tên sản phẩm*");
+
+        tfTenSP.setPreferredSize(new java.awt.Dimension(64, 25));
 
         jLabel4.setText("Số lượng*");
 
+        tfSoLuong.setPreferredSize(new java.awt.Dimension(64, 25));
+
         jLabel5.setText("Giá bán*");
 
+        tfGiaBan.setPreferredSize(new java.awt.Dimension(64, 25));
         tfGiaBan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfGiaBanActionPerformed(evt);
@@ -95,13 +103,15 @@ public class TaoSpMoiFrame extends javax.swing.JFrame {
 
         jLabel7.setText("BarCode*");
 
+        tfBarcode.setPreferredSize(new java.awt.Dimension(64, 25));
+
         jLabel8.setText("Trạng thái");
 
         dlTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Đang kinh doanh", "Ngừng kinh doanh" }));
-        dlTrangThai.setPreferredSize(new java.awt.Dimension(64, 23));
+        dlTrangThai.setPreferredSize(new java.awt.Dimension(64, 25));
 
         dlLoaiHang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quần áo", "Áo khoác", "Túi xách", "Giày" }));
-        dlLoaiHang.setPreferredSize(new java.awt.Dimension(64, 23));
+        dlLoaiHang.setPreferredSize(new java.awt.Dimension(64, 25));
 
         jLabel9.setText("Hình ảnh sản phẩm*");
 
@@ -125,11 +135,11 @@ public class TaoSpMoiFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfGiaBan)
-                    .addComponent(tfBarcode)
+                    .addComponent(tfGiaBan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfBarcode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(dlLoaiHang, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tfTenSP)
-                    .addComponent(tfSoLuong)
+                    .addComponent(tfTenSP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tfSoLuong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
@@ -165,7 +175,7 @@ public class TaoSpMoiFrame extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dlTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(dlTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
@@ -181,11 +191,11 @@ public class TaoSpMoiFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfGiaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfGiaBan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(dlLoaiHang, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dlLoaiHang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel7))
                     .addComponent(lbImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))

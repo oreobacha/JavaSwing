@@ -371,13 +371,13 @@ public class QuanLyNVPanel extends javax.swing.JPanel {
     }
     
     private void addDataModelNewUser(){
-        String hoTen  = tfSDT.getText();
-        String sdt  = tfNhanVien.getText();
+        String hoTen  = tfNhanVien.getText();
+        String sdt  = tfSDT.getText();
         String diaChi  = tfDiaChi.getText();
         String role = dlPermision.getSelectedItem().toString();
         String username  = tfUsername.getText();
         String password  = tfPassword.getText();
-        UserData = new UserModel(username, password, role, hoTen, sdt, diaChi);                            
+        UserData = new UserModel(hoTen, sdt, diaChi, username, password, role);                            
     }
     
     private Boolean check_field_validate () {
@@ -448,7 +448,7 @@ public class QuanLyNVPanel extends javax.swing.JPanel {
             tableKh.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
             }
         FileUtils.applyRedTextOnSelect(tableKh, new int[]{}, new int[]{});
-        TableColumn actionCol = tableKh.getColumnModel().getColumn(5);
+        TableColumn actionCol = tableKh.getColumnModel().getColumn(6);
         actionCol.setCellRenderer(new QuanLyNVPanel.ButtonRenderer());
         actionCol.setCellEditor(new QuanLyNVPanel.ButtonEditor(tableKh));
         actionCol.setMaxWidth(60);
