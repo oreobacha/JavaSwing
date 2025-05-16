@@ -41,6 +41,8 @@ public class ChinhSuaSpFrame extends javax.swing.JFrame {
         setup_click_add_image();
         add_data_field_edit(Masp, imageSp, TenSp, SoLuong, GiaBan, LoaiHang, BarCode, TrangThai);
         Uicore.applyBlackBorderToAllTextFields(this);
+        setResizable(false); 
+        setupUI();
     }
 
     /**
@@ -77,7 +79,7 @@ public class ChinhSuaSpFrame extends javax.swing.JFrame {
         setTitle("Chỉnh sửa sản phẩm");
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 3, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 3, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 0));
         jLabel1.setText("Tạo Sản Phẩm ");
         jLabel1.setToolTipText("");
@@ -117,6 +119,7 @@ public class ChinhSuaSpFrame extends javax.swing.JFrame {
 
         btnDeleteSP.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
         btnDeleteSP.setText("Xoá sản phẩm");
+        btnDeleteSP.setPreferredSize(new java.awt.Dimension(137, 40));
         btnDeleteSP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteSPActionPerformed(evt);
@@ -125,6 +128,7 @@ public class ChinhSuaSpFrame extends javax.swing.JFrame {
 
         btnUpdateSP.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
         btnUpdateSP.setText("Cập nhật");
+        btnUpdateSP.setPreferredSize(new java.awt.Dimension(98, 40));
         btnUpdateSP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateSPActionPerformed(evt);
@@ -144,15 +148,15 @@ public class ChinhSuaSpFrame extends javax.swing.JFrame {
                     .addComponent(tfTenSP)
                     .addComponent(tfSoLuong)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel7)
                             .addComponent(jLabel6)
                             .addComponent(jLabel5)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfMaSP, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfMaSP, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(209, 209, 209)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,9 +166,9 @@ public class ChinhSuaSpFrame extends javax.swing.JFrame {
                         .addComponent(dlTrangThai, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lbImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnDeleteSP)
+                        .addComponent(btnDeleteSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnUpdateSP)))
+                        .addComponent(btnUpdateSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(44, 44, 44))
         );
         jPanel1Layout.setVerticalGroup(
@@ -209,8 +213,8 @@ public class ChinhSuaSpFrame extends javax.swing.JFrame {
                 .addComponent(tfBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDeleteSP, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUpdateSP, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnDeleteSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUpdateSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
@@ -230,7 +234,11 @@ public class ChinhSuaSpFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    private void setupUI(){
+        Uicore.setcolerbutton(btnUpdateSP, new java.awt.Color(0,102,102)); 
+        Uicore.setcolerbutton(btnDeleteSP, new java.awt.Color(0,102,102)); 
+    }
     private void tfGiaBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfGiaBanActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfGiaBanActionPerformed

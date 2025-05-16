@@ -4,6 +4,7 @@
  */
 package com.doancuoiky.core;
 
+import com.doancuoiky.model.PaymentModel;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -32,6 +33,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -158,7 +160,7 @@ public class FileUtils {
             return false;
         }
     }
-    
+        
     public static com.itextpdf.text.Font getVietnameseFont(float size) throws Exception {
         InputStream fontStream = FileUtils.class.getResourceAsStream("/fonts/Roboto-Regular.ttf");
 
@@ -177,7 +179,7 @@ public class FileUtils {
         return getVietnameseFont(13); // mặc định size = 13
     }   
     
-    public static boolean exportInvoice(String filePath) {
+    public static boolean exportPaymentFromTable(JTable table, String filePath, PaymentModel paymentData) {
         try {
             Document document = new Document();
             PdfWriter.getInstance(document, new FileOutputStream(filePath));
@@ -188,34 +190,44 @@ public class FileUtils {
             title.setAlignment(Element.ALIGN_CENTER);
             document.add(title);
 
-            document.add(new Paragraph("Ngày: 09/05/2025", getVietnameseFont(13)));
-            document.add(new Paragraph("Khách hàng: Nguyễn Văn A", getVietnameseFont(13)));
+            // Ngày và tên khách hàng
+            String DateNow = FileUtils.convertDateString( paymentData.getNgayThanhToan());
+            document.add(new Paragraph("Ngày: " + DateNow, getVietnameseFont(13)));
+            document.add(new Paragraph("Khách hàng: " + paymentData.getHoTen(), getVietnameseFont(13)));
+            document.add(new Paragraph("Số điện thoại: " + paymentData.getSdt(), getVietnameseFont(13)));
             document.add(Chunk.NEWLINE);
 
-            // Bảng sản phẩm
-            PdfPTable table = new PdfPTable(4); // 4 cột
-            table.setWidthPercentage(100);
-            table.addCell(new PdfPCell(new Phrase("Tên SP", getVietnameseFont())));
-            table.addCell(new PdfPCell(new Phrase("SL", getVietnameseFont())));
-            table.addCell(new PdfPCell(new Phrase("Đơn giá", getVietnameseFont())));
-            table.addCell(new PdfPCell(new Phrase("Thành tiền", getVietnameseFont())));
+            // Bảng hóa đơn
+            PdfPTable pdfTable = new PdfPTable(4);
+            pdfTable.setWidthPercentage(100);
+            pdfTable.addCell(new PdfPCell(new Phrase("Tên sản phẩm", getVietnameseFont())));
+            pdfTable.addCell(new PdfPCell(new Phrase("Số lượng", getVietnameseFont())));
+            pdfTable.addCell(new PdfPCell(new Phrase("Đơn giá", getVietnameseFont())));
+            pdfTable.addCell(new PdfPCell(new Phrase("Thành tiền", getVietnameseFont())));
 
-            // Dữ liệu
-            table.addCell(new PdfPCell(new Phrase("Sản phẩm A", getVietnameseFont())));
-            table.addCell(new PdfPCell(new Phrase("2", getVietnameseFont())));
-            table.addCell(new PdfPCell(new Phrase("50,000 VND", getVietnameseFont())));
-            table.addCell(new PdfPCell(new Phrase("100,000 VND", getVietnameseFont())));
+            TableModel model = table.getModel();
+            int rowCount = model.getRowCount();
+            long tongTien = 0;
 
-            table.addCell(new PdfPCell(new Phrase("Sản phẩm B", getVietnameseFont())));
-            table.addCell(new PdfPCell(new Phrase("1", getVietnameseFont())));
-            table.addCell(new PdfPCell(new Phrase("30,000 VND", getVietnameseFont())));
-            table.addCell(new PdfPCell(new Phrase("30,000 VND", getVietnameseFont())));
+            for (int row = 0; row < rowCount; row++) {
+                String tenSP = model.getValueAt(row, 1).toString(); 
+                String sl = model.getValueAt(row, 2).toString();  
+                String donGia = model.getValueAt(row, 3).toString();
+                String thanhTien = model.getValueAt(row, 4).toString();
+                
+                pdfTable.addCell(new Phrase(tenSP, getVietnameseFont()));
+                pdfTable.addCell(new Phrase(sl, getVietnameseFont()));
+                pdfTable.addCell(new Phrase(formatVND(Long.parseLong(donGia)), getVietnameseFont()));
+                pdfTable.addCell(new Phrase(formatVND(Long.parseLong(thanhTien)), getVietnameseFont()));
+            }
 
-            document.add(table);
-
+            document.add(pdfTable);
             document.add(Chunk.NEWLINE);
-            document.add(new Paragraph("Tổng cộng: 130,000 VND", getVietnameseFont(13)));
 
+            // Tổng tiền
+            document.add(new Paragraph("Tổng tiền sản phẩm : " + formatVND(paymentData.getTongTienHang()), getVietnameseFont(13)));
+            document.add(new Paragraph("Tổng giảm giá : " + formatVND(paymentData.getTongGiamGia()), getVietnameseFont(13)));
+            document.add(new Paragraph("Tổng thanh toán : " + formatVND(paymentData.getTongDoanhThu()), getVietnameseFont(13)));
             document.close();
             return true;
 
@@ -224,12 +236,11 @@ public class FileUtils {
             return false;
         }
     }
-    
-    public static void exportInvoiceWithSaveDialog(JFrame parentFrame) {
-        //Hàm chọn nơi lưu hoá đơn
+
+    public static void exportPayment(JTable table, JFrame parentFrame, PaymentModel paymentData) {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Chọn nơi lưu hóa đơn");
-        fileChooser.setSelectedFile(new File("hoadon.pdf"));
+        fileChooser.setSelectedFile(new File(paymentData.getMaThanhToan() + ".pdf"));
 
         int result = fileChooser.showSaveDialog(parentFrame);
         if (result == JFileChooser.APPROVE_OPTION) {
@@ -237,11 +248,17 @@ public class FileUtils {
             String path = selectedFile.getAbsolutePath();
             if (!path.toLowerCase().endsWith(".pdf")) {
                 path += ".pdf";
+                selectedFile = new File(path); 
             }
 
-            boolean success = exportInvoice(path);
+            boolean success = exportPaymentFromTable(table, path, paymentData);
             if (success) {
-                JOptionPane.showMessageDialog(parentFrame, "Tạo hóa đơn thành công:\n" + path);
+                try {
+                    Desktop.getDesktop().open(selectedFile); 
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(parentFrame, "Không thể mở file!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
+                }
             } else {
                 JOptionPane.showMessageDialog(parentFrame, "Xuất hóa đơn thất bại!", "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
@@ -264,7 +281,6 @@ public class FileUtils {
                label.setBackground(Color.WHITE);
                label.setOpaque(true);
 
-               // Format tiền cho cột chỉ định
                boolean isCurrency = false;
                for (long vndCol : vndColumns) {
                    if (column == vndCol) {
@@ -282,7 +298,6 @@ public class FileUtils {
                    }
                }
 
-               // ✨ Màu chữ đỏ khi chọn
                if (isSelected) {
                    label.setForeground(Color.BLUE);
                }
@@ -368,15 +383,38 @@ public class FileUtils {
     }   
     
     public static KeyListener filterOnlyNumberDuong() {
-    return new KeyAdapter() {
-        @Override
-        public void keyTyped(KeyEvent e) {
-            char c = e.getKeyChar();
-            if (!Character.isDigit(c) && c != '\b') {
-                e.consume(); // Chặn ký tự không hợp lệ
-                JOptionPane.showMessageDialog(null, "Chỉ được nhập số nguyên dương!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) && c != '\b') {
+                    e.consume(); 
+                    JOptionPane.showMessageDialog(null, "Chỉ được nhập số nguyên dương!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                }
             }
+        };
+    }
+    
+    public static java.sql.Date getDateNow() {
+        return new java.sql.Date(System.currentTimeMillis());
+    }
+    
+    public static String convertDateString(Date sqlDate) {
+        if (sqlDate == null) return "";
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return sdf.format(sqlDate);
+    }
+    
+    public static java.sql.Date convertStringToDateSql(String input) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            sdf.setLenient(false); 
+            Date parsed = sdf.parse(input); 
+
+            return new java.sql.Date(parsed.getTime());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null; 
         }
-    };
-}
+    }
 }

@@ -189,7 +189,8 @@ public class VoucherPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel8.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Helvetica Neue", 3, 24)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(102, 102, 0));
         jLabel8.setText("Quản lý khuyến mại");
 
         tfSearch.setPreferredSize(new java.awt.Dimension(170, 25));
@@ -270,7 +271,7 @@ public class VoucherPanel extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -288,9 +289,9 @@ public class VoucherPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
    
@@ -367,6 +368,14 @@ public class VoucherPanel extends javax.swing.JPanel {
         rowSorter = new TableRowSorter<>(model);
         tableKh.setRowSorter(rowSorter);
         rowSorter.setRowFilter(RowFilter.regexFilter("(?i)"));
+    }
+    
+    public void load_voucher(){
+        DefaultTableModel model = (DefaultTableModel) tableKh.getModel();
+        model.setRowCount(0);
+        tfSearch.setText("");
+        reset_filter();
+        setUptableView();  
     }
     
     private void addDataModelNewVoucher(){

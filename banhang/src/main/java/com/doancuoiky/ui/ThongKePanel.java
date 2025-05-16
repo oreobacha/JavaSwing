@@ -11,6 +11,9 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
+import com.doancuoiky.dao.PaymentDao;
+import com.doancuoiky.core.FileUtils;
+import java.util.Date;
 
 /**
  *
@@ -59,7 +62,8 @@ public class ThongKePanel extends javax.swing.JPanel {
 
         PannelTong.setPreferredSize(new java.awt.Dimension(1400, 300));
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 3, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 3, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(102, 102, 0));
         jLabel1.setText("THỐNG KÊ");
 
         jPanel4.setBackground(new java.awt.Color(0, 102, 204));
@@ -298,16 +302,20 @@ public class ThongKePanel extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+    
     private void loadChartToPanel() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
 
-        // Ví dụ dữ liệu
-        dataset.addValue(120000, "Số lượng", "2025-05-12");
-        dataset.addValue(500000, "Doanh thu", "2025-05-12");
+        Object[][] data = PaymentDao.getPaymentByDateRange(FileUtils.convertStringToDateSql("11-04-2025"), FileUtils.convertStringToDateSql("20-05-2025"));
+        for (Object[] datachart : data) {
+            Date ngay = (Date) datachart[0]; 
+            double giamGia = (double) datachart[1]; 
+            double doanhThu = (double) datachart[2];
+            dataset.addValue(giamGia, "Giảm giá", ngay);
+            dataset.addValue(doanhThu, "Doanh thu", ngay);
+        }
 
-        dataset.addValue(9000, "Số lượng", "2025-05-13");
-        dataset.addValue(400000, "Doanh thu", "2025-05-13");
 
         JFreeChart chart = ChartFactory.createBarChart(
                 "Thống kê doanh thu và giá trị giảm giá",

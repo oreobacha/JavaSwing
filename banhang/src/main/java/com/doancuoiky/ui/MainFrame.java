@@ -34,6 +34,8 @@ import javax.swing.JOptionPane;
  */
 public class MainFrame extends javax.swing.JFrame {
     private BanHangPanel banhangPanel;
+    private QuanLyKHPanel quanlyKHPanel;
+    private VoucherPanel quanlyVoucherPanel;
     private String currentPanelName = "MainFrame";
     private String HoTen;
     private String Role;
@@ -51,7 +53,7 @@ public class MainFrame extends javax.swing.JFrame {
         FocusableButtonmenu(btnBanHang);
         switchToPanel("banhangPanel", false);
         Uicore.applyBlackBorderToAllTextFields(this);
-        
+        setResizable(false);  
 
     }       
     
@@ -63,11 +65,11 @@ public class MainFrame extends javax.swing.JFrame {
     SanPhamPanel sanphamPanel = new SanPhamPanel();
     mainContentPanel.add(sanphamPanel, "sanphamPanel");
     
-    QuanLyKHPanel quanlyKHPanel = new QuanLyKHPanel();
+    this.quanlyKHPanel = new QuanLyKHPanel();
     mainContentPanel.add(quanlyKHPanel, "quanlyKHPanel");
     
         
-    VoucherPanel quanlyVoucherPanel = new VoucherPanel();
+    this.quanlyVoucherPanel = new VoucherPanel();
     mainContentPanel.add(quanlyVoucherPanel, "quanlyVoucherPanel");
     
     QuanLyNVPanel quanlyNVPanel = new QuanLyNVPanel();
@@ -443,6 +445,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanVienActionPerformed
         if (switchToPanel("quanlyNVPanel", true)){
+            ;
             resetbgmenu();
             FocusableButtonmenu(btnNhanVien);
         };
@@ -450,6 +453,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnKhuyenMaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhuyenMaiActionPerformed
         if (switchToPanel("quanlyVoucherPanel", true)){
+            quanlyVoucherPanel.load_voucher();
             resetbgmenu();
             FocusableButtonmenu(btnKhuyenMai);
         };
@@ -461,6 +465,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhachHangActionPerformed
         if (switchToPanel("quanlyKHPanel", true)){
+            quanlyKHPanel.load_KH();
             resetbgmenu();
             FocusableButtonmenu(btnKhachHang);
         };

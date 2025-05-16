@@ -34,9 +34,11 @@ public class TaoSpMoiFrame extends javax.swing.JFrame {
     public TaoSpMoiFrame(SanPhamPanel parent) {
         parentFrame = parent;
         initComponents();
+        setupUI();
         setup_click_add_image();
         Uicore.applyBlackBorderToAllTextFields(this);
         tfGiaBan.addKeyListener(FileUtils.filterOnlyNumberDuong());
+        setResizable(false);  
     }
 
     /**
@@ -73,7 +75,7 @@ public class TaoSpMoiFrame extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(800, 550));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 3, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 3, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 0));
         jLabel1.setText("Tạo Sản Phẩm ");
         jLabel1.setToolTipText("");
@@ -122,6 +124,7 @@ public class TaoSpMoiFrame extends javax.swing.JFrame {
 
         btnCreateSP.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
         btnCreateSP.setText("Tạo sản phẩm");
+        btnCreateSP.setPreferredSize(new java.awt.Dimension(160, 40));
         btnCreateSP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCreateSPActionPerformed(evt);
@@ -148,8 +151,8 @@ public class TaoSpMoiFrame extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfMaSP, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfMaSP, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(209, 209, 209)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -158,7 +161,7 @@ public class TaoSpMoiFrame extends javax.swing.JFrame {
                         .addComponent(jLabel9)
                         .addComponent(dlTrangThai, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lbImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(btnCreateSP, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCreateSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(47, 47, 47))
         );
         jPanel1Layout.setVerticalGroup(
@@ -205,7 +208,7 @@ public class TaoSpMoiFrame extends javax.swing.JFrame {
                         .addComponent(tfBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(btnCreateSP, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnCreateSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
 
@@ -226,6 +229,9 @@ public class TaoSpMoiFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void setupUI(){
+        Uicore.setcolerbutton(btnCreateSP, new java.awt.Color(0,102,102)); 
+    }
     private void tfGiaBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfGiaBanActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfGiaBanActionPerformed

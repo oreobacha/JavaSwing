@@ -22,7 +22,7 @@ public class VoucherDao {
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, data.getMaKhuyenMai());
+            stmt.setString(1, data.getMaKhuyenMai().toUpperCase());
             stmt.setString(2, data.getSoLuong());
             stmt.setString(3, data.getTuNgay());
             stmt.setString(4, data.getDenNgay());
@@ -45,8 +45,8 @@ public class VoucherDao {
             stmt.setString(2, data.getTuNgay());
             stmt.setString(3, data.getDenNgay());
             stmt.setString(4, data.getGiamGia());
-            stmt.setString(5, data.getMaKhuyenMai());
-            stmt.setString(6, MaKhuyenMai);
+            stmt.setString(5, data.getMaKhuyenMai().toUpperCase());
+            stmt.setString(6, MaKhuyenMai.toUpperCase());
 
             return stmt.executeUpdate() > 0;
 
@@ -82,7 +82,7 @@ public class VoucherDao {
 
             while (rs.next()) {
                 Object[] row = new Object[] {
-                    rs.getString("MaKhuyenMai"),
+                    rs.getString("MaKhuyenMai".toUpperCase()),
                     rs.getString("SoLuong"),
                     rs.getString("TuNgay"),
                     rs.getString("DenNgay"),
@@ -109,7 +109,7 @@ public class VoucherDao {
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, maKhuyenMai);
+            stmt.setString(1, maKhuyenMai.toUpperCase());
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -129,5 +129,24 @@ public class VoucherDao {
 
         return null;
     }
-   
+     
+    public static boolean updateVouchersAfterPayment(List<String> maKhuyenMaiList) {
+       String sql = "UPDATE voucher SET SoLuong = SoLuong - 1 WHERE MaKhuyenMai = ? AND SoLuong > 0";
+
+       try (Connection conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+           for (String ma : maKhuyenMaiList) {
+               stmt.setString(1, ma);
+               stmt.addBatch();
+           }
+
+           stmt.executeBatch();
+           return true;
+
+       } catch (SQLException e) {
+           e.printStackTrace();
+           return false;
+       }
+   }
 }

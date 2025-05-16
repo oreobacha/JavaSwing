@@ -7,6 +7,7 @@ package com.doancuoiky.core;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -31,6 +32,7 @@ public class Uicore {
         button.setFocusPainted(false); 
         button.setContentAreaFilled(false);
         button.setOpaque(true);
+        button.setFont(button.getFont().deriveFont(Font.BOLD));
 
         // Tùy vào trạng thái enable
         button.setBackground(button.isEnabled() ? normalColor : Color.LIGHT_GRAY);

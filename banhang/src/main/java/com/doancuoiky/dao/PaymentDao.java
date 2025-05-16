@@ -37,39 +37,37 @@ public class PaymentDao {
         }
     }
 
-    public static Object[][] getPaymentByDateRange(Date from, Date to) {
-        List<Object[]> rows = new ArrayList<>();
-        String sql = "SELECT * FROM payment WHERE ngaythanhtoan BETWEEN ? AND ? ORDER BY ngaythanhtoan ASC";
+public static Object[][] getPaymentByDateRange(Date from, Date to) {
+    List<Object[]> rows = new ArrayList<>();
+    String sql = "SELECT ngaythanhtoan, SUM(tonggiamgia) AS tonggiamgia, SUM(tongdoanhthu) AS tongdoanhthu, SUM(soluongsp) AS soluongsp " +
+                 "FROM payment WHERE ngaythanhtoan BETWEEN ? AND ? GROUP BY ngaythanhtoan ORDER BY ngaythanhtoan ASC";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setDate(1, new java.sql.Date(from.getTime()));
-            stmt.setDate(2, new java.sql.Date(to.getTime()));
+        stmt.setDate(1, new java.sql.Date(from.getTime()));
+        stmt.setDate(2, new java.sql.Date(to.getTime()));
 
-            try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    Object[] row = new Object[] {
-                        rs.getString("mathanhtoan"),
-                        rs.getDouble("tonggiamgia"),
-                        rs.getDouble("tongdoanhthu"),
-                        rs.getInt("soluongsp"),
-                        rs.getDate("ngaythanhtoan"),
-                        rs.getString("sdt"),
-                        rs.getString("hoten")
-                    };
-                    rows.add(row);
-                }
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                Object[] row = new Object[] {
+                    rs.getDate("ngaythanhtoan"),
+                    rs.getDouble("tonggiamgia"),
+                    rs.getDouble("tongdoanhthu"),
+                    rs.getInt("soluongsp"),
+                };
+                rows.add(row);
             }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
 
-        Object[][] data = new Object[rows.size()][];
-        for (int i = 0; i < rows.size(); i++) {
-            data[i] = rows.get(i);
-        }
-        return data;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+
+    Object[][] data = new Object[rows.size()][];
+    for (int i = 0; i < rows.size(); i++) {
+        data[i] = rows.get(i);
+    }
+    return data;
+}
 }

@@ -29,7 +29,7 @@ public class ClientDao {
             stmt.setString(5, client.getDiaChi());
 
             int affectedRows = stmt.executeUpdate();
-            return affectedRows > 0; // true nếu insert thành công
+            return affectedRows > 0; 
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -52,12 +52,47 @@ public class ClientDao {
             stmt.setString(7, SDT);
 
             int affectedRows = stmt.executeUpdate();
-            return affectedRows > 0; // true nếu update thành công
+            return affectedRows > 0; 
 
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
+    }
+    
+           
+    public static boolean updateKhachHangAfterPayment_usePoint(String SDT) {
+        String sql = "UPDATE khachhang SET diem = 0 WHERE sodienthoai = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, SDT);
+            int affectedRows = stmt.executeUpdate();
+            return affectedRows > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public static boolean updateKhachHangAfterPayment_plusPoint(long Point , String SDT) {
+        String sql = "UPDATE khachhang SET diem = ? WHERE sodienthoai = ?";
+        String PlusPoint = String.valueOf(Point);
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, PlusPoint);
+            stmt.setString(2, SDT);
+            
+            int affectedRows = stmt.executeUpdate();
+            return affectedRows > 0; 
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+            }
     }
     
     public static boolean deleteKhachHangBySDT(String sdt) {
@@ -69,7 +104,7 @@ public class ClientDao {
             stmt.setString(1, sdt);
 
             int affectedRows = stmt.executeUpdate();
-            return affectedRows > 0; // true nếu xóa thành công
+            return affectedRows > 0; 
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -130,6 +165,6 @@ public class ClientDao {
         e.printStackTrace();
     }
 
-    return null; // không tìm thấy khách hàng
+    return null; 
     }
 }
