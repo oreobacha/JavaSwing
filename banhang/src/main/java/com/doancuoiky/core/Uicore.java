@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
 
 /**
  *
@@ -48,13 +49,19 @@ public class Uicore {
     }
     
     public static void applyBlackBorderToAllTextFields(Container container) {
+        //hàm đệ quy chạy toàn bộ jtextfield khi call trong view
         for (Component comp : container.getComponents()) {
             if (comp instanceof JTextField) {
-                ((JTextField) comp).setBorder(BorderFactory.createLineBorder(Color.black));
+                JTextField textField = (JTextField) comp;
+                Border outerBorder = BorderFactory.createLineBorder(Color.black);
+                Border innerPadding = BorderFactory.createEmptyBorder(0, 10, 0, 10);
+                Border compound = BorderFactory.createCompoundBorder(outerBorder, innerPadding);
+                textField.setBorder(compound);
             } else if (comp instanceof Container) {
-                applyBlackBorderToAllTextFields((Container) comp);
+                applyBlackBorderToAllTextFields((Container) comp); 
             }
-            }   
         }
+    }
+
 }
 

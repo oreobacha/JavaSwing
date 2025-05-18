@@ -33,7 +33,6 @@ com\doancuoiky\ui\QuanLyKHPanel$ButtonEditor.class
 com\doancuoiky\dao\ClientDao.class
 com\doancuoiky\ui\SanPhamPanel$6.class
 com\doancuoiky\ui\VoucherPanel$ButtonEditor.class
-com\doancuoiky\ui\MemberFrame$6.class
 com\doancuoiky\ui\BanHangPanel$ButtonEditor.class
 com\doancuoiky\ui\BanHangPanel$7.class
 com\doancuoiky\core\FileUtils.class

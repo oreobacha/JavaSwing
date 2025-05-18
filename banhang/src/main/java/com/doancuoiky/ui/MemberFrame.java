@@ -91,7 +91,6 @@ public class MemberFrame extends javax.swing.JFrame {
        setupIconJabel(Avatar, "/image/ic_menu/ic_header.png");
        setupIconButton(btnBanHang, "/image/ic_menu/ic_banHang.png");
        setupIconButton(btnQlSanPham, "/image/ic_menu/ic_sanPham.png");
-       setupIconButton(btnKhuyenMai, "/image/ic_menu/ic_khuyenMai.png");
        setupIconButton(btnKhachHang, "/image/ic_menu/ic_khachHang.png");
        setupIconButton(btnThongKe, "/image/ic_menu/ic_thongKe.png");
        setupIconButton(BtnDangXuat, "/image/ic_menu/ic_dangXuat.png");                
@@ -165,7 +164,6 @@ public class MemberFrame extends javax.swing.JFrame {
         JpanelMenu = new javax.swing.JPanel();
         btnQlSanPham = new javax.swing.JButton();
         btnBanHang = new javax.swing.JButton();
-        btnKhuyenMai = new javax.swing.JButton();
         BtnDangXuat = new javax.swing.JButton();
         btnKhachHang = new javax.swing.JButton();
         btnThongKe = new javax.swing.JButton();
@@ -261,17 +259,6 @@ public class MemberFrame extends javax.swing.JFrame {
             }
         });
 
-        btnKhuyenMai.setBackground(new java.awt.Color(255, 255, 0));
-        btnKhuyenMai.setText("Khuyến Mại");
-        btnKhuyenMai.setBorderPainted(false);
-        btnKhuyenMai.setFocusPainted(false);
-        btnKhuyenMai.setPreferredSize(new java.awt.Dimension(78, 25));
-        btnKhuyenMai.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnKhuyenMaiActionPerformed(evt);
-            }
-        });
-
         BtnDangXuat.setBackground(new java.awt.Color(255, 255, 0));
         BtnDangXuat.setText("Đăng Xuất");
         BtnDangXuat.setBorderPainted(false);
@@ -311,7 +298,6 @@ public class MemberFrame extends javax.swing.JFrame {
             JpanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btnBanHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnQlSanPham, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnKhuyenMai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnKhachHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(JpanelMenuLayout.createSequentialGroup()
                 .addContainerGap()
@@ -326,15 +312,13 @@ public class MemberFrame extends javax.swing.JFrame {
                 .addComponent(btnBanHang, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(btnQlSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(btnKhuyenMai, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(37, 37, 37)
                 .addComponent(btnKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGap(37, 37, 37)
                 .addComponent(btnThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(67, 67, 67)
                 .addComponent(BtnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 116, Short.MAX_VALUE))
+                .addGap(0, 185, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
@@ -421,7 +405,6 @@ public class MemberFrame extends javax.swing.JFrame {
     private void resetbgmenu(){
         setupresetbgmenu(btnBanHang);
         setupresetbgmenu(btnQlSanPham);   
-        setupresetbgmenu(btnKhuyenMai); 
         setupresetbgmenu(BtnDangXuat);
         setupresetbgmenu(btnKhachHang); 
         setupresetbgmenu(btnThongKe);
@@ -460,14 +443,6 @@ public class MemberFrame extends javax.swing.JFrame {
             FocusableButtonmenu(btnQlSanPham);
         };
     }//GEN-LAST:event_btnQlSanPhamActionPerformed
-
-    private void btnKhuyenMaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhuyenMaiActionPerformed
-        if (switchToPanel("quanlyVoucherPanel", true)){
-            quanlyVoucherPanel.load_voucher();
-            resetbgmenu();
-            FocusableButtonmenu(btnKhuyenMai);
-        };
-    }//GEN-LAST:event_btnKhuyenMaiActionPerformed
 
     private void BtnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDangXuatActionPerformed
 //        URL iconURL = getClass().getResource("/image/ic_menu/ic_dangXuat.png");    
@@ -559,7 +534,6 @@ public class MemberFrame extends javax.swing.JFrame {
     private javax.swing.JPanel JpanelMenu;
     private javax.swing.JButton btnBanHang;
     private javax.swing.JButton btnKhachHang;
-    private javax.swing.JButton btnKhuyenMai;
     private javax.swing.JButton btnQlSanPham;
     private javax.swing.JButton btnThongKe;
     private javax.swing.JLabel jLabel1;
