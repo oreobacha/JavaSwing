@@ -40,6 +40,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Random;
 import javax.swing.AbstractAction;
@@ -397,6 +398,11 @@ public class FileUtils {
     
     public static java.sql.Date getDateNow() {
         return new java.sql.Date(System.currentTimeMillis());
+    }
+    
+    public static java.sql.Date getDate7DaysAgo() {
+        LocalDate date = LocalDate.now().minusDays(7);
+        return java.sql.Date.valueOf(date);
     }
     
     public static String convertDateString(Date sqlDate) {

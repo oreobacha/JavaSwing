@@ -102,7 +102,7 @@ public class ProductDao {
             return false;
         }
     }
-        public static boolean updateProduct(ProductModel product, String maSp) {
+    public static boolean updateProduct(ProductModel product, String maSp) {
         String sql = "UPDATE product SET tensp = ?, soluong = ?, giaban = ?, loaihang = ?, barcode = ?, trangthai = ?, imagesp = ?, masp = ? WHERE masp = ?";
 
         try (Connection conn = DBConnection.getConnection();
@@ -117,7 +117,7 @@ public class ProductDao {
             stmt.setString(8, product.getMasp());
             stmt.setString(9, maSp);
             int affectedRows = stmt.executeUpdate();
-            return affectedRows > 0; // Trả về true nếu có bản ghi bị ảnh hưởng
+            return affectedRows > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;

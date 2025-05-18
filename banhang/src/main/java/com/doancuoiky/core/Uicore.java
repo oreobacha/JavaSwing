@@ -24,7 +24,7 @@ import javax.swing.SwingUtilities;
  */
 public class Uicore {
     public static void setcolerbutton(JButton button, java.awt.Color normalColor) {
-        Color pressedColor = normalColor.darker(); // màu khi nhấn (tối hơn)
+        Color pressedColor = normalColor.darker(); 
         button.setBorder(BorderFactory.createEmptyBorder());
         button.setFocusable(true); 
         button.setBorderPainted(false);
@@ -34,10 +34,8 @@ public class Uicore {
         button.setOpaque(true);
         button.setFont(button.getFont().deriveFont(Font.BOLD));
 
-        // Tùy vào trạng thái enable
         button.setBackground(button.isEnabled() ? normalColor : Color.LIGHT_GRAY);
 
-        // Lắng nghe trạng thái nhấn giữ
         button.getModel().addChangeListener(e -> {
             if (!button.isEnabled()) {
                 button.setBackground(Color.LIGHT_GRAY);
@@ -54,12 +52,9 @@ public class Uicore {
             if (comp instanceof JTextField) {
                 ((JTextField) comp).setBorder(BorderFactory.createLineBorder(Color.black));
             } else if (comp instanceof Container) {
-                applyBlackBorderToAllTextFields((Container) comp); // đệ quy vào JPanel, JPanel con, ...
+                applyBlackBorderToAllTextFields((Container) comp);
             }
             }   
         }
-    
-    
-
 }
 

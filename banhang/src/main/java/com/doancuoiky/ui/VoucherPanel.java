@@ -88,7 +88,7 @@ public class VoucherPanel extends javax.swing.JPanel {
         jLabel3.setText("Số lượng*");
 
         jLabel7.setFont(new java.awt.Font("Helvetica Neue", 1, 14)); // NOI18N
-        jLabel7.setText("Thêm mới khuyến mại");
+        jLabel7.setText("Thêm mới khuyến mãi");
 
         jLabel4.setText("Ngày bắt đầu*");
 
@@ -98,7 +98,6 @@ public class VoucherPanel extends javax.swing.JPanel {
 
         btnadd.setText("Thêm mới");
         btnadd.setPreferredSize(new java.awt.Dimension(90, 30));
-        btnadd.setSize(new java.awt.Dimension(80, 30));
         btnadd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnaddActionPerformed(evt);
@@ -191,10 +190,9 @@ public class VoucherPanel extends javax.swing.JPanel {
 
         jLabel8.setFont(new java.awt.Font("Helvetica Neue", 3, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(102, 102, 0));
-        jLabel8.setText("Quản lý khuyến mại");
+        jLabel8.setText("Quản lý khuyến mãi");
 
         tfSearch.setPreferredSize(new java.awt.Dimension(170, 25));
-        tfSearch.setSize(new java.awt.Dimension(80, 25));
 
         btnSearch.setText("Tìm kiếm");
         btnSearch.setPreferredSize(new java.awt.Dimension(120, 25));
@@ -224,7 +222,7 @@ public class VoucherPanel extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(9, Short.MAX_VALUE)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,7 +241,7 @@ public class VoucherPanel extends javax.swing.JPanel {
         jPanel2.setPreferredSize(new java.awt.Dimension(1400, 567));
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
-        jLabel1.setText("Danh sách khuyến mại");
+        jLabel1.setText("Danh sách khuyến mãi");
 
         jScrollPane1.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
         jScrollPane1.setPreferredSize(new java.awt.Dimension(1400, 100));
@@ -254,7 +252,7 @@ public class VoucherPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã khuyến mại", "Số lượng", "Từ ngày", "Đến ngày", "Giảm giá", ""
+                "Mã khuyến mãi", "Số lượng", "Từ ngày", "Đến ngày", "Giảm giá", ""
             }
         ));
         jScrollPane1.setViewportView(tableKh);
@@ -271,7 +269,7 @@ public class VoucherPanel extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -289,9 +287,9 @@ public class VoucherPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
    

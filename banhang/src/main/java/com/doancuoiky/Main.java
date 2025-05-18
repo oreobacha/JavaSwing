@@ -1,6 +1,6 @@
 package com.doancuoiky;
 import com.doancuoiky.ui.LoginFrame;
-import com.doancuoiky.ui.MainFrame;
+import com.doancuoiky.ui.AdminFrame;
 
 public class Main {
     public static void main(String[] args) {

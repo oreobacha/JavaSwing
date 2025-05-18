@@ -7,23 +7,25 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
-/**
- *
- * @author ADMIN
- */
+//Singleton để connect với db 1 lần
 public class DBConnection {
+    private static Connection connection;
+
+    private DBConnection() {
+    }
+
     public static Connection getConnection() {
         try {
-            String url = "jdbc:mysql://localhost:3306/qlbanhang?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8";
-            String user = "root";      // hoặc tài khoản khác
-            String password = "123456"; // mật khẩu MySQL
-
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            return DriverManager.getConnection(url, user, password);
-        } catch (ClassNotFoundException | SQLException e) {
+            if (connection == null || connection.isClosed()) {
+                String url = "jdbc:mysql://localhost:3306/qlbanhang";
+                String user = "root";
+                String password = "123456";
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                connection = DriverManager.getConnection(url, user, password);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
-            return null;
         }
+        return connection;
     }
 }
