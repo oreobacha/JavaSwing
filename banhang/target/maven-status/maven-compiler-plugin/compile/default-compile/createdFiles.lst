@@ -4,7 +4,6 @@ com\doancuoiky\ui\TaoSpMoiFrame$1.class
 com\doancuoiky\ui\TaoSpMoiFrame.class
 com\doancuoiky\core\FileUtils$1.class
 com\doancuoiky\ui\MemberFrame$5.class
-com\doancuoiky\ui\LoginFrame$3.class
 com\doancuoiky\ui\QuanLyNVPanel$3.class
 com\doancuoiky\ui\AdminFrame$6.class
 com\doancuoiky\ui\QuanLyNVPanel.class
@@ -78,7 +77,6 @@ com\doancuoiky\ui\LoginFrame$1.class
 com\doancuoiky\ui\BanHangPanel$12.class
 com\doancuoiky\ui\ChinhSuaSpFrame$1.class
 com\doancuoiky\db\DBConnection.class
-com\doancuoiky\ui\LoginFrame$2.class
 com\doancuoiky\ui\SanPhamPanel$ImageCellRenderer.class
 com\doancuoiky\ui\AdminFrame$4.class
 com\doancuoiky\ui\SanPhamPanel$CurrencyCellRenderer.class
