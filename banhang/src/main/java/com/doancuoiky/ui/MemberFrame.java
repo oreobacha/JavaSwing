@@ -36,18 +36,21 @@ import javax.swing.JOptionPane;
  */
 public class MemberFrame extends javax.swing.JFrame {
     private BanHangPanel banhangPanel;
+    private SanPhamPanel sanphamPanel;
     private QuanLyKHPanel quanlyKHPanel;
     private VoucherPanel quanlyVoucherPanel;
     private ThongKePanel thongKePanel;
     private String currentPanelName = "MainFrame";
     private String HoTen;
     private String Role;
+    private String Username;
     /**
      * Creates new form AdminFrame
      */
-    public MemberFrame(String HoTen, String Role) {
+    public MemberFrame(String HoTen, String Role, String Username) {
         this.HoTen = HoTen;
         this.Role = Role;
+        this.Username = Username;
         initComponents();
         mainContentPanel.setLayout(new CardLayout());
         initMenu();
@@ -65,13 +68,12 @@ public class MemberFrame extends javax.swing.JFrame {
     this.banhangPanel = new BanHangPanel();
     mainContentPanel.add(banhangPanel, "banhangPanel");
 
-    SanPhamPanel sanphamPanel = new SanPhamPanel();
+    this.sanphamPanel = new SanPhamPanel();
     mainContentPanel.add(sanphamPanel, "sanphamPanel");
     
     this.quanlyKHPanel = new QuanLyKHPanel();
     mainContentPanel.add(quanlyKHPanel, "quanlyKHPanel");
     
-        
     this.quanlyVoucherPanel = new VoucherPanel();
     mainContentPanel.add(quanlyVoucherPanel, "quanlyVoucherPanel");
     
@@ -152,6 +154,7 @@ public class MemberFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
         BorderLayout = new javax.swing.JPanel();
         menuPanel = new javax.swing.JPanel();
         jPanelInfo = new javax.swing.JPanel();
@@ -298,27 +301,27 @@ public class MemberFrame extends javax.swing.JFrame {
             JpanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btnBanHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnQlSanPham, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnKhachHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(BtnDangXuat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(JpanelMenuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(JpanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnThongKe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BtnDangXuat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnKhachHang, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnThongKe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         JpanelMenuLayout.setVerticalGroup(
             JpanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JpanelMenuLayout.createSequentialGroup()
                 .addComponent(btnBanHang, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(40, 40, 40)
                 .addComponent(btnQlSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(40, 40, 40)
                 .addComponent(btnKhachHang, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(40, 40, 40)
                 .addComponent(btnThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67)
+                .addGap(136, 136, 136)
                 .addComponent(BtnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 185, Short.MAX_VALUE))
+                .addGap(0, 100, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
@@ -371,15 +374,17 @@ public class MemberFrame extends javax.swing.JFrame {
 
         mainContentPanel.getAccessibleContext().setAccessibleName("");
 
+        jScrollPane1.setViewportView(BorderLayout);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(BorderLayout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1593, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(BorderLayout, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 928, Short.MAX_VALUE)
         );
 
         pack();
@@ -440,6 +445,7 @@ public class MemberFrame extends javax.swing.JFrame {
     private void btnQlSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQlSanPhamActionPerformed
         if (switchToPanel("sanphamPanel", true)){
             resetbgmenu();
+            sanphamPanel.getUserModel(Username);
             FocusableButtonmenu(btnQlSanPham);
         };
     }//GEN-LAST:event_btnQlSanPhamActionPerformed
@@ -540,6 +546,7 @@ public class MemberFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanelInfo;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel mainContentPanel;
     private javax.swing.JPanel menuPanel;
     private javax.swing.JLabel name;

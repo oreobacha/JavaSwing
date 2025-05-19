@@ -40,7 +40,7 @@ import javax.swing.table.TableColumn;
  * @author phuongmd
  */
 public class SanPhamPanel extends javax.swing.JPanel {
-
+    private String username;
 
     public SanPhamPanel() {
         initComponents();
@@ -183,7 +183,7 @@ public class SanPhamPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã Sản Phẩm", "Ảnh Sản Phẩm ", "Tên Sản Phẩm", "Số Lượng", "Giá Bán", "Loại Hàng", "BarCode", "Trạng Thái"
+                "Mã Sản Phẩm", "Ảnh Sản Phẩm ", "Tên Sản Phẩm", "Số Lượng", "Giá Bán", "Loại Hàng", "BarCode", "Trạng Thái", "Người tạo"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -268,7 +268,7 @@ public class SanPhamPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateProductActionPerformed
-        TaoSpMoiFrame CreateSpFrame = new TaoSpMoiFrame(this); 
+        TaoSpMoiFrame CreateSpFrame = new TaoSpMoiFrame(this, username); 
         CreateSpFrame.setLocationRelativeTo(null);
         CreateSpFrame.setVisible(true);   
     }//GEN-LAST:event_btnCreateProductActionPerformed
@@ -342,6 +342,10 @@ public class SanPhamPanel extends javax.swing.JPanel {
         setUptableView();   
     }
     
+    public void getUserModel(String username){
+        this.username = username;
+    }
+    
     private void setUptableView(){
         jTable1.setRowHeight(80); 
         jTable1.setShowHorizontalLines(true);
@@ -391,7 +395,7 @@ public class SanPhamPanel extends javax.swing.JPanel {
                 String TrangThai = jTable1.getValueAt(row, 7).toString();
                 System.out.print(imageSp);
                 // Mở trang chỉnh sửa sản phẩm
-                ChinhSuaSpFrame EditSpFrame = new ChinhSuaSpFrame(SanPhamPanel.this, maSp, imageSp, tenSp, SoLuong, GiaBan, LoaiHang, BarCode, TrangThai); 
+                ChinhSuaSpFrame EditSpFrame = new ChinhSuaSpFrame(SanPhamPanel.this, maSp, imageSp, tenSp, SoLuong, GiaBan, LoaiHang, BarCode, TrangThai, username); 
                 EditSpFrame.setLocationRelativeTo(null);
                 EditSpFrame.setVisible(true);    
             }

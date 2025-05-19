@@ -19,7 +19,7 @@ import java.util.List;
 public class ProductDao {
         public static Object[][] getAllProduct() {
             List<Object[]> rows = new ArrayList<>();
-            String sql = "SELECT masp, imagesp, tensp, soluong, giaban, loaihang, barcode, trangthai FROM product";
+            String sql = "SELECT masp, imagesp, tensp, soluong, giaban, loaihang, barcode, trangthai, nguoitao FROM product";
             try (Connection conn = DBConnection.getConnection();
                  PreparedStatement stmt = conn.prepareStatement(sql);
                  ResultSet rs = stmt.executeQuery()) {
@@ -33,7 +33,8 @@ public class ProductDao {
                         rs.getString("giaban"),
                         rs.getString("loaihang"),
                         rs.getString("barcode"),
-                        rs.getString("trangthai")
+                        rs.getString("trangthai"),
+                        rs.getString("nguoitao")
                     };
                     rows.add(row);
                 }
@@ -80,8 +81,8 @@ public class ProductDao {
             }
 
        public static boolean createProduct(ProductModel product) {
-        String sql = "INSERT INTO product (masp, tensp, soluong, giaban, loaihang, barcode, trangthai, imagesp) " +
-                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO product (masp, tensp, soluong, giaban, loaihang, barcode, trangthai, nguoitao, imagesp) " +
+                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -93,7 +94,8 @@ public class ProductDao {
             stmt.setString(5, product.getLoaiHang());
             stmt.setString(6, product.getBarCode());
             stmt.setString(7, product.getTrangThai());
-            stmt.setString(8, product.getimageSp());
+            stmt.setString(8, product.getNguoitao());
+            stmt.setString(9, product.getimageSp());
 
             int affectedRows = stmt.executeUpdate();
             return affectedRows > 0;
@@ -103,7 +105,7 @@ public class ProductDao {
         }
     }
     public static boolean updateProduct(ProductModel product, String maSp) {
-        String sql = "UPDATE product SET tensp = ?, soluong = ?, giaban = ?, loaihang = ?, barcode = ?, trangthai = ?, imagesp = ?, masp = ? WHERE masp = ?";
+        String sql = "UPDATE product SET tensp = ?, soluong = ?, giaban = ?, loaihang = ?, barcode = ?, trangthai = ?, nguoitao = ?, imagesp = ?, masp = ? WHERE masp = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -113,9 +115,10 @@ public class ProductDao {
             stmt.setString(4, product.getLoaiHang());
             stmt.setString(5, product.getBarCode());
             stmt.setString(6, product.getTrangThai());
-            stmt.setString(7, product.getimageSp());
-            stmt.setString(8, product.getMasp());
-            stmt.setString(9, maSp);
+            stmt.setString(7, product.getNguoitao());
+            stmt.setString(8, product.getimageSp());
+            stmt.setString(9, product.getMasp());
+            stmt.setString(10, maSp);
             int affectedRows = stmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {

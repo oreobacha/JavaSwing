@@ -30,14 +30,16 @@ public class ChinhSuaSpFrame extends javax.swing.JFrame {
     private ProductModel ProductData;
     private static SanPhamPanel parentFrame;
     private String maSp;
+    private String username;
     /**
      * Creates new form TaoSpMoiFrame
      */
-    public ChinhSuaSpFrame(SanPhamPanel parent, String Masp, String imageSp, String TenSp, String SoLuong, String GiaBan, String LoaiHang, String BarCode, String TrangThai) {
+    public ChinhSuaSpFrame(SanPhamPanel parent, String Masp, String imageSp, String TenSp, String SoLuong, String GiaBan, String LoaiHang, String BarCode, String TrangThai, String username) {
         parentFrame = parent;
         initComponents();
         maSp = Masp;
         image_upload_base64 = imageSp;
+        this.username = username;
         setup_click_add_image();
         add_data_field_edit(Masp, imageSp, TenSp, SoLuong, GiaBan, LoaiHang, BarCode, TrangThai);
         Uicore.applyBlackBorderToAllTextFields(this);
@@ -292,7 +294,7 @@ public class ChinhSuaSpFrame extends javax.swing.JFrame {
         String barCodeSp = tfBarcode.getText();
         String trangThaiSp = (String) dlTrangThai.getSelectedItem();
         
-        ProductData = new ProductModel(maSp, tenSp, soLuongSp, giaBanSp, loaiHangSp, barCodeSp, trangThaiSp, image_upload_base64);
+        ProductData = new ProductModel(maSp, tenSp, soLuongSp, giaBanSp, loaiHangSp, barCodeSp, trangThaiSp, username, image_upload_base64);
     }
     
     private void chose_upload_image () {

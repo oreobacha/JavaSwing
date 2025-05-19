@@ -58,17 +58,17 @@ public class LoginFrame extends javax.swing.JFrame {
     };
     
 
-    public void openAdminFrame (String HoTen, String role){
+    public void openAdminFrame (String HoTen, String role, String usernamme){
         javax.swing.SwingUtilities.invokeLater(() -> {
-        AdminFrame FrameAdmin = new AdminFrame(HoTen, role); 
+        AdminFrame FrameAdmin = new AdminFrame(HoTen, role, usernamme); 
         FrameAdmin.setLocationRelativeTo(null); 
         FrameAdmin.setVisible(true);   
         });
     };
     
-    public void openMemberFrame (String HoTen, String role){
+    public void openMemberFrame (String HoTen, String role, String usernamme){
         javax.swing.SwingUtilities.invokeLater(() -> {
-        MemberFrame FrameMember = new MemberFrame(HoTen, role); 
+        MemberFrame FrameMember = new MemberFrame(HoTen, role, usernamme); 
         FrameMember.setLocationRelativeTo(null); 
         FrameMember.setVisible(true);   
         });
@@ -217,9 +217,9 @@ public class LoginFrame extends javax.swing.JFrame {
         if (DataLogin!= null) {
             dispose();
             if (DataLogin[5].toString().toLowerCase().equals("admin")) {
-                openAdminFrame(DataLogin[0].toString() ,DataLogin[5].toString());
+                openAdminFrame(DataLogin[0].toString() , DataLogin[5].toString(), DataLogin[3].toString());
             } else {
-                openMemberFrame(DataLogin[0].toString() ,DataLogin[5].toString());
+                openMemberFrame(DataLogin[0].toString() , DataLogin[5].toString(), DataLogin[3].toString());
             }
         } else {
             JOptionPane.showMessageDialog(this, "Thông tin đăng nhập không đúng. Vui lòng kiểm tra lại");

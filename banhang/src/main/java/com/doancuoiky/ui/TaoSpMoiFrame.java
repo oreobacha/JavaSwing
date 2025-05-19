@@ -28,11 +28,13 @@ public class TaoSpMoiFrame extends javax.swing.JFrame {
     private String image_upload_base64; 
     private ProductModel ProductData;
     private static SanPhamPanel parentFrame;
+    private String username;
     /**
      * Creates new form TaoSpMoiFrame
      */
-    public TaoSpMoiFrame(SanPhamPanel parent) {
+    public TaoSpMoiFrame(SanPhamPanel parent, String username) {
         parentFrame = parent;
+        this.username = username;
         initComponents();
         setupUI();
         setup_click_add_image();
@@ -265,7 +267,7 @@ public class TaoSpMoiFrame extends javax.swing.JFrame {
         String barCodeSp = tfBarcode.getText();
         String trangThaiSp = (String) dlTrangThai.getSelectedItem();
         
-        ProductData = new ProductModel(maSp, tenSp, soLuongSp, giaBanSp, loaiHangSp, barCodeSp, trangThaiSp, image_upload_base64);
+        ProductData = new ProductModel(maSp, tenSp, soLuongSp, giaBanSp, loaiHangSp, barCodeSp, trangThaiSp, username, image_upload_base64);
     }
     
     private void chose_upload_image () {

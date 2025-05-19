@@ -36,18 +36,21 @@ import javax.swing.JOptionPane;
  */
 public class AdminFrame extends javax.swing.JFrame {
     private BanHangPanel banhangPanel;
+    private SanPhamPanel sanphamPanel;
     private QuanLyKHPanel quanlyKHPanel;
     private VoucherPanel quanlyVoucherPanel;
     private ThongKePanel thongKePanel;
     private String currentPanelName = "MainFrame";
     private String HoTen;
     private String Role;
+    private String Username;
     /**
      * Creates new form AdminFrame
      */
-    public AdminFrame(String HoTen, String Role) {
+    public AdminFrame(String HoTen, String Role, String Username) {
         this.HoTen = HoTen;
         this.Role = Role;
+        this.Username = Username;
         initComponents();
         mainContentPanel.setLayout(new CardLayout());
         initMenu();
@@ -65,13 +68,12 @@ public class AdminFrame extends javax.swing.JFrame {
     this.banhangPanel = new BanHangPanel();
     mainContentPanel.add(banhangPanel, "banhangPanel");
 
-    SanPhamPanel sanphamPanel = new SanPhamPanel();
+    this.sanphamPanel = new SanPhamPanel();
     mainContentPanel.add(sanphamPanel, "sanphamPanel");
     
     this.quanlyKHPanel = new QuanLyKHPanel();
     mainContentPanel.add(quanlyKHPanel, "quanlyKHPanel");
     
-        
     this.quanlyVoucherPanel = new VoucherPanel();
     mainContentPanel.add(quanlyVoucherPanel, "quanlyVoucherPanel");
     
@@ -470,6 +472,7 @@ public class AdminFrame extends javax.swing.JFrame {
     private void btnQlSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQlSanPhamActionPerformed
         if (switchToPanel("sanphamPanel", true)){
             resetbgmenu();
+            sanphamPanel.getUserModel(Username);
             FocusableButtonmenu(btnQlSanPham);
         };
     }//GEN-LAST:event_btnQlSanPhamActionPerformed
