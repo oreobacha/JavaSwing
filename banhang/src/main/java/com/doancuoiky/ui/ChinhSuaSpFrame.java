@@ -308,11 +308,10 @@ public class ChinhSuaSpFrame extends javax.swing.JFrame {
             File selectedFile = fileChooser.getSelectedFile();
             ImageIcon icon = new ImageIcon(selectedFile.getAbsolutePath());
             image_upload_base64 = selectedFile.getAbsolutePath();
-            // Resize ảnh cho vừa JLabel
             Image scaled = icon.getImage().getScaledInstance(
                     lbImage.getWidth(), lbImage.getHeight(), Image.SCALE_SMOOTH);
             lbImage.setIcon(new ImageIcon(scaled));
-            lbImage.setText("");  // Xóa chữ cũ
+            lbImage.setText(""); 
             // Chuyển sang Base64 và lưu lại
             image_upload_base64 = FileUtils.convert_image_to_base64(selectedFile);
         }
@@ -327,7 +326,7 @@ public class ChinhSuaSpFrame extends javax.swing.JFrame {
     }
     
     private void setup_click_add_image() {
-        lbImage.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); // Đổi con trỏ cho dễ nhìn
+        lbImage.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); 
         lbImage.addMouseListener(new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {

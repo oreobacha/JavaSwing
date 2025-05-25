@@ -85,7 +85,6 @@ public class FileUtils {
             BufferedImage img = ImageIO.read(new ByteArrayInputStream(imageBytes));
             Image scaledImage = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
             return new ImageIcon(scaledImage);
-    //                        ImageIcon icon_base64 = FileUtils.convert_base64_to_image(image_upload_base64, 250, 250);  cách dùng
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -93,23 +92,17 @@ public class FileUtils {
     }
     
     public static void exportWithSaveDialog(JTable table, JFrame parentFrame) {
-        //hàm chọn ra nơi lưu file excel và xuất excel
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Chọn nơi lưu file Excel");
-
-        // Gợi ý tên file
         fileChooser.setSelectedFile(new File("data.xlsx"));
 
         int userSelection = fileChooser.showSaveDialog(parentFrame);
         if (userSelection == JFileChooser.APPROVE_OPTION) {
             File fileToSave = fileChooser.getSelectedFile();
-
-            // Đảm bảo đuôi file là .xlsx
             String filePath = fileToSave.getAbsolutePath();
             if (!filePath.toLowerCase().endsWith(".xlsx")) {
                 filePath += ".xlsx";
             }
-
             boolean success = exportTableToExcel(table, filePath);
             if (success) {
                 JOptionPane.showMessageDialog(parentFrame, "Xuất Excel thành công:\n" + filePath);
@@ -120,22 +113,18 @@ public class FileUtils {
     }
     
     public static boolean exportTableToExcel(JTable table, String filePath) {
-         //hàm xuất excel
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Sheet1");
 
         TableModel model = table.getModel();
-
-        // Tạo dòng tiêu đề, bỏ qua cột hình ảnh
         Row headerRow = sheet.createRow(0);
         int headerColIndex = 0;
         for (int col = 0; col < model.getColumnCount(); col++) {
-            if (col == 1) continue; // bỏ cột hình ảnh
+            if (col == 1) continue; 
             Cell cell = headerRow.createCell(headerColIndex++);
             cell.setCellValue(model.getColumnName(col));
         }
 
-        // Ghi dữ liệu, bỏ qua cột hình ảnh
         for (int row = 0; row < model.getRowCount(); row++) {
             Row excelRow = sheet.createRow(row + 1);
             int excelCol = 0;
@@ -145,13 +134,10 @@ public class FileUtils {
                 excelRow.createCell(excelCol++).setCellValue(value != null ? value.toString() : "");
             }
         }
-
-        // Auto-size cột
         for (int i = 0; i < headerColIndex; i++) {
             sheet.autoSizeColumn(i);
         }
 
-        // Ghi file
         try (FileOutputStream out = new FileOutputStream(filePath)) {
             workbook.write(out);
             workbook.close();
@@ -177,7 +163,7 @@ public class FileUtils {
     }
     
     public static com.itextpdf.text.Font getVietnameseFont() throws Exception {
-        return getVietnameseFont(13); // mặc định size = 13
+        return getVietnameseFont(13);
     }   
     
     public static boolean exportPaymentFromTable(JTable table, String filePath, PaymentModel paymentData) {
@@ -294,7 +280,7 @@ public class FileUtils {
                        long price = Long.parseLong(value.toString());
                        label.setText(vndFormat.format(price) + " VND");
                    } catch (NumberFormatException e) {
-                       // fallback
+
                        label.setText(value.toString());
                    }
                }
@@ -372,7 +358,6 @@ public class FileUtils {
             dateChooser.setDate(date);
         } catch (Exception e) {
             e.printStackTrace();
-            // Bạn có thể hiển thị thông báo lỗi nếu cần
         }
     }
     

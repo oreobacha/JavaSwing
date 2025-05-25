@@ -72,7 +72,6 @@ public class ProductDao {
                 e.printStackTrace();
             }
 
-            // Chuyển List<Object[]> thành Object[][]
             Object[][] data = new Object[rows.size()][];
             for (int i = 0; i < rows.size(); i++) {
                 data[i] = rows.get(i);

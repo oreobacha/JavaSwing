@@ -405,14 +405,13 @@ public class VoucherPanel extends javax.swing.JPanel {
         @Override
         public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2 && tableKh.getSelectedRow() != -1) {
-                int row = tableKh.getSelectedRow();  // dòng được chọn
+                int row = tableKh.getSelectedRow();  
                 int colCount = tableKh.getColumnCount();
                 MaKhuyenMai = tableKh.getValueAt(row, 0).toString();
                 String SoLuong = tableKh.getValueAt(row, 1).toString();
                 String TuNgay = tableKh.getValueAt(row, 2).toString();
                 String DenNgay = tableKh.getValueAt(row, 3).toString();
                 String GiamGia = tableKh.getValueAt(row, 4).toString();
-                // Mở trang chỉnh sửa sản phẩm
                 tfKhuyenMai.setText(MaKhuyenMai);
                 tfSoLuong.setText(SoLuong);
                 tfFromDate.setDate(FileUtils.parseDate(TuNgay));
@@ -436,17 +435,14 @@ public class VoucherPanel extends javax.swing.JPanel {
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        // Thêm từng dòng dữ liệu vào bảng
         for (Object[] row : data) {
             model.addRow(row);
         }
-        //căn giữa cho header
         JTableHeader header = tableKh.getTableHeader();
         for (int i = 0; i < tableKh.getColumnCount(); i++) {
             TableColumn column = tableKh.getColumnModel().getColumn(i);
             column.setHeaderRenderer(centerRenderer);
         }
-        //căn giữa cho row
         for (int i = 0; i < tableKh.getColumnCount(); i++) {
             tableKh.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
             }

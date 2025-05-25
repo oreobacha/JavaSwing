@@ -860,7 +860,6 @@ public class BanHangPanel extends javax.swing.JPanel {
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        // Thêm từng dòng dữ liệu vào bảng
         for (Object[] row : data) {
             model.addRow(row);
         }
@@ -889,7 +888,7 @@ public class BanHangPanel extends javax.swing.JPanel {
         DefaultTableModel model = new DefaultTableModel(null, new Object[]{"Mã Sản Phẩm", "Tên Sản Phẩm", "Số Lượng", "Đơn Giá", "Thành Tiền", ""}) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 2 || column == 5; // cho phép chỉnh sửa cột
+                return column == 2 || column == 5;
             }
         };
         TableTinhTien.setModel(model);
@@ -910,10 +909,10 @@ public class BanHangPanel extends javax.swing.JPanel {
         model.addTableModelListener(e -> {
             int row = e.getFirstRow();
             int col = e.getColumn();
-            if (col == 2) { // cột số lượng thay đổi
+            if (col == 2) { 
                 try {
                     long soLuong = Long.parseLong(model.getValueAt(row, 2).toString());
-                    int maxSoLuong = maxSoLuongList.get(row); // lấy giới hạn cho từng dòng
+                    int maxSoLuong = maxSoLuongList.get(row);
 
                     if (soLuong > maxSoLuong) {
                         JOptionPane.showMessageDialog(null,
@@ -926,7 +925,7 @@ public class BanHangPanel extends javax.swing.JPanel {
 
                     long giaBan = Long.parseLong(model.getValueAt(row, 3).toString().replace(" VND", "").trim());
                     long thanhTien = soLuong * giaBan;
-                    model.setValueAt(thanhTien, row, 4); // cập nhật lại thành tiền
+                    model.setValueAt(thanhTien, row, 4);
 
                     updateMoneyBillField();
 
@@ -946,7 +945,7 @@ public class BanHangPanel extends javax.swing.JPanel {
         DefaultTableModel model = new DefaultTableModel(null, new Object[]{"Mã khuyến mại", "Số tiền giảm", ""}) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 2;// cho phép chỉnh sửa cột    
+                return column == 2;   
             }
         };
         tableVoucher.setModel(model);
@@ -961,9 +960,9 @@ public class BanHangPanel extends javax.swing.JPanel {
         model.addTableModelListener(e -> {
         int row = e.getFirstRow();
         int col = e.getColumn();
-        if (col == 2) { // cột số lượng thay đổi
+        if (col == 2) {
             long giaBan = Long.parseLong(model.getValueAt(row, 1).toString().replace(" VND", "").trim());
-            model.setValueAt(giaBan, row, 1); // cập nhật lại thành tiền
+            model.setValueAt(giaBan, row, 1); 
         }
     });
 }  
@@ -972,8 +971,8 @@ public class BanHangPanel extends javax.swing.JPanel {
         panelProduct.addMouseListener(new MouseAdapter() {
        @Override
        public void mousePressed(MouseEvent e) {
-           TableTinhTien.clearSelection(); // bỏ chọn dòng
-           TableTinhTien.requestFocusInWindow(); // chuyển focus đi
+           TableTinhTien.clearSelection(); 
+           TableTinhTien.requestFocusInWindow();
            TableSpDangBan.clearSelection(); 
            TableSpDangBan.requestFocusInWindow(); 
        }
@@ -987,7 +986,6 @@ public class BanHangPanel extends javax.swing.JPanel {
         maxSoLuongList.add(SoLuong);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-         //căn giữa text
         for (int i = 0; i < TableTinhTien.getColumnCount(); i++) {
             if (i != 3 && i!= 4) {
                 TableTinhTien.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
@@ -1006,7 +1004,6 @@ public class BanHangPanel extends javax.swing.JPanel {
         model.addRow(data);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-         //căn giữa text
         for (int i = 0; i < tableVoucher.getColumnCount(); i++) {
             if (i !=  1) {
                 tableVoucher.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
@@ -1024,7 +1021,7 @@ public class BanHangPanel extends javax.swing.JPanel {
         DefaultTableModel modelTableVoucher = (DefaultTableModel) tableVoucher.getModel();
          //Tính tổng tiền hàng   
         for (int i = 0; i < modelTableVoucher.getRowCount(); i++) {
-            Object val = modelTableVoucher.getValueAt(i, 0); // cột mã voucher
+            Object val = modelTableVoucher.getValueAt(i, 0); 
             if (val.toString().equals(maVoucher.toUpperCase()) ){
                 return false;
             }
@@ -1038,7 +1035,7 @@ public class BanHangPanel extends javax.swing.JPanel {
         public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2 && TableSpDangBan.getSelectedRow() != -1) {
                 if (isMaHoaDon) {
-                    int row = TableSpDangBan.getSelectedRow();  // dòng được chọn
+                    int row = TableSpDangBan.getSelectedRow(); 
                     int colCount = TableSpDangBan.getColumnCount();
                     String maSp = TableSpDangBan.getValueAt(row, 0).toString();
                     String tenSp = TableSpDangBan.getValueAt(row, 2).toString();
@@ -1088,7 +1085,7 @@ public class BanHangPanel extends javax.swing.JPanel {
         long totalPoint = Point.trim().isEmpty() ? 0 : Integer.parseInt(Point.trim());
          //Tính tổng tiền hàng   
         for (int i = 0; i < modelTableTinhTien.getRowCount(); i++) {
-            Object val = modelTableTinhTien.getValueAt(i, 4); // cột thành tiền
+            Object val = modelTableTinhTien.getValueAt(i, 4); 
             if (val != null) {
                 long tien = Long.parseLong(val.toString().replace(",", "").trim());
                 tongTien += tien;
@@ -1096,7 +1093,7 @@ public class BanHangPanel extends javax.swing.JPanel {
         }
         //Tính tổng tiền voucher
         for (int i = 0; i < modelTableVoucher.getRowCount(); i++) {
-            Object val = modelTableVoucher.getValueAt(i, 1); // cột giảm giá
+            Object val = modelTableVoucher.getValueAt(i, 1);
             if (val != null) {
                 long voucher = Long.parseLong(val.toString().replace(",", "").trim());
                 tongVoucher += voucher;
@@ -1105,7 +1102,7 @@ public class BanHangPanel extends javax.swing.JPanel {
         lbTotalAmount.setText(FileUtils.formatVND(tongTien));
         lbTotalVoucher.setText(FileUtils.formatVND(tongVoucher));
         lbTotalPoint.setText(FileUtils.formatVND(totalPoint));
-        setupMoneyField(); //gọi lại hàm này để update cột thành tiền
+        setupMoneyField(); 
         totalrefundMoneyClient();
     }
     
@@ -1119,15 +1116,15 @@ public class BanHangPanel extends javax.swing.JPanel {
  
     class ImageCellRenderer extends JLabel implements TableCellRenderer {
         public ImageCellRenderer() {
-            setHorizontalAlignment(SwingConstants.CENTER); // Căn giữa ngang
-            setVerticalAlignment(SwingConstants.CENTER);   // Căn giữa dọc
+            setHorizontalAlignment(SwingConstants.CENTER);
+            setVerticalAlignment(SwingConstants.CENTER);  
         }
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             ImageIcon icon_base64 = FileUtils.convert_base64_to_image((String) value, 50, 50);
             setIcon(icon_base64);
-            setText(null); // Không hiển thị text
+            setText(null);
             return this;
         }
     }

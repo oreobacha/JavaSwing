@@ -358,17 +358,14 @@ public class SanPhamPanel extends javax.swing.JPanel {
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        // Thêm từng dòng dữ liệu vào bảng
         for (Object[] row : data) {
             model.addRow(row);
         }
-        //căn giữa cho header
         JTableHeader header = jTable1.getTableHeader();
         for (int i = 0; i < jTable1.getColumnCount(); i++) {
             TableColumn column = jTable1.getColumnModel().getColumn(i);
             column.setHeaderRenderer(centerRenderer);
         }
-        //căn giữa cho row
         for (int i = 0; i < jTable1.getColumnCount(); i++) {
             if (i != 1 && i!= 4) {
                 jTable1.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
@@ -383,7 +380,7 @@ public class SanPhamPanel extends javax.swing.JPanel {
         @Override
         public void mouseClicked(MouseEvent e) {
             if (e.getClickCount() == 2 && jTable1.getSelectedRow() != -1) {
-                int row = jTable1.getSelectedRow();  // dòng được chọn
+                int row = jTable1.getSelectedRow(); 
                 int colCount = jTable1.getColumnCount();
                 String maSp = jTable1.getValueAt(row, 0).toString();
                 String imageSp = jTable1.getValueAt(row, 1).toString();
@@ -406,15 +403,15 @@ public class SanPhamPanel extends javax.swing.JPanel {
     
     class ImageCellRenderer extends JLabel implements TableCellRenderer {
         public ImageCellRenderer() {
-            setHorizontalAlignment(SwingConstants.CENTER); // Căn giữa ngang
-            setVerticalAlignment(SwingConstants.CENTER);   // Căn giữa dọc
+            setHorizontalAlignment(SwingConstants.CENTER);
+            setVerticalAlignment(SwingConstants.CENTER);  
         }
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             ImageIcon icon_base64 = FileUtils.convert_base64_to_image((String) value, 70, 70);
             setIcon(icon_base64);
-            setText(null); // Không hiển thị text
+            setText(null);
             return this;
         }
     }
@@ -423,7 +420,7 @@ public class SanPhamPanel extends javax.swing.JPanel {
     private final DecimalFormat formatter = new DecimalFormat("#,##0");
 
     public CurrencyCellRenderer() {
-        setHorizontalAlignment(CENTER); // căn giữa
+        setHorizontalAlignment(CENTER);
     }
 
     @Override

@@ -494,8 +494,6 @@ public class AdminFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnKhuyenMaiActionPerformed
 
     private void BtnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDangXuatActionPerformed
-//        URL iconURL = getClass().getResource("/image/ic_menu/ic_dangXuat.png");    
-//        ImageIcon icon = new ImageIcon(iconURL);
         int result = JOptionPane.showConfirmDialog(
                     this,
                     "Bạn có chắc muốn đăng xuất?",

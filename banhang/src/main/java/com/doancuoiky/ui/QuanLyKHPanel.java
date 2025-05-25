@@ -432,7 +432,6 @@ public class QuanLyKHPanel extends javax.swing.JPanel {
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        // Thêm từng dòng dữ liệu vào bảng
         for (Object[] row : data) {
             model.addRow(row);
         }
@@ -442,7 +441,6 @@ public class QuanLyKHPanel extends javax.swing.JPanel {
             TableColumn column = tableKh.getColumnModel().getColumn(i);
             column.setHeaderRenderer(centerRenderer);
         }
-        //căn giữa cho row
         for (int i = 0; i < tableKh.getColumnCount(); i++) {
             tableKh.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
             }

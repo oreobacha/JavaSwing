@@ -126,7 +126,7 @@ public class UserDao {
         e.printStackTrace();
     }
 
-    return null; // không tìm thấy user
+    return null;
     }
     
     public static Object[] getUserByUsername(String username) {
@@ -154,6 +154,6 @@ public class UserDao {
         e.printStackTrace();
     }
 
-    return null; // không tìm thấy user
+    return null;
     }
 }
